@@ -1,0 +1,12 @@
+@use "reset";
+@use "animation";
+
+html {
+   font-family: var(--font-inter), serif, Helvetica;
+   touch-action: manipulation;
+}
+
+.main-art {
+   padding: 12px;
+   background: #eee;
+}

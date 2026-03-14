@@ -1,0 +1,74 @@
+* {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+}
+
+html {
+   line-height: 1.15;
+   text-size-adjust: 100%;
+   tab-size: 4;
+}
+
+ul,
+ol {
+   list-style: none;
+}
+
+b,
+strong {
+   font-weight: bolder;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+   font-family: inherit;
+   font-size: 100%;
+   line-height: 1.15;
+   margin: 0;
+}
+
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+   -webkit-appearance: button;
+}
+
+table {
+   border-color: currentcolor;
+}
+
+legend {
+   padding: 0;
+}
+
+progress {
+   vertical-align: baseline;
+}
+
+::-webkit-inner-spin-button,
+::-webkit-outer-spin-button {
+   height: auto;
+}
+
+[type="search"] {
+   -webkit-appearance: textfield;
+   outline-offset: -2px;
+}
+
+::-webkit-search-decoration {
+   -webkit-appearance: none;
+}
+
+::-webkit-file-upload-button {
+   -webkit-appearance: button;
+   font: inherit;
+}
+
+summary {
+   display: list-item;
+}

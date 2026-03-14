@@ -1,0 +1,27 @@
+{
+   "name": "portfolio-amazing",
+   "version": "0.1.0",
+   "private": true,
+   "scripts": {
+      "dev": "next dev",
+      "build": "next build",
+      "start": "next start",
+      "lint": "biome check",
+      "format": "biome format --write",
+      "format:prettier": "prettier --write \"**/*.{scss,css}\""
+   },
+   "dependencies": {
+      "next": "16.1.5",
+      "react": "19.2.3",
+      "react-dom": "19.2.3"
+   },
+   "devDependencies": {
+      "@biomejs/biome": "2.2.0",
+      "@types/node": "^20",
+      "@types/react": "^19",
+      "@types/react-dom": "^19",
+      "prettier": "^3.7.4",
+      "sass": "^1.97.2",
+      "typescript": "^5"
+   }
+}
