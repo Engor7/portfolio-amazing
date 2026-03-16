@@ -6,7 +6,16 @@ html {
    touch-action: manipulation;
 }
 
-.main-art {
+.main-nav {
    padding: 12px;
-   background: #eee;
+
+   span {
+      display: inline-block;
+      margin: 0 6px;
+   }
+
+   a {
+      color: #000;
+      text-decoration: none;
+   }
 }

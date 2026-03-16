@@ -1,0 +1,415 @@
+:global(:root[data-art-theme="light"]) {
+   --art-bg: #ffffff;
+   --art-text: #000000;
+   --art-tools-bg: #000000;
+   --art-tool-bg: #ffffff;
+   --art-tool-active-bg: #fff;
+}
+
+:global(:root[data-art-theme="dark"]) {
+   --art-bg: #000000;
+   --art-text: #ffffff;
+   --art-tools-bg: #ffffff;
+   --art-tool-bg: #000000;
+   --art-tool-active-bg: #000;
+}
+
+.artPage {
+   background: var(--art-bg);
+   color: var(--art-text);
+   height: 100svh;
+   user-select: none;
+   overflow: hidden;
+   touch-action: none;
+   position: fixed;
+   inset: 0;
+}
+
+.canvasWrapper {
+   position: fixed;
+   inset: 0;
+   cursor: crosshair;
+   z-index: 1;
+
+   &.panningActive {
+      cursor: grabbing;
+   }
+}
+
+.canvasInner {
+   width: 100%;
+   height: 100%;
+}
+
+.svg {
+   display: block;
+   background: transparent;
+   overflow: visible;
+}
+
+.toolbar {
+   display: flex;
+   align-items: center;
+   gap: 3px;
+   position: fixed;
+   top: 12px;
+   left: 12px;
+   background: var(--art-tools-bg);
+   padding: 4px;
+   border-radius: 16px;
+   z-index: 10;
+   outline: 1px solid var(--art-bg);
+
+   @media screen and (max-width: 660px) {
+      width: calc(100% - 24px);
+   }
+}
+
+.toolBtn {
+   position: relative;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   width: 40px;
+   height: 40px;
+   border: none;
+   background-color: transparent;
+   border-radius: 12px;
+   cursor: pointer;
+   overflow: hidden;
+   color: var(--art-bg);
+   transition:
+      background-color 0.2s,
+      color 0.2s,
+      filter 0.2s;
+   animation: toolBtnAppear 0.4s ease forwards;
+   opacity: 0;
+   transform: scale(0.5);
+
+   @for $i from 1 through 7 {
+      &:nth-child(#{$i}) {
+         animation-delay: #{($i - 1) * 0.05}s;
+      }
+   }
+
+   svg {
+      width: 23px;
+      height: 23px;
+   }
+
+   &:disabled {
+      filter: opacity(0.3);
+      cursor: default;
+      pointer-events: none;
+   }
+
+   @media screen and (max-width: 660px) {
+      width: 100%;
+   }
+}
+
+.toolBtnActive {
+   background-color: var(--art-tool-active-bg);
+   color: var(--art-text);
+}
+
+.toolBtnTheme {
+   @media (hover: hover) {
+      &:hover {
+         background-color: #f5a623;
+         color: white;
+      }
+   }
+}
+
+.toolBtnDownload {
+   @media (hover: hover) {
+      &:hover {
+         background-color: #22c55e;
+         color: white;
+      }
+   }
+}
+
+.toolBtnTrash {
+   @media (hover: hover) {
+      &:hover {
+         background-color: #ff4b4b;
+         color: white;
+      }
+   }
+}
+
+.themeIcon {
+   position: relative;
+   width: 23px;
+   height: 23px;
+
+   svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transition:
+         transform 0.4s ease,
+         opacity 0.4s ease;
+   }
+}
+
+.sunIcon {
+   opacity: 1;
+   transform: rotate(0deg);
+}
+
+.sunIconHidden {
+   opacity: 0;
+   transform: rotate(90deg);
+}
+
+.moonIcon {
+   opacity: 0;
+   transform: rotate(-90deg);
+}
+
+.moonIconVisible {
+   opacity: 1;
+   transform: rotate(0deg);
+}
+
+.sizeSlider {
+   position: fixed;
+   top: 70px;
+   left: 12px;
+   width: 140px;
+   height: 46px;
+   background: var(--art-tools-bg);
+   outline: 1px solid var(--art-bg);
+   border-radius: 16px;
+   z-index: 10;
+   cursor: ew-resize;
+   touch-action: none;
+   overflow: hidden;
+   padding: 4px;
+   opacity: 0;
+   transform: scale(0.5);
+   animation: toolBtnAppear 0.4s ease 0.35s forwards;
+
+   @media screen and (max-width: 660px) {
+      top: 72px;
+      right: 12px;
+      left: auto;
+      width: 50%;
+   }
+}
+
+.sizeSliderFill {
+   position: absolute;
+   top: 4px;
+   left: 4px;
+   bottom: 4px;
+   background: var(--art-tool-bg);
+   border-radius: 12px;
+   will-change: width;
+   pointer-events: none;
+   display: flex;
+   align-items: center;
+   justify-content: flex-end;
+}
+
+.sizeSliderLabel {
+   position: absolute;
+   top: 0;
+   bottom: 0;
+   right: 8px;
+   display: flex;
+   align-items: center;
+   font-size: 12px;
+   font-weight: 600;
+   color: var(--art-text);
+   pointer-events: none;
+   z-index: 1;
+}
+
+.colorPanelWrapper {
+   @media screen and (min-width: 661px) {
+      display: contents;
+   }
+
+   @media screen and (max-width: 660px) {
+      position: fixed;
+      top: 72px;
+      left: 12px;
+      z-index: 10;
+   }
+}
+
+.colorPreview {
+   display: none;
+   width: 46px;
+   height: 46px;
+   border-radius: 16px;
+   padding: 4px;
+   background: var(--art-tools-bg);
+   border: none;
+   cursor: pointer;
+   outline: 1px solid var(--art-bg);
+   opacity: 0;
+   transform: scale(0.5);
+   animation: toolBtnAppear 0.4s ease forwards;
+
+   @media screen and (max-width: 660px) {
+      display: block;
+   }
+}
+
+.colorPreviewInner {
+   width: 100%;
+   height: 100%;
+   border-radius: 12px;
+}
+
+.colorPanel {
+   display: grid;
+   grid-template-columns: repeat(6, 1fr);
+   gap: 3px;
+   position: fixed;
+   top: 128px;
+   left: 12px;
+   border: none;
+   background: var(--art-tools-bg);
+   outline: 1px solid var(--art-bg);
+   padding: 4px;
+   border-radius: 14px;
+   z-index: 10;
+
+   @media screen and (max-width: 660px) {
+      position: fixed;
+      top: 126px;
+      left: 12px;
+      right: 12px;
+      bottom: auto;
+      margin-top: 0;
+      grid-template-columns: repeat(4, 1fr);
+      display: none;
+   }
+}
+
+.colorPanelOpen {
+   @media screen and (max-width: 660px) {
+      display: grid;
+   }
+}
+
+.swatch {
+   position: relative;
+   width: 24px;
+   height: 24px;
+   border: none;
+   border-radius: 11px;
+   cursor: pointer;
+   opacity: 0;
+   transform: scale(0.5);
+   animation: swatchAppear 0.3s ease forwards;
+   padding: 0;
+
+   @media screen and (max-width: 660px) {
+      width: 100%;
+      height: 60px;
+   }
+}
+
+.swatchBordered {
+   box-shadow: inset 0 0 0 1px rgba(128, 128, 128, 0.4);
+}
+
+.swatchActive {
+   &::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 5px;
+      height: 5px;
+      background: #fff;
+      border: 1px solid #000;
+      border-radius: 10px;
+   }
+}
+
+@keyframes toolBtnAppear {
+   from {
+      opacity: 0;
+      transform: scale(0.5);
+   }
+   to {
+      opacity: 1;
+      transform: scale(1);
+   }
+}
+
+@keyframes swatchAppear {
+   to {
+      opacity: 1;
+      transform: scale(1);
+   }
+}
+
+.confirmPanel {
+   display: flex;
+   gap: 3px;
+   position: fixed;
+   top: 12px;
+   /* 12px page margin + 7 buttons * (40px + 3px gap) + 4px toolbar padding + 8px spacing */
+   left: 331px;
+   height: 48px;
+   background: var(--art-tools-bg);
+   padding: 4px;
+   border-radius: 16px;
+   z-index: 10;
+   outline: 1px solid var(--art-bg);
+
+   @media screen and (max-width: 660px) {
+      top: 131px;
+      left: auto;
+      right: 12px;
+   }
+}
+
+.confirmYes {
+   padding: 0 16px;
+   border: none;
+   height: 100%;
+   border-radius: 11px;
+   cursor: pointer;
+   font-size: 14px;
+   font-weight: 500;
+   background: #ff4b4b;
+   color: white;
+   transition: background-color 0.2s;
+
+   &:hover {
+      background-color: #ff1414;
+   }
+}
+
+.confirmCancel {
+   padding: 0 16px;
+   border: none;
+   height: 100%;
+   border-radius: 11px;
+   cursor: pointer;
+   font-size: 14px;
+   background: var(--art-tools-bg);
+   color: var(--art-bg);
+   transition:
+      background-color 0.2s,
+      color 0.2s;
+
+   @media (hover: hover) {
+      &:hover {
+         background: var(--art-bg);
+         color: var(--art-tools-bg);
+      }
+   }
+}

@@ -228,7 +228,7 @@ export { Input } from './Input/Input';
 export { Modal } from './Modal/Modal';
 
 // Usage:
-import { Button, Input } from '@/components/ui';
+import { Button, Input } from '@/components/ui-library';
 ```
 
 **❌ Bad example**:
@@ -302,10 +302,10 @@ my-app/
 **Usage**:
 ```typescript
 // ❌ Bad example
-import { Button } from '../../../components/ui/Button';
+import { Button } from '../../../components/ui-library/Button';
 
 // ✅ Good example
-import { Button } from '@/components/ui';
+import { Button } from '@/components/ui-library';
 ```
 
 ## References

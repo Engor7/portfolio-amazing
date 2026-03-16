@@ -64,7 +64,7 @@ import { ThemeProvider } from "next-themes"
 ## Changing the Theme
 
 ```bash
-# Apply a preset code from ui.shadcn.com.
+# Apply a preset code from ui-library.shadcn.com.
 npx shadcn@latest init --preset a2r6bw --force
 
 # Switch to a named preset.
@@ -156,7 +156,7 @@ Prefer these approaches in order:
 Edit the component source to add a variant via `cva`:
 
 ```tsx
-// components/ui/button.tsx
+// components/ui-library/button.tsx
 warning: "bg-warning text-warning-foreground hover:bg-warning/90",
 ```
 
