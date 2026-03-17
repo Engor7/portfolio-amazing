@@ -61,6 +61,11 @@
          "sourceType": "github",
          "computedHash": "1ec42c9b918b315d8e5c6c856b78c3c4725fc93dea30b9b7e9975c69848fcce6"
       },
+      "tonejs": {
+         "source": "plyght/tonejs-skill",
+         "sourceType": "github",
+         "computedHash": "09bb83338422af4dcdf13cb2e0e204fd228bb6501a8b3e5af7c5f6d4924d8e7f"
+      },
       "typescript-advanced-types": {
          "source": "wshobson/agents",
          "sourceType": "github",

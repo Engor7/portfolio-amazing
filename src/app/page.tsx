@@ -7,6 +7,8 @@ const Home = () => {
          <nav className="main-nav">
             <Link href="/projects/tools/art">Art</Link>
             <span>/</span>
+            <Link href="/projects/tools/music">Music</Link>
+            <span>/</span>
             <Link href="/projects/ui-library">Ui</Link>
          </nav>
       </LayoutHome>
