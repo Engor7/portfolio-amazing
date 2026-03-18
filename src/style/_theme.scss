@@ -1,0 +1,11 @@
+[data-site="main"] {
+   --bg: #fff;
+   --fg: #000;
+   background-color: var(--bg);
+   color: var(--fg);
+}
+
+html[data-theme="dark"] [data-site="main"] {
+   --bg: #000;
+   --fg: #fff;
+}

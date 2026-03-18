@@ -1,14 +1,36 @@
-$bg: #f9f9f9;
-$surface: #fff;
-$border: #e5e5e5;
-$text: #1a1a1a;
-$muted: #6b6b6b;
+$bg: var(--ui-bg);
+$surface: var(--ui-surface);
+$border: var(--ui-border);
+$text: var(--ui-text);
+$muted: var(--ui-muted);
 
 .layout {
+  --ui-bg: #f9f9f9;
+  --ui-surface: #fff;
+  --ui-border: #e5e5e5;
+  --ui-text: #1a1a1a;
+  --ui-muted: #6b6b6b;
+  --ui-code-bg: #f0f0f0;
+  --ui-notes-bg: #fffbeb;
+  --ui-notes-border: #fbbf24;
+  --ui-notes-text: #92400e;
+
   display: grid;
   grid-template-columns: 200px 1fr;
   min-height: 100svh;
   background: $bg;
+}
+
+:global(html[data-theme="dark"]) .layout {
+  --ui-bg: #1a1a1a;
+  --ui-surface: #2a2a2a;
+  --ui-border: #3a3a3a;
+  --ui-text: #e5e5e5;
+  --ui-muted: #999;
+  --ui-code-bg: #333;
+  --ui-notes-bg: #2a2416;
+  --ui-notes-border: #6b5b1f;
+  --ui-notes-text: #fbbf24;
 }
 
 /* Sidebar */
@@ -49,8 +71,18 @@ $muted: #6b6b6b;
 
 /* Main */
 .main {
+  position: relative;
   padding: 32px 40px;
   overflow-y: auto;
+}
+
+.themeToggle {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  all: unset;
+  cursor: pointer;
+  font-size: 20px;
 }
 
 /* Detail */
@@ -124,11 +156,11 @@ $muted: #6b6b6b;
 /* Notes callout */
 .notesBox {
   padding: 12px 16px;
-  background: #fffbeb;
-  border: 1px solid #fbbf24;
+  background: var(--ui-notes-bg);
+  border: 1px solid var(--ui-notes-border);
   border-radius: 8px;
   font-size: 13px;
-  color: #92400e;
+  color: var(--ui-notes-text);
   line-height: 1.5;
   margin-bottom: 36px;
 }
@@ -158,7 +190,7 @@ $muted: #6b6b6b;
     code {
       font-family: "Menlo", "Consolas", monospace;
       font-size: 12px;
-      background: #f0f0f0;
+      background: var(--ui-code-bg);
       padding: 2px 5px;
       border-radius: 3px;
     }

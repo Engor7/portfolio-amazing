@@ -1,5 +1,6 @@
 import Link from "next/link";
-import LayoutHome from "./layoutHome";
+import LayoutHome from "@/components/LayoutHome";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const Home = () => {
    return (
@@ -11,6 +12,7 @@ const Home = () => {
             <span>/</span>
             <Link href="/projects/ui-library">Ui</Link>
          </nav>
+         <ThemeToggle />
       </LayoutHome>
    );
 };

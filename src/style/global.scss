@@ -1,5 +1,6 @@
 @use "reset";
 @use "animation";
+@use "theme";
 
 html {
    font-family: var(--font-inter), serif, Helvetica;
@@ -15,7 +16,13 @@ html {
    }
 
    a {
-      color: #000;
+      color: var(--fg);
       text-decoration: none;
    }
+}
+
+.theme-toggle {
+   all: unset;
+   cursor: pointer;
+   color: var(--fg);
 }
