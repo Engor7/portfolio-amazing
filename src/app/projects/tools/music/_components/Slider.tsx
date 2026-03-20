@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useRef } from "react";
+import { memo, useCallback, useEffect, useRef } from "react";
 import s from "../music.module.scss";
 
 interface SliderProps {
@@ -11,7 +11,45 @@ interface SliderProps {
    onChange: (v: number) => void;
    label?: string;
    color?: string;
+   getLevel?: () => Float32Array | null;
 }
+
+const LevelIndicator = memo(function LevelIndicator({
+   getLevel,
+}: {
+   getLevel: () => Float32Array | null;
+}) {
+   const ref = useRef<HTMLDivElement>(null);
+
+   useEffect(() => {
+      let raf = 0;
+      const tick = () => {
+         const el = ref.current;
+         if (!el) {
+            raf = requestAnimationFrame(tick);
+            return;
+         }
+
+         const data = getLevel();
+         let level = 0;
+         if (data && data.length > 0) {
+            let sum = 0;
+            for (let i = 0; i < data.length; i++) {
+               sum += Math.max(0, (data[i] + 100) / 70);
+            }
+            level = Math.min(1, sum / data.length);
+         }
+
+         el.style.width = `${level * 100}%`;
+         raf = requestAnimationFrame(tick);
+      };
+
+      raf = requestAnimationFrame(tick);
+      return () => cancelAnimationFrame(raf);
+   }, [getLevel]);
+
+   return <div ref={ref} className={s.sliderLevel} />;
+});
 
 export function Slider({
    value,
@@ -21,6 +59,7 @@ export function Slider({
    onChange,
    label,
    color = "#888",
+   getLevel,
 }: SliderProps) {
    const trackRef = useRef<HTMLDivElement>(null);
    const dragging = useRef(false);
@@ -75,10 +114,19 @@ export function Slider({
          onPointerUp={handlePointerUp}
          onPointerCancel={handlePointerUp}
       >
-         <div className={s.sliderFill} style={{ width: `${pct}%` }} />
+         <div className={s.sliderFill} style={{ width: `max(${pct}%, 28px)` }}>
+            {getLevel && <LevelIndicator getLevel={getLevel} />}
+         </div>
          <span className={s.sliderLabel}>
             {label && <span className={s.sliderLabelText}>{label}</span>}
-            {value}
+            <span className={s.sliderValue}>{value}</span>
+         </span>
+         <span
+            className={`${s.sliderLabel} ${s.sliderLabelLight}`}
+            style={{ clipPath: `inset(0 calc(100% - max(${pct}%, 28px)) 0 0)` }}
+         >
+            {label && <span className={s.sliderLabelText}>{label}</span>}
+            <span className={s.sliderValue}>{value}</span>
          </span>
       </div>
    );

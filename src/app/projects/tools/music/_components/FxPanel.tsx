@@ -2,10 +2,10 @@
 
 import s from "../music.module.scss";
 
-const FX_LIST: { key: string; label: string; tooltip: string }[] = [
-   { key: "Hall", label: "Reverb", tooltip: "Hall reverb" },
-   { key: "Delay", label: "Echo", tooltip: "Ping-pong delay" },
-   { key: "Wobble", label: "Filter", tooltip: "Auto-filter wobble" },
+const FX_LIST: { key: string; label: string; tooltip: string; colorClass: string }[] = [
+   { key: "Hall", label: "Reverb", tooltip: "Hall reverb", colorClass: "fxReverbTag" },
+   { key: "Delay", label: "Echo", tooltip: "Ping-pong delay", colorClass: "fxDelayTag" },
+   { key: "Wobble", label: "Filter", tooltip: "Auto-filter wobble", colorClass: "fxFilterTag" },
 ];
 
 interface FxPanelProps {
@@ -16,11 +16,11 @@ interface FxPanelProps {
 export function FxPanel({ activeEffects, onToggle }: FxPanelProps) {
    return (
       <div className={s.fxTags}>
-         {FX_LIST.map(({ key, label, tooltip }) => (
+         {FX_LIST.map(({ key, label, tooltip, colorClass }) => (
             <button
                type="button"
                key={key}
-               className={`${s.fxTag} ${activeEffects.has(key) ? s.fxTagActive : ""}`}
+               className={`${s.fxTag} ${s[colorClass]} ${activeEffects.has(key) ? s.fxTagActive : ""}`}
                onClick={() => onToggle(key)}
                title={tooltip}
             >

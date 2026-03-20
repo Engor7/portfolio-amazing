@@ -13,9 +13,8 @@ interface GridProps {
    onToggleCell: (trackId: string, pitchRow: number, step: number) => void;
    onSetVolume: (trackId: string, volume: number) => void;
    onToggleMute: (trackId: string) => void;
-   onRemove: (trackId: string) => void;
    visibleStepCount: number;
-   isMobile: boolean;
+   getTrackLevel: (trackId: string) => Float32Array | null;
 }
 
 function parseCellAttr(
@@ -36,9 +35,8 @@ export function Grid({
    onToggleCell,
    onSetVolume,
    onToggleMute,
-   onRemove,
    visibleStepCount,
-   isMobile,
+   getTrackLevel,
 }: GridProps) {
    const { drumTracks, melodicTracks } = useMemo(() => {
       const drums: TrackConfig[] = [];
@@ -146,7 +144,6 @@ export function Grid({
       >
          {drumTracks.length > 0 && (
             <>
-               <div className={s.gridSectionLabel}>Drums</div>
                {drumTracks.map((track) => (
                   <TrackRow
                      key={track.id}
@@ -155,17 +152,14 @@ export function Grid({
                      currentStep={currentStep}
                      onSetVolume={onSetVolume}
                      onToggleMute={onToggleMute}
-                     onRemove={onRemove}
                      visibleStepCount={visibleStepCount}
-                     isMobile={isMobile}
+                     getTrackLevel={getTrackLevel}
                   />
                ))}
             </>
          )}
          {melodicTracks.length > 0 && (
             <>
-               {drumTracks.length > 0 && <div className={s.gridDivider} />}
-               <div className={s.gridSectionLabel}>Melodic</div>
                {melodicTracks.map((track) => (
                   <TrackRow
                      key={track.id}
@@ -174,9 +168,8 @@ export function Grid({
                      currentStep={currentStep}
                      onSetVolume={onSetVolume}
                      onToggleMute={onToggleMute}
-                     onRemove={onRemove}
                      visibleStepCount={visibleStepCount}
-                     isMobile={isMobile}
+                     getTrackLevel={getTrackLevel}
                   />
                ))}
             </>

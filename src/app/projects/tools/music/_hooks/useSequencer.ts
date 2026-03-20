@@ -1,14 +1,11 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import {
    DEFAULT_BPM,
    DEFAULT_STEPS,
    DEFAULT_TRACKS,
    INSTRUMENT_CATALOG,
-   MAX_STEPS,
-   MAX_TRACKS,
-   MIN_STEPS,
 } from "../_lib/constants";
 import {
    generateHarmonicContext,
@@ -89,7 +86,7 @@ function makeGrid(
 export function useSequencer() {
    const trackIdCounter = useRef(0);
    const [bpm, setBpm] = useState(DEFAULT_BPM);
-   const [stepCount, setStepCount] = useState(DEFAULT_STEPS);
+   const stepCount = DEFAULT_STEPS;
 
    // Compute all initial state together so tracks/grids are consistent
    const [initialState] = useState(() => {
@@ -156,48 +153,6 @@ export function useSequencer() {
       [tracks, harmonicContext, stepCount],
    );
 
-   const addTrack = useCallback(
-      (instrumentId: InstrumentId) => {
-         setTracks((prev) => {
-            if (prev.length >= MAX_TRACKS) return prev;
-            const track = makeTrack(instrumentId, trackIdCounter);
-            setGrid((prevGrid) => ({
-               ...prevGrid,
-               [track.id]: [Array(stepCount).fill(false)],
-            }));
-            return [...prev, track];
-         });
-      },
-      [stepCount],
-   );
-
-   const addAllTracks = useCallback(() => {
-      setTracks((prev) => {
-         const existing = new Set(prev.map((t) => t.instrumentId));
-         const missing = INSTRUMENT_CATALOG.filter((p) => !existing.has(p.id));
-         const toAdd = missing.slice(0, MAX_TRACKS - prev.length);
-         if (toAdd.length === 0) return prev;
-         const newTracks = toAdd.map((p) => makeTrack(p.id, trackIdCounter));
-         setGrid((prevGrid) => {
-            const additions: Record<string, boolean[][]> = {};
-            for (const t of newTracks) {
-               additions[t.id] = [Array(stepCount).fill(false)];
-            }
-            return { ...prevGrid, ...additions };
-         });
-         return [...prev, ...newTracks];
-      });
-   }, [stepCount]);
-
-   const removeTrack = useCallback((trackId: string) => {
-      setTracks((prev) => prev.filter((t) => t.id !== trackId));
-      setGrid((prev) => {
-         const next = { ...prev };
-         delete next[trackId];
-         return next;
-      });
-   }, []);
-
    const setTrackVolume = useCallback((trackId: string, volume: number) => {
       setTracks((prev) =>
          prev.map((t) => (t.id === trackId ? { ...t, volume } : t)),
@@ -209,33 +164,6 @@ export function useSequencer() {
          prev.map((t) => (t.id === trackId ? { ...t, muted: !t.muted } : t)),
       );
    }, []);
-
-   const changeStepCount = useCallback(
-      (delta: number) => {
-         setStepCount((prev) => {
-            const next = Math.max(MIN_STEPS, Math.min(MAX_STEPS, prev + delta));
-            if (next !== prev) {
-               setGrid((prevGrid) => makeGrid(tracks, next, prevGrid));
-               setNoteGrid((prevNg) => {
-                  const resized: NoteGrid = {};
-                  for (const [key, row] of Object.entries(prevNg)) {
-                     if (row.length >= next) {
-                        resized[key] = row.slice(0, next);
-                     } else {
-                        resized[key] = [
-                           ...row,
-                           ...Array(next - row.length).fill(null),
-                        ];
-                     }
-                  }
-                  return resized;
-               });
-            }
-            return next;
-         });
-      },
-      [tracks],
-   );
 
    const clearAll = useCallback(() => {
       setGrid((prev) => {
@@ -260,6 +188,14 @@ export function useSequencer() {
       setVelocityGrid(newVelocityGrid);
    }, []);
 
+   const hasActiveCells = useMemo(
+      () =>
+         Object.values(grid).some((rows) =>
+            rows.some((row) => row.some(Boolean)),
+         ),
+      [grid],
+   );
+
    return {
       tracks,
       grid,
@@ -270,12 +206,9 @@ export function useSequencer() {
       bpm,
       setBpm,
       toggleCell,
-      addTrack,
-      addAllTracks,
-      removeTrack,
       setTrackVolume,
       toggleMute,
-      changeStepCount,
+      hasActiveCells,
       clearAll,
       applyGrid,
       applyNoteGrid,

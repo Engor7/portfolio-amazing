@@ -25,7 +25,7 @@ export const Cell = memo(function Cell({
       <button
          type="button"
          className={`${s.cell} ${active ? s.cellActive : ""} ${isCurrent ? s.cellCurrent : ""} ${groupStart ? s.cellGroupStart : ""} ${isPulsing ? s.cellPulse : ""}`}
-         style={active ? { backgroundColor: color } : undefined}
+         style={active ? { backgroundColor: color, '--cell-color': `${color}55`, '--cell-glow': `${color}90` } as React.CSSProperties : undefined}
          data-cell={`${trackId}:${step}`}
       />
    );

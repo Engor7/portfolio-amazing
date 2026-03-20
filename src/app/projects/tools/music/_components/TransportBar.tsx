@@ -2,30 +2,33 @@
 
 import type { ReactNode } from "react";
 import s from "../music.module.scss";
+import { ClearIcon, DownloadIcon, PauseIcon, PlayIcon } from "./icons";
 import { Slider } from "./Slider";
 
 interface TransportBarProps {
    isPlaying: boolean;
    bpm: number;
-   stepCount: number;
    onToggle: () => void;
    onBpmChange: (bpm: number) => void;
-   onStepChange: (delta: number) => void;
    onClear: () => void;
+   onDownload?: () => void;
+   isDownloading?: boolean;
+   canDownload?: boolean;
+   canClear?: boolean;
    children?: ReactNode;
-   isMobile?: boolean;
 }
 
 export function TransportBar({
    isPlaying,
    bpm,
-   stepCount,
    onToggle,
    onBpmChange,
-   onStepChange,
    onClear,
+   onDownload,
+   isDownloading = false,
+   canDownload = true,
+   canClear = true,
    children,
-   isMobile = false,
 }: TransportBarProps) {
    return (
       <div className={s.transport}>
@@ -35,61 +38,46 @@ export function TransportBar({
             onClick={onToggle}
             title={isPlaying ? "Stop playback" : "Start playback"}
          >
-            {isPlaying ? "⏹" : "▶"}
+            {isPlaying ? <PauseIcon width={16} height={16} /> : <PlayIcon width={16} height={16} />}
          </button>
 
-         {!isMobile && (
-            <>
-               <div className={s.transportGroup}>
-                  <Slider
-                     min={60}
-                     max={200}
-                     value={bpm}
-                     onChange={onBpmChange}
-                     label="BPM"
-                     color="#22c55e"
-                  />
-               </div>
-
-               <div className={s.transportGroup}>
-                  <span className={s.transportLabel}>
-                     Steps
-                     <span className={s.transportValue}>{stepCount}</span>
-                  </span>
-                  <div className={s.stepBtns}>
-                     <button
-                        type="button"
-                        className={s.stepBtn}
-                        onClick={() => onStepChange(-4)}
-                        title="Remove 4 steps"
-                     >
-                        −
-                     </button>
-                     <button
-                        type="button"
-                        className={s.stepBtn}
-                        onClick={() => onStepChange(4)}
-                        title="Add 4 steps"
-                     >
-                        +
-                     </button>
-                  </div>
-               </div>
-            </>
-         )}
+         <div className={s.transportGroup}>
+            <Slider
+               min={60}
+               max={200}
+               value={bpm}
+               onChange={onBpmChange}
+               label="BPM"
+               color="#7ab88c"
+            />
+         </div>
 
          {children}
 
-         {!isMobile && (
+         <div className={s.transportActions}>
+            {onDownload && (
+               <button
+                  type="button"
+                  className={s.clearBtn}
+                  onClick={onDownload}
+                  disabled={!canDownload || isDownloading}
+                  title="Download as MP3"
+               >
+                  <DownloadIcon width={16} height={16} />
+                  <span className={s.btnLabel}>Download</span>
+               </button>
+            )}
             <button
                type="button"
                className={s.clearBtn}
                onClick={onClear}
+               disabled={!canClear}
                title="Clear all cells"
             >
-               Clear
+               <ClearIcon width={16} height={16} />
+               <span className={s.btnLabel}>Clear</span>
             </button>
-         )}
+         </div>
       </div>
    );
 }

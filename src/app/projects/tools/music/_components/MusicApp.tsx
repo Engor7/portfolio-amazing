@@ -1,23 +1,24 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { MOBILE_MAX_STEPS } from "../_lib/constants";
 import { useAnalyser } from "../_hooks/useAnalyser";
 import { useAudioEngine } from "../_hooks/useAudioEngine";
 import { useExportMp3 } from "../_hooks/useExportMp3";
 import { useSequencer } from "../_hooks/useSequencer";
 import { useTransport } from "../_hooks/useTransport";
-import { generateRandomPattern, mutatePattern } from "../_lib/patterns";
+import { COMPACT_MAX_STEPS, MOBILE_MAX_STEPS } from "../_lib/constants";
+import { generateRandomPattern } from "../_lib/patterns";
 import s from "../music.module.scss";
-import { AddTrackPanel } from "./AddTrackPanel";
 import { FxPanel } from "./FxPanel";
 import { Grid } from "./Grid";
+import { ClearIcon, DownloadIcon } from "./icons";
 import { RandomButton } from "./RandomButton";
 import { TransportBar } from "./TransportBar";
 import { Visualizer } from "./Visualizer";
 
 export default function MusicApp() {
    const [isMobile, setIsMobile] = useState(false);
+   const [isCompact, setIsCompact] = useState(false);
    const {
       tracks,
       grid,
@@ -28,12 +29,9 @@ export default function MusicApp() {
       bpm,
       setBpm,
       toggleCell,
-      addTrack,
-      addAllTracks,
-      removeTrack,
       setTrackVolume,
       toggleMute,
-      changeStepCount,
+      hasActiveCells,
       clearAll,
       applyGrid,
       applyNoteGrid,
@@ -46,6 +44,7 @@ export default function MusicApp() {
       const checkMobile = () => {
          const mobile = window.innerWidth <= 640;
          setIsMobile(mobile);
+         setIsCompact(window.innerHeight <= 480);
       };
 
       checkMobile();
@@ -53,7 +52,11 @@ export default function MusicApp() {
       return () => window.removeEventListener("resize", checkMobile);
    }, []);
 
-   const visibleStepCount = isMobile ? MOBILE_MAX_STEPS : stepCount;
+   const visibleStepCount = isMobile
+      ? MOBILE_MAX_STEPS
+      : isCompact
+        ? COMPACT_MAX_STEPS
+        : stepCount;
 
    const [activeEffects, setActiveEffects] = useState<Set<string>>(new Set());
 
@@ -82,34 +85,6 @@ export default function MusicApp() {
       setBpm,
    ]);
 
-   const handleMutate = useCallback(() => {
-      const {
-         grid: newGrid,
-         noteGrid: newNoteGrid,
-         velocityGrid: newVelocityGrid,
-      } = mutatePattern(
-         tracks,
-         grid,
-         noteGrid,
-         velocityGrid,
-         harmonicContext,
-         visibleStepCount,
-      );
-      applyGrid(newGrid);
-      applyNoteGrid(newNoteGrid);
-      applyVelocityGrid(newVelocityGrid);
-   }, [
-      tracks,
-      grid,
-      noteGrid,
-      velocityGrid,
-      harmonicContext,
-      visibleStepCount,
-      applyGrid,
-      applyNoteGrid,
-      applyVelocityGrid,
-   ]);
-
    const toggleEffect = useCallback((name: string) => {
       setActiveEffects((prev) => {
          const next = new Set(prev);
@@ -119,7 +94,7 @@ export default function MusicApp() {
       });
    }, []);
 
-   const { triggerStep, initAudio, audioError } = useAudioEngine(
+   const { triggerStep, initAudio, audioError, getTrackLevel } = useAudioEngine(
       tracks,
       grid,
       activeEffects,
@@ -161,55 +136,62 @@ export default function MusicApp() {
                {audioError}
             </div>
          )}
-         <TransportBar
-            isPlaying={isPlaying}
-            bpm={bpm}
-            stepCount={stepCount}
-            onToggle={toggle}
-            onBpmChange={setBpm}
-            onStepChange={changeStepCount}
-            onClear={clearAll}
-            isMobile={isMobile}
-         >
-            <FxPanel activeEffects={activeEffects} onToggle={toggleEffect} />
-            <RandomButton onGenerate={handleRandomize} />
-            <button
-               type="button"
-               className={s.mutateBtn}
-               onClick={handleMutate}
-               title="Slightly mutate the current pattern"
-            >
-               Evolve
-            </button>
-            <button
-               type="button"
-               className={s.downloadBtn}
-               onClick={exportMp3}
-               disabled={exporting || tracks.length === 0}
-               title="Download as MP3"
-            >
-               {exporting ? "Rendering..." : "Download"}
-            </button>
-         </TransportBar>
-         {!isMobile && (
-            <AddTrackPanel
-               trackCount={tracks.length}
-               onAdd={addTrack}
-               onAddAll={addAllTracks}
+         <div className={s.content}>
+            <div className={s.topBar}>
+               <TransportBar
+                  isPlaying={isPlaying}
+                  bpm={bpm}
+                  onToggle={toggle}
+                  onBpmChange={setBpm}
+                  onClear={clearAll}
+                  onDownload={exportMp3}
+                  isDownloading={exporting}
+                  canDownload={hasActiveCells}
+                  canClear={hasActiveCells}
+               >
+                  <FxPanel
+                     activeEffects={activeEffects}
+                     onToggle={toggleEffect}
+                  />
+                  <RandomButton onGenerate={handleRandomize} />
+               </TransportBar>
+            </div>
+            <div className={s.visualizerRow}>
+               <Visualizer data={analyserData} />
+               <div className={s.mobileActions}>
+                  <button
+                     type="button"
+                     className={s.clearBtn}
+                     onClick={exportMp3}
+                     disabled={!hasActiveCells || exporting}
+                     title="Download as MP3"
+                  >
+                     <DownloadIcon width={12} height={12} />
+                     Download
+                  </button>
+                  <button
+                     type="button"
+                     className={s.clearBtn}
+                     onClick={clearAll}
+                     disabled={!hasActiveCells}
+                     title="Clear all cells"
+                  >
+                     <ClearIcon width={12} height={12} />
+                     Clear
+                  </button>
+               </div>
+            </div>
+            <Grid
+               tracks={tracks}
+               grid={grid}
+               currentStep={currentStep}
+               onToggleCell={toggleCell}
+               onSetVolume={setTrackVolume}
+               onToggleMute={toggleMute}
+               visibleStepCount={visibleStepCount}
+               getTrackLevel={getTrackLevel}
             />
-         )}
-         <Visualizer data={analyserData} />
-         <Grid
-            tracks={tracks}
-            grid={grid}
-            currentStep={currentStep}
-            onToggleCell={toggleCell}
-            onSetVolume={setTrackVolume}
-            onToggleMute={toggleMute}
-            onRemove={removeTrack}
-            visibleStepCount={visibleStepCount}
-            isMobile={isMobile}
-         />
+         </div>
       </div>
    );
 }

@@ -13,6 +13,7 @@ import type { NoteGrid, TrackConfig, VelocityGrid } from "../_lib/types";
 interface TrackNode {
    instrument: SequencerInstrument;
    gain: ToneNs.Gain;
+   analyser: ToneNs.Analyser;
 }
 
 type WetNode = ToneNs.ToneAudioNode & { wet: ToneNs.Signal<"normalRange"> };
@@ -153,23 +154,32 @@ export function useAudioEngine(
             if (!nodesRef.current.has(track.id)) {
                const gain = new Tone2.Gain(Tone2.dbToGain(track.volume));
                gain.connect(masterGain);
+               const analyser = new Tone2.Analyser("fft", 16);
+               gain.connect(analyser);
                try {
                   const instrument = createInstrument(track.instrumentId, gain);
-                  nodesRef.current.set(track.id, { instrument, gain });
+                  nodesRef.current.set(track.id, {
+                     instrument,
+                     gain,
+                     analyser,
+                  });
                } catch (error) {
                   // AudioWorkletNode not available — create silent fallback
                   const fallback: SequencerInstrument = {
                      trigger: () => {},
                      dispose: () => gain.dispose(),
                   };
-                  nodesRef.current.set(track.id, { instrument: fallback, gain });
+                  nodesRef.current.set(track.id, {
+                     instrument: fallback,
+                     gain,
+                     analyser,
+                  });
                }
             }
          }
       } catch (error) {
          // Audio context initialization failed (insecure context)
-         audioErrorRef.current =
-            "Audio not available. Use HTTPS or localhost.";
+         audioErrorRef.current = "Audio not available. Use HTTPS or localhost.";
          initializedRef.current = false;
       }
    }, [activeEffects]);
@@ -196,6 +206,7 @@ export function useAudioEngine(
       for (const [id, node] of nodes) {
          if (!currentIds.has(id)) {
             node.instrument.dispose();
+            node.analyser.dispose();
             node.gain.dispose();
             nodes.delete(id);
          }
@@ -206,16 +217,18 @@ export function useAudioEngine(
          if (!nodes.has(track.id)) {
             const gain = new Tone.Gain(Tone.dbToGain(track.volume));
             gain.connect(master);
+            const analyser = new Tone.Analyser("fft", 16);
+            gain.connect(analyser);
             try {
                const instrument = createInstrument(track.instrumentId, gain);
-               nodes.set(track.id, { instrument, gain });
+               nodes.set(track.id, { instrument, gain, analyser });
             } catch {
                // AudioWorkletNode not available — create silent fallback
                const fallback: SequencerInstrument = {
                   trigger: () => {},
                   dispose: () => gain.dispose(),
                };
-               nodes.set(track.id, { instrument: fallback, gain });
+               nodes.set(track.id, { instrument: fallback, gain, analyser });
             }
          }
       }
@@ -241,6 +254,7 @@ export function useAudioEngine(
       return () => {
          for (const node of nodesRef.current.values()) {
             node.instrument.dispose();
+            node.analyser.dispose();
             node.gain.dispose();
          }
          nodesRef.current.clear();
@@ -258,6 +272,13 @@ export function useAudioEngine(
          }
          initializedRef.current = false;
       };
+   }, []);
+
+   const getTrackLevel = useCallback((trackId: string): Float32Array | null => {
+      const node = nodesRef.current.get(trackId);
+      if (!node) return null;
+      const val = node.analyser.getValue();
+      return val instanceof Float32Array ? val : null;
    }, []);
 
    const triggerStep = useCallback((step: number, time?: number) => {
@@ -299,5 +320,10 @@ export function useAudioEngine(
       }
    }, []);
 
-   return { triggerStep, initAudio, audioError: audioErrorRef.current };
+   return {
+      triggerStep,
+      initAudio,
+      audioError: audioErrorRef.current,
+      getTrackLevel,
+   };
 }
