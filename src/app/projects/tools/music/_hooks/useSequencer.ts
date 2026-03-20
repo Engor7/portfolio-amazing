@@ -5,7 +5,7 @@ import {
    DEFAULT_BPM,
    DEFAULT_STEPS,
    DEFAULT_TRACKS,
-   INSTRUMENT_CATALOG,
+   INSTRUMENT_MAP,
 } from "../_lib/constants";
 import {
    generateHarmonicContext,
@@ -36,7 +36,7 @@ function makeTrack(
    instrumentId: InstrumentId,
    counterRef: { current: number },
 ): TrackConfig {
-   const preset = INSTRUMENT_CATALOG.find((p) => p.id === instrumentId);
+   const preset = INSTRUMENT_MAP.get(instrumentId);
    if (!preset) throw new Error(`Unknown instrument: ${instrumentId}`);
    counterRef.current += 1;
    const role = preset.kind === "drum" ? "drum" : (preset.role ?? "lead");
@@ -110,6 +110,11 @@ export function useSequencer() {
       initialState.vg,
    );
 
+   const tracksRef = useRef(tracks);
+   tracksRef.current = tracks;
+   const harmonicContextRef = useRef(harmonicContext);
+   harmonicContextRef.current = harmonicContext;
+
    const toggleCell = useCallback(
       (trackId: string, pitchRow: number, step: number) => {
          setGrid((prev) => {
@@ -120,10 +125,10 @@ export function useSequencer() {
 
             // When toggling ON, compute a note for this cell
             if (willBeActive) {
-               const track = tracks.find((t) => t.id === trackId);
+               const track = tracksRef.current.find((t) => t.id === trackId);
                if (track) {
                   const note = getNoteForCell(
-                     harmonicContext,
+                     harmonicContextRef.current,
                      track,
                      step,
                      stepCount,
@@ -150,7 +155,7 @@ export function useSequencer() {
             };
          });
       },
-      [tracks, harmonicContext, stepCount],
+      [stepCount],
    );
 
    const setTrackVolume = useCallback((trackId: string, volume: number) => {
@@ -174,19 +179,9 @@ export function useSequencer() {
          return next;
       });
       setNoteGrid({});
+      setVelocityGrid({});
    }, []);
 
-   const applyGrid = useCallback((newGrid: Record<string, boolean[][]>) => {
-      setGrid(newGrid);
-   }, []);
-
-   const applyNoteGrid = useCallback((newNoteGrid: NoteGrid) => {
-      setNoteGrid(newNoteGrid);
-   }, []);
-
-   const applyVelocityGrid = useCallback((newVelocityGrid: VelocityGrid) => {
-      setVelocityGrid(newVelocityGrid);
-   }, []);
 
    const hasActiveCells = useMemo(
       () =>
@@ -210,9 +205,9 @@ export function useSequencer() {
       toggleMute,
       hasActiveCells,
       clearAll,
-      applyGrid,
-      applyNoteGrid,
-      applyVelocityGrid,
+      applyGrid: setGrid,
+      applyNoteGrid: setNoteGrid,
+      applyVelocityGrid: setVelocityGrid,
       setHarmonicContext,
    };
 }

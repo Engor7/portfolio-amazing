@@ -1,4 +1,4 @@
-import { INSTRUMENT_CATALOG } from "./constants";
+import { INSTRUMENT_MAP } from "./constants";
 import type {
    HarmonicContext,
    InstrumentRole,
@@ -130,52 +130,6 @@ function voiceLead(prevChord: string[], nextChord: string[]): string[] {
    return result;
 }
 
-// --- Mood system ---
-export type MoodId = "happy" | "dark" | "chill" | "energetic";
-
-const MOOD_MAP: Record<
-   MoodId,
-   { scales: string[]; progressions: string[]; rootBias: string[] }
-> = {
-   happy: {
-      scales: ["majorPentatonic", "major"],
-      progressions: ["I-V-vi-IV", "I-IV-V-IV"],
-      rootBias: ["C", "G", "F", "D"],
-   },
-   dark: {
-      scales: ["minorPentatonic", "naturalMinor", "dorian"],
-      progressions: ["i-VI-III-VII", "i-iv-VII-III"],
-      rootBias: ["A", "D", "E", "B"],
-   },
-   chill: {
-      scales: ["majorPentatonic", "dorian", "mixolydian"],
-      progressions: ["I-vi-IV-V", "vi-IV-I-V"],
-      rootBias: ["F", "E", "G", "A"],
-   },
-   energetic: {
-      scales: ["minorPentatonic", "mixolydian", "naturalMinor"],
-      progressions: ["i-VI-III-VII", "I-V-vi-IV", "I-IV-V-IV"],
-      rootBias: ["A", "E", "D", "G"],
-   },
-};
-
-export function generateHarmonicContextForMood(mood: MoodId): HarmonicContext {
-   const config = MOOD_MAP[mood];
-   const root = pick(config.rootBias);
-   const scaleName = pick(config.scales);
-   const progName = pick(config.progressions);
-   const prog =
-      PROGRESSIONS.find((p) => p.name === progName) ?? PROGRESSIONS[0];
-   return {
-      root,
-      scale: SCALES[scaleName],
-      scaleName,
-      parentScale: SCALES[PARENT_SCALE[scaleName] ?? "major"],
-      progression: prog.degrees,
-      progressionName: prog.name,
-   };
-}
-
 export function generateHarmonicContext(): HarmonicContext {
    const root = pick(NOTE_NAMES);
    const scaleChoice = weightedPick(SCALE_CHOICES);
@@ -207,6 +161,17 @@ export function getScaleNotes(
    return notes;
 }
 
+function sortChordAscending(notes: string[]): { note: string; midi: number }[] {
+   const sorted = notes.map((n) => ({ note: n, midi: noteToMidi(n) }));
+   for (let i = 1; i < sorted.length; i++) {
+      while (sorted[i].midi <= sorted[i - 1].midi) {
+         sorted[i].midi += 12;
+         sorted[i].note = midiToNote(sorted[i].midi);
+      }
+   }
+   return sorted;
+}
+
 function buildChordFromParent(
    scaleDegree: number,
    parentNotes: string[],
@@ -219,14 +184,7 @@ function buildChordFromParent(
    const fifth = (scaleDegree + 4) % len;
 
    const rawNotes = [parentNotes[root], parentNotes[third], parentNotes[fifth]];
-
-   const sorted = rawNotes.map((n) => ({ note: n, midi: noteToMidi(n) }));
-   for (let i = 1; i < sorted.length; i++) {
-      while (sorted[i].midi <= sorted[i - 1].midi) {
-         sorted[i].midi += 12;
-         sorted[i].note = midiToNote(sorted[i].midi);
-      }
-   }
+   const sorted = sortChordAscending(rawNotes);
 
    if (trackScale.length === 0) return sorted.map((s) => s.note);
 
@@ -260,15 +218,7 @@ function buildChord(scaleDegree: number, scaleNotes: string[]): string[] {
    const fifth = (scaleDegree + 4) % len;
 
    const notes = [scaleNotes[root], scaleNotes[third], scaleNotes[fifth]];
-
-   const sorted = notes.map((n) => ({ note: n, midi: noteToMidi(n) }));
-   for (let i = 1; i < sorted.length; i++) {
-      while (sorted[i].midi <= sorted[i - 1].midi) {
-         sorted[i].midi += 12;
-         sorted[i].note = midiToNote(sorted[i].midi);
-      }
-   }
-   return sorted.map((s) => s.note);
+   return sortChordAscending(notes).map((s) => s.note);
 }
 
 // --- Extended chords (point 8) ---
@@ -680,9 +630,7 @@ export function generateNoteGrid(
    const noteGrid: NoteGrid = {};
 
    for (const track of tracks) {
-      const preset = INSTRUMENT_CATALOG.find(
-         (p) => p.id === track.instrumentId,
-      );
+      const preset = INSTRUMENT_MAP.get(track.instrumentId);
       if (!preset || preset.kind === "drum") continue;
 
       const role: InstrumentRole = preset.role ?? "lead";
@@ -751,9 +699,7 @@ export function generateVelocityGrid(
    const velocityGrid: VelocityGrid = {};
 
    for (const track of tracks) {
-      const preset = INSTRUMENT_CATALOG.find(
-         (p) => p.id === track.instrumentId,
-      );
+      const preset = INSTRUMENT_MAP.get(track.instrumentId);
       const role =
          preset?.kind === "drum" ? preset.id : (preset?.role ?? "lead");
       const velocities: number[] = [];
@@ -762,7 +708,6 @@ export function generateVelocityGrid(
          let v: number;
          const isDownbeat = i % 4 === 0;
          const isHalfBeat = i % 2 === 0 && !isDownbeat;
-         const _isWeakBeat = !isDownbeat && !isHalfBeat;
 
          // Base velocity by beat position
          if (isDownbeat) {
@@ -823,7 +768,7 @@ export function getNoteForCell(
    step: number,
    stepCount: number,
 ): string | string[] | null {
-   const preset = INSTRUMENT_CATALOG.find((p) => p.id === track.instrumentId);
+   const preset = INSTRUMENT_MAP.get(track.instrumentId);
    if (!preset || preset.kind === "drum") return null;
 
    const role: InstrumentRole = preset.role ?? "lead";

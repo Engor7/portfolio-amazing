@@ -1,12 +1,13 @@
 "use client";
 
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type * as ToneNs from "tone";
-import { INSTRUMENT_CATALOG } from "../_lib/constants";
+import { INSTRUMENT_MAP } from "../_lib/constants";
 import {
    createInstrument,
    type SequencerInstrument,
 } from "../_lib/instruments";
+import { createMasterChain, type MasterChain } from "../_lib/masterChain";
 import { tone } from "../_lib/tone-lazy";
 import type { NoteGrid, TrackConfig, VelocityGrid } from "../_lib/types";
 
@@ -35,15 +36,6 @@ const FX_CONFIG = {
    Wobble: { targetWet: 0.4 },
 } as const;
 
-interface MasterChain {
-   masterGain: ToneNs.Gain;
-   compressor: ToneNs.Compressor;
-   limiter: ToneNs.Limiter;
-   hall: ToneNs.Reverb;
-   delay: ToneNs.PingPongDelay;
-   wobble: ToneNs.AutoFilter;
-}
-
 export function useAudioEngine(
    tracks: TrackConfig[],
    grid: Record<string, boolean[][]>,
@@ -60,7 +52,7 @@ export function useAudioEngine(
    const fxRef = useRef<Map<string, FxNode>>(new Map());
    const chainRef = useRef<MasterChain | null>(null);
    const initializedRef = useRef(false);
-   const audioErrorRef = useRef<string | null>(null);
+   const [audioError, setAudioError] = useState<string | null>(null);
 
    gridRef.current = grid;
    tracksRef.current = tracks;
@@ -75,50 +67,11 @@ export function useAudioEngine(
       try {
          const Tone = tone();
 
-         const masterGain = new Tone.Gain(0.55);
-
-         const compressor = new Tone.Compressor({
-            threshold: -12,
-            ratio: 2.5,
-            attack: 0.01,
-            release: 0.15,
-            knee: 10,
-         });
-
-         const limiter = new Tone.Limiter(-3);
-
-         const hall = new Tone.Reverb({ decay: 1.5, preDelay: 0.03, wet: 0 });
-         await hall.ready;
-         const delay = new Tone.PingPongDelay({
-            delayTime: "8n",
-            feedback: 0.2,
-            wet: 0,
-         });
-         const wobble = new Tone.AutoFilter({
-            frequency: 1.5,
-            baseFrequency: 200,
-            octaves: 3,
-         }).start();
-         wobble.wet.value = 0;
-
-         masterGain.chain(
-            compressor,
-            hall,
-            delay,
-            wobble,
-            limiter,
-            Tone.getDestination(),
-         );
+         const chain = await createMasterChain(Tone, Tone.getDestination());
+         const { masterGain, hall, delay, wobble } = chain;
 
          masterGainRef.current = masterGain;
-         chainRef.current = {
-            masterGain,
-            compressor,
-            limiter,
-            hall,
-            delay,
-            wobble,
-         };
+         chainRef.current = chain;
          fxRef.current = new Map([
             [
                "Hall",
@@ -149,12 +102,11 @@ export function useAudioEngine(
          }
 
          // Create initial instruments for current tracks
-         const Tone2 = tone();
          for (const track of tracksRef.current) {
             if (!nodesRef.current.has(track.id)) {
-               const gain = new Tone2.Gain(Tone2.dbToGain(track.volume));
+               const gain = new Tone.Gain(Tone.dbToGain(track.volume));
                gain.connect(masterGain);
-               const analyser = new Tone2.Analyser("fft", 16);
+               const analyser = new Tone.Analyser("fft", 16);
                gain.connect(analyser);
                try {
                   const instrument = createInstrument(track.instrumentId, gain);
@@ -163,7 +115,7 @@ export function useAudioEngine(
                      gain,
                      analyser,
                   });
-               } catch (error) {
+               } catch {
                   // AudioWorkletNode not available — create silent fallback
                   const fallback: SequencerInstrument = {
                      trigger: () => {},
@@ -177,9 +129,9 @@ export function useAudioEngine(
                }
             }
          }
-      } catch (error) {
+      } catch {
          // Audio context initialization failed (insecure context)
-         audioErrorRef.current = "Audio not available. Use HTTPS or localhost.";
+         setAudioError("Audio not available. Use HTTPS or localhost.");
          initializedRef.current = false;
       }
    }, [activeEffects]);
@@ -277,8 +229,7 @@ export function useAudioEngine(
    const getTrackLevel = useCallback((trackId: string): Float32Array | null => {
       const node = nodesRef.current.get(trackId);
       if (!node) return null;
-      const val = node.analyser.getValue();
-      return val instanceof Float32Array ? val : null;
+      return node.analyser.getValue() as Float32Array;
    }, []);
 
    const triggerStep = useCallback((step: number, time?: number) => {
@@ -296,9 +247,7 @@ export function useAudioEngine(
          const node = nodesRef.current.get(track.id);
          if (!node) continue;
 
-         const preset = INSTRUMENT_CATALOG.find(
-            (p) => p.id === track.instrumentId,
-         );
+         const preset = INSTRUMENT_MAP.get(track.instrumentId);
          if (!preset) continue;
 
          // Single row per track — check row 0
@@ -323,7 +272,7 @@ export function useAudioEngine(
    return {
       triggerStep,
       initAudio,
-      audioError: audioErrorRef.current,
+      audioError,
       getTrackLevel,
    };
 }

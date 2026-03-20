@@ -1,4 +1,4 @@
-import { INSTRUMENT_CATALOG } from "./constants";
+import { INSTRUMENT_MAP } from "./constants";
 import {
    generateHarmonicContext,
    generateNoteGrid,
@@ -279,7 +279,7 @@ function randomInRange(min: number, max: number): number {
    return min + Math.floor(Math.random() * (max - min + 1));
 }
 
-function fitPattern(pattern: number[], stepCount: number): boolean[] {
+export function fitPattern(pattern: number[], stepCount: number): boolean[] {
    if (stepCount === 16) return pattern.map(Boolean);
    const result: boolean[] = [];
    for (let i = 0; i < stepCount; i++) {
@@ -307,7 +307,7 @@ function getPatternForInstrument(
       return generateSparseDrumPattern(stepCount);
    }
 
-   const preset = INSTRUMENT_CATALOG.find((p) => p.id === instrumentId);
+   const preset = INSTRUMENT_MAP.get(instrumentId);
    const kind = preset?.kind ?? "melodic";
 
    if (kind === "drum") {

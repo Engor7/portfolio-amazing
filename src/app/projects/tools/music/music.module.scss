@@ -1,30 +1,108 @@
-@use "sass:color";
-
-$bg: #faf8f5;
-$surface: #ffffff;
-$border: #e8e4df;
-$text-primary: #2d2a26;
-$text-secondary: #8a8580;
-$text-muted: #b5b0aa;
-$inactive: #f0ece7;
-$slider-bg: #ebe7e2;
-$play: #5cb87a;
-$play-hover: #4ea56b;
-$stop: #e07070;
-$stop-hover: #cc5f5f;
-$random: #a78bfa;
-$evolve: #f0b060;
-$fx-active: #5cb87a;
+$cell-gap: 4px;
 
 .page {
+   --m-bg: #f5f0eb;
+   --m-surface: #faf7f4;
+   --m-border: #e0d8d0;
+   --m-text-primary: #3a3530;
+   --m-text-secondary: #9a918a;
+   --m-text-muted: #c4bbb4;
+   --m-inactive: #ece5dd;
+   --m-play: #7ab88c;
+   --m-play-hover: #6aa87c;
+   --m-stop: #d4817a;
+   --m-stop-hover: #c4716a;
+   --m-random: #b8a0d8;
+   --m-evolve: #d4a86c;
+   --m-fx-active: #7ab88c;
+   --m-fx-reverb: #d4817a;
+   --m-fx-delay: #b8a0d8;
+   --m-fx-filter: #d4a86c;
+
+   --m-viz-from: 196, 168, 148;
+   --m-viz-to: 220, 196, 180;
+
+   @media (prefers-color-scheme: dark) {
+      --m-bg: #0a0e1a;
+      --m-surface: #121828;
+      --m-border: #1e2a40;
+      --m-text-primary: #e0dcd8;
+      --m-text-secondary: #6878a0;
+      --m-text-muted: #3a4868;
+      --m-inactive: #182038;
+      --m-play: #3a6fa8;
+      --m-play-hover: #4a80b8;
+      --m-stop: #d44040;
+      --m-stop-hover: #c03030;
+      --m-random: #e8c840;
+      --m-evolve: #3a6fa8;
+      --m-fx-active: #3a6fa8;
+      --m-fx-reverb: #d44040;
+      --m-fx-delay: #e8c840;
+      --m-fx-filter: #3a6fa8;
+      --m-viz-from: 70, 120, 180;
+      --m-viz-to: 100, 180, 230;
+   }
+
    min-height: 100svh;
-   background: $bg;
-   color: $text-primary;
+   background: var(--m-bg);
+   color: var(--m-text-primary);
    padding: 16px;
    font-family: inherit;
+   display: flex;
+   flex-direction: column;
 
    @media (max-width: 640px) {
-      padding: 12px 8px;
+      height: 100svh;
+      min-height: 0;
+      overflow-y: auto;
+      padding: 8px;
+      overscroll-behavior: none;
+   }
+
+   @media (max-height: 480px) {
+      display: flex;
+      flex-direction: column;
+      height: 100svh;
+      min-height: 0;
+      overflow: hidden;
+      padding: 8px;
+   }
+}
+
+.content {
+   max-width: 1055px;
+   width: 100%;
+   margin: auto;
+   display: grid;
+   grid-template-columns: 1fr auto;
+   grid-template-rows: auto 1fr;
+   gap: 12px;
+
+   @media (max-width: 640px) {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto 1fr auto;
+      flex: 1;
+      margin: 0 auto;
+      gap: 12px;
+   }
+}
+
+.topBar {
+   grid-column: 1;
+   grid-row: 1;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   gap: 12px;
+
+   @media (max-width: 640px) {
+      grid-row: 3;
+      grid-column: 1;
+   }
+
+   @media (max-height: 480px) and (orientation: landscape) {
+      flex-direction: row;
    }
 }
 
@@ -33,26 +111,43 @@ $fx-active: #5cb87a;
    display: flex;
    align-items: center;
    gap: 12px;
-   padding: 12px 16px;
-   background: $surface;
-   border: 1px solid $border;
-   border-radius: 12px;
-   margin-bottom: 12px;
+   padding: 16px;
+   background: var(--m-surface);
+   border: 1px solid var(--m-border);
+   border-radius: 60px;
    flex-wrap: wrap;
-   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+   flex: 1;
+
+   @media (max-width: 830px) and (min-width: 641px) {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      grid-template-rows: auto auto;
+      gap: 8px;
+      border-radius: 16px;
+      padding: 10px 12px;
+   }
 
    @media (max-width: 640px) {
-      gap: 8px;
-      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: 16px;
+      padding: 6px 8px;
+      flex-wrap: nowrap;
+   }
+
+   @media (max-height: 480px) {
+      padding: 8px 10px;
+      gap: 6px;
    }
 }
 
 .playBtn {
-   width: 48px;
-   height: 48px;
+   width: 36px;
+   height: 36px;
    border: none;
-   border-radius: 10px;
-   background: $play;
+   border-radius: 34px;
+   background: var(--m-play);
    color: #fff;
    font-size: 20px;
    cursor: pointer;
@@ -63,20 +158,31 @@ $fx-active: #5cb87a;
    flex-shrink: 0;
 
    &:hover {
-      background: $play-hover;
+      background: var(--m-play-hover);
+   }
+
+   @media (max-width: 830px) and (min-width: 641px) {
+      grid-row: 1;
+      grid-column: 1;
    }
 
    @media (max-width: 640px) {
-      min-width: 48px;
-      min-height: 48px;
+      min-width: 36px;
+      border-radius: 36px;
+   }
+
+   @media (max-height: 480px) {
+      width: 40px;
+      height: 40px;
+      font-size: 16px;
    }
 }
 
 .playBtnActive {
-   background: $stop;
+   background: var(--m-stop);
 
    &:hover {
-      background: $stop-hover;
+      background: var(--m-stop-hover);
    }
 }
 
@@ -84,40 +190,35 @@ $fx-active: #5cb87a;
    display: flex;
    align-items: center;
    gap: 8px;
-}
 
-.transportLabel {
-   font-size: 11px;
-   text-transform: uppercase;
-   color: $text-secondary;
-   letter-spacing: 0.05em;
-   display: flex;
-   align-items: center;
-   gap: 6px;
-   white-space: nowrap;
-}
+   @media (max-width: 830px) and (min-width: 641px) {
+      grid-row: 1;
+      grid-column: 2;
+   }
 
-.transportValue {
-   font-size: 16px;
-   font-weight: 600;
-   color: $text-primary;
-   min-width: 32px;
-   text-align: center;
+   @media (max-width: 640px) {
+      flex-shrink: 0;
+
+      .slider {
+         height: 36px;
+      }
+   }
 }
 
 // Custom Slider
 .slider {
    height: 32px;
-   border-radius: 8px;
-   background: $slider-bg;
+   border-radius: 30px;
    cursor: ew-resize;
    touch-action: none;
    position: relative;
+   border: 1px solid var(--m-border);
    overflow: hidden;
    user-select: none;
 
    @media (max-width: 640px) {
-      height: 36px;
+      height: auto;
+      min-height: 24px;
    }
 }
 
@@ -126,12 +227,25 @@ $fx-active: #5cb87a;
    top: 2px;
    left: 2px;
    bottom: 2px;
-   border-radius: 6px;
-   background: var(--slider-color, $text-secondary);
-   opacity: 0.25;
+   border-radius: inherit;
+   background: var(--slider-color, var(--m-text-secondary));
+   opacity: 0.75;
    pointer-events: none;
    will-change: width;
    max-width: calc(100% - 4px);
+   overflow: hidden;
+}
+
+.sliderLevel {
+   position: absolute;
+   top: 0;
+   left: 0;
+   bottom: 0;
+   width: 0;
+   border-radius: inherit;
+   background: rgba(255, 255, 255, 0.3);
+   pointer-events: none;
+   will-change: width;
 }
 
 .sliderLabel {
@@ -139,211 +253,262 @@ $fx-active: #5cb87a;
    inset: 0;
    display: flex;
    align-items: center;
-   justify-content: center;
-   gap: 4px;
+   justify-content: space-between;
+   padding: 0 8px;
    pointer-events: none;
    z-index: 1;
    font-size: 11px;
    font-weight: 600;
-   color: $text-primary;
+   color: var(--m-text-primary);
 }
 
 .sliderLabelText {
    font-weight: 400;
-   color: $text-secondary;
+   color: var(--m-text-secondary);
    text-transform: uppercase;
    font-size: 10px;
    letter-spacing: 0.05em;
-}
-
-.stepBtns {
-   display: flex;
-   gap: 4px;
-}
-
-.stepBtn {
-   width: 32px;
-   height: 32px;
-   border: 1px solid $border;
-   border-radius: 8px;
-   background: $surface;
-   color: $text-primary;
-   font-size: 16px;
-   cursor: pointer;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   transition: background-color 0.15s;
-
-   &:hover {
-      background: $inactive;
-   }
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
 
    @media (max-width: 640px) {
-      width: 44px;
-      height: 44px;
+      font-size: 8px;
+   }
+}
+
+.sliderValue {
+   flex-shrink: 0;
+   min-width: 24px;
+   text-align: right;
+   font-variant-numeric: tabular-nums;
+}
+
+.sliderLabelLight {
+   color: #fff;
+
+   .sliderLabelText {
+      color: #fff;
    }
 }
 
 .randomBtn {
    padding: 8px 16px;
-   border: none;
-   border-radius: 8px;
-   background: rgba($random, 0.12);
-   color: color.adjust($random, $lightness: -15%);
+   border: 1px solid var(--m-border);
+   border-radius: 30px;
+   background: var(--m-surface);
+   color: var(--m-text-secondary);
    font-size: 12px;
    font-weight: 600;
    cursor: pointer;
+   display: flex;
+   align-items: center;
+   gap: 6px;
    transition:
       background-color 0.15s,
       color 0.15s;
 
    &:hover {
-      background: rgba($random, 0.22);
+      background: var(--m-inactive);
+      color: var(--m-text-primary);
+   }
+
+   @media (max-width: 830px) and (min-width: 641px) {
+      grid-row: 2;
+      grid-column: 3;
    }
 
    @media (max-width: 640px) {
-      min-height: 44px;
-   }
-}
-
-.mutateBtn {
-   padding: 8px 16px;
-   border: none;
-   border-radius: 8px;
-   background: rgba($evolve, 0.15);
-   color: color.adjust($evolve, $lightness: -20%);
-   font-size: 12px;
-   font-weight: 600;
-   cursor: pointer;
-   transition:
-      background-color 0.15s,
-      color 0.15s;
-
-   &:hover {
-      background: rgba($evolve, 0.28);
+      width: 36px;
+      height: 36px;
+      min-width: 36px;
+      flex-shrink: 0;
+      padding: 0;
+      border-radius: 36px;
+      justify-content: center;
+      font-size: 0;
+      gap: 0;
    }
 
-   @media (max-width: 640px) {
-      min-height: 44px;
+   @media (max-height: 480px) {
+      min-height: 32px;
+      font-size: 11px;
+      padding: 4px 10px;
    }
 }
 
 .clearBtn {
    padding: 8px 16px;
-   border: 1px solid $border;
-   border-radius: 8px;
-   background: $surface;
-   color: $text-secondary;
-   font-size: 12px;
-   cursor: pointer;
-   transition:
-      background-color 0.15s,
-      color 0.15s;
-   margin-left: auto;
-
-   &:hover {
-      background: $inactive;
-      color: $text-primary;
-   }
-
-   @media (max-width: 640px) {
-      min-height: 44px;
-   }
-}
-
-// Mood Selector
-.moodSelector {
-   display: flex;
-   gap: 4px;
-}
-
-.moodBtn {
-   padding: 6px 12px;
-   border: 1px solid $border;
-   border-radius: 8px;
-   background: $surface;
-   color: $text-secondary;
-   font-size: 11px;
-   cursor: pointer;
+   border: 1px solid var(--m-border);
+   border-radius: 30px;
    display: flex;
    align-items: center;
-   gap: 3px;
+   justify-content: center;
+   background: var(--m-surface);
+   color: var(--m-text-secondary);
+   font-size: 12px;
+   font-weight: 600;
+   cursor: pointer;
+   gap: 6px;
    transition:
       background-color 0.15s,
       color 0.15s,
-      border-color 0.15s;
+      opacity 0.15s;
 
    &:hover {
-      background: $inactive;
-      color: $text-primary;
+      background: var(--m-inactive);
+      color: var(--m-text-primary);
+   }
+
+   &:disabled {
+      opacity: 0.4;
+      cursor: default;
+      pointer-events: none;
    }
 
    @media (max-width: 640px) {
-      min-height: 44px;
+      padding: 4px 10px;
+      min-height: 28px;
    }
-}
 
-.moodEmoji {
-   font-size: 13px;
+   @media (max-height: 480px) {
+      min-height: 32px;
+      font-size: 11px;
+      padding: 4px 10px;
+   }
 }
 
 // Visualizer
-.visualizer {
-   width: 100%;
-   height: 60px;
-   border-radius: 10px;
-   background: $surface;
-   border: 1px solid $border;
-   margin-bottom: 12px;
-   display: block;
+.visualizerRow {
+   grid-column: 2;
+   grid-row: 1;
+   display: flex;
+   align-items: stretch;
+   gap: 8px;
 
    @media (max-width: 640px) {
-      height: 48px;
+      grid-row: 1;
+      grid-column: 1;
+      gap: 6px;
    }
 }
 
-$cell-gap: 4px;
+.visualizerWrap {
+   position: relative;
+   width: 120px;
+   flex-shrink: 0;
+
+   @media (max-width: 640px) {
+      flex: 1;
+      min-width: 0;
+      width: auto;
+   }
+
+   @media (max-height: 480px) and (orientation: landscape) {
+      width: 80px;
+   }
+}
+
+.visualizer {
+   position: absolute;
+   inset: 0;
+   width: 100%;
+   height: 100%;
+   display: block;
+   border-radius: 60px;
+   background: var(--m-surface);
+   border: 1px solid var(--m-border);
+
+   @media (max-width: 640px) {
+      border-radius: 12px;
+   }
+}
+
+.mobileActions {
+   display: none;
+
+   @media (max-width: 640px) {
+      display: flex;
+      gap: 4px;
+      flex-shrink: 0;
+   }
+
+   .clearBtn {
+      height: 36px;
+      padding: 0 10px;
+      border-radius: 12px;
+      margin-left: 0;
+      min-height: unset;
+      font-size: 11px;
+      font-weight: 600;
+      gap: 4px;
+   }
+}
+
+.btnLabel {
+   @media (max-width: 960px) {
+      display: none;
+   }
+}
+
+.transportActions {
+   margin-left: auto;
+   display: flex;
+   gap: 6px;
+
+   @media (max-width: 830px) and (min-width: 641px) {
+      grid-row: 1;
+      grid-column: 3;
+      margin-left: 0;
+   }
+
+   @media (max-width: 640px) {
+      display: none;
+   }
+}
 
 // Grid
 .grid {
+   grid-column: 1 / -1;
+   grid-row: 2;
    display: flex;
    flex-direction: column;
-   gap: $cell-gap;
-   background: $surface;
-   border: 1px solid $border;
-   border-radius: 12px;
-   overflow: hidden;
-   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-   padding-bottom: $cell-gap;
+   padding: 16px;
+   gap: 6px;
+   background: var(--m-surface);
+   border: 1px solid var(--m-border);
+   border-radius: 24px;
    user-select: none;
-}
 
-.gridSectionLabel {
-   font-size: 10px;
-   text-transform: uppercase;
-   letter-spacing: 0.1em;
-   color: $text-muted;
-   padding: 6px 12px 2px;
-}
+   @media (max-width: 640px) {
+      grid-row: 2;
+      grid-column: 1;
+      padding: 0;
+      border-radius: 0;
+      border: none;
+      min-height: 200px;
+      background: none;
+   }
 
-.gridDivider {
-   height: 1px;
-   background: $border;
-   margin: 4px 0;
+   @media (max-height: 480px) {
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      gap: 2px;
+      padding: 8px 0;
+   }
 }
 
 .trackRow {
    display: flex;
-   align-items: center;
-   gap: 8px;
-   padding: 0 8px;
+   align-items: stretch;
+   gap: 16px;
    position: relative;
 
    @media (max-width: 640px) {
-      flex-wrap: wrap;
-      padding: 0 4px;
       gap: 4px;
+      min-height: 24px;
+      flex: 1;
    }
 }
 
@@ -351,86 +516,78 @@ $cell-gap: 4px;
    display: flex;
    align-items: center;
    gap: 4px;
-   width: 100px;
+   width: 140px;
    flex-shrink: 0;
-   overflow: hidden;
 
-   @media (max-width: 640px) {
-      width: auto;
+   .slider {
+      flex: 1;
       min-width: 0;
-      flex-shrink: 0;
    }
-}
 
-.trackDot {
-   width: 8px;
-   height: 8px;
-   border-radius: 50%;
-   flex-shrink: 0;
+   .sliderLabelText {
+      font-size: 8px;
+   }
 
    @media (max-width: 640px) {
-      width: 6px;
-      height: 6px;
+      width: 80px;
+      align-self: stretch;
+
+      .slider {
+         height: 100%;
+         max-height: 32px;
+      }
    }
-}
 
-.trackName {
-   font-size: 11px;
-   color: $text-secondary;
-   white-space: nowrap;
-   overflow: hidden;
-   text-overflow: ellipsis;
+   @media (max-height: 480px) and (orientation: landscape) {
+      width: 100px;
+   }
 
-   @media (max-width: 640px) {
-      display: none;
+   @media (min-width: 641px) and (max-width: 1024px) {
+      width: 120px;
    }
 }
 
 .trackCells {
    display: flex;
-   gap: $cell-gap;
-   overflow-x: auto;
+   align-items: center;
+   gap: 3px;
+   overflow: visible;
    flex: 1;
-   scrollbar-width: none;
-
-   &::-webkit-scrollbar {
-      display: none;
-   }
+   padding: 2px 0;
+   margin: -2px 0;
 
    @media (max-width: 640px) {
-      width: 100%;
-      overflow-x: hidden;
+      overflow: visible;
       gap: 1px;
       min-width: 0;
+      flex: 1;
+      align-items: stretch;
    }
 }
 
 .cell {
-   width: 32px;
+   flex: 1;
+   min-width: 0;
    height: 32px;
-   flex-shrink: 0;
    border: none;
    border-radius: 6px;
-   background: $inactive;
-
-   @media (max-width: 640px) {
-      flex: 1;
-      min-width: 0;
-      aspect-ratio: 1;
-   }
+   background: var(--m-inactive);
    cursor: pointer;
    padding: 0;
+   outline: 2px solid transparent;
+   outline-offset: -2px;
    transition:
       transform 0.08s,
-      filter 0.08s;
-
-   &:hover {
-      background: color.adjust($inactive, $lightness: -4%);
-   }
+      filter 0.08s,
+      outline-color 0.15s,
+      box-shadow 0.15s;
 
    @media (max-width: 640px) {
-      width: 36px;
-      height: 36px;
+      height: auto;
+   }
+
+   &:hover {
+      background: color-mix(in srgb, var(--m-inactive), black 8%);
    }
 }
 
@@ -441,26 +598,28 @@ $cell-gap: 4px;
 }
 
 .cellCurrent {
-   outline: 2px solid rgba(0, 0, 0, 0.15);
-   outline-offset: -2px;
-}
+   outline-color: rgba(0, 0, 0, 0.2);
 
-.cellGroupStart {
-   // uniform grid — no extra group spacing
+   @media (prefers-color-scheme: dark) {
+      outline-color: #ccd9ff;
+   }
 }
 
 @keyframes cellPulse {
    0% {
       transform: scale(1);
       filter: brightness(1);
+      box-shadow: 0 0 8px 2px var(--cell-color, transparent);
    }
    50% {
-      transform: scale(1.12);
-      filter: brightness(1.15);
+      transform: scale(1.15);
+      filter: brightness(1.18);
+      box-shadow: 0 0 16px 5px var(--cell-glow, transparent);
    }
    100% {
       transform: scale(1);
       filter: brightness(1);
+      box-shadow: 0 0 8px 2px var(--cell-color, transparent);
    }
 }
 
@@ -473,475 +632,137 @@ $cell-gap: 4px;
    display: flex;
    flex-wrap: wrap;
    gap: 4px;
+
+   @media (max-width: 830px) and (min-width: 641px) {
+      grid-row: 2;
+      grid-column: 1 / 3;
+   }
+
+   @media (max-width: 640px) {
+      flex: 1;
+      min-width: 0;
+      flex-wrap: nowrap;
+      gap: 4px;
+      justify-content: center;
+   }
 }
 
 .fxTag {
-   padding: 4px 10px;
-   border: 1px solid $border;
-   border-radius: 6px;
-   background: $surface;
-   color: $text-secondary;
-   font-size: 11px;
+   padding: 8px 16px;
+   border: 1px solid var(--m-border);
+   border-radius: 30px;
+   background: var(--m-surface);
+   color: var(--m-text-secondary);
+   font-size: 12px;
    cursor: pointer;
+   font-weight: 600;
    transition:
       background-color 0.15s,
       color 0.15s,
       border-color 0.15s;
 
    &:hover {
-      background: $inactive;
-      color: $text-primary;
+      background: var(--m-inactive);
+      color: var(--m-text-primary);
    }
 
    @media (max-width: 640px) {
-      min-height: 36px;
+      padding: 2px 8px;
+      font-size: 10px;
+      min-height: 24px;
       display: flex;
       align-items: center;
    }
 }
 
-.fxTagActive {
-   background: rgba($fx-active, 0.12);
-   color: color.adjust($fx-active, $lightness: -15%);
-   border-color: rgba($fx-active, 0.3);
-   font-weight: 600;
+.fxReverbTag {
+   &.fxTagActive {
+      background: color-mix(in srgb, var(--m-fx-reverb) 12%, transparent);
+      color: color-mix(in srgb, var(--m-fx-reverb), black 20%);
+      border-color: color-mix(in srgb, var(--m-fx-reverb) 70%, transparent);
 
-   &:hover {
-      background: rgba($fx-active, 0.2);
+      &:hover {
+         background: color-mix(in srgb, var(--m-fx-reverb) 20%, transparent);
+         border-color: color-mix(in srgb, var(--m-fx-reverb) 70%, transparent);
+      }
    }
 }
 
-// Track controls
-.trackControls {
-   display: flex;
-   align-items: center;
-   gap: 4px;
-   flex-shrink: 0;
-   margin-right: -4px;
+.fxDelayTag {
+   &.fxTagActive {
+      background: color-mix(in srgb, var(--m-fx-delay) 12%, transparent);
+      color: color-mix(in srgb, var(--m-fx-delay), black 20%);
+      border-color: color-mix(in srgb, var(--m-fx-delay) 70%, transparent);
 
-   @media (max-width: 640px) {
-      display: none;
+      &:hover {
+         background: color-mix(in srgb, var(--m-fx-delay) 20%, transparent);
+         border-color: color-mix(in srgb, var(--m-fx-delay) 70%, transparent);
+      }
    }
 }
 
-.trackControls .slider {
-   width: 60px;
+.fxFilterTag {
+   &.fxTagActive {
+      background: color-mix(in srgb, var(--m-fx-filter) 12%, transparent);
+      color: color-mix(in srgb, var(--m-fx-filter), black 20%);
+      border-color: color-mix(in srgb, var(--m-fx-filter) 70%, transparent);
 
-   @media (max-width: 640px) {
-      flex: 1;
-      max-width: 120px;
+      &:hover {
+         background: color-mix(in srgb, var(--m-fx-filter) 20%, transparent);
+         border-color: color-mix(in srgb, var(--m-fx-filter) 70%, transparent);
+      }
    }
 }
 
 .transport .slider {
    width: 120px;
+
+   @media (max-width: 640px) {
+      width: 90px;
+      height: 36px;
+   }
 }
 
 .muteBtn {
-   width: 28px;
-   height: 28px;
-   border: 1px solid $border;
+   width: 32px;
+   border: 1px solid var(--m-border);
    border-radius: 6px;
-   background: $surface;
-   color: $text-muted;
+   background: transparent;
+   color: var(--m-text-muted);
    font-size: 10px;
-   font-weight: 700;
+   font-weight: 600;
    cursor: pointer;
    display: flex;
    align-items: center;
    justify-content: center;
-   transition:
-      background-color 0.15s,
-      color 0.15s;
+   flex-shrink: 0;
+   transition: all 0.3s;
 
-   &:hover {
-      background: $inactive;
+   @media (hover: hover) {
+      &:hover {
+         background: #222;
+         border-color: #222;
+         color: #fff;
+      }
    }
 
    @media (max-width: 640px) {
-      width: 36px;
-      height: 36px;
+      width: 28px;
    }
 }
 
 .muteBtnActive {
-   background: rgba($stop, 0.12);
-   color: $stop;
-   border-color: rgba($stop, 0.3);
+   background: color-mix(in srgb, var(--m-stop) 12%, transparent);
+   color: var(--m-stop);
+   border-color: color-mix(in srgb, var(--m-stop) 70%, transparent);
 
-   &:hover {
-      background: rgba($stop, 0.2);
-   }
-}
-
-.removeBtn {
-   width: 28px;
-   height: 28px;
-   border: 1px solid $border;
-   border-radius: 6px;
-   background: $surface;
-   color: $text-muted;
-   font-size: 12px;
-   cursor: pointer;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   transition:
-      background-color 0.15s,
-      color 0.15s;
-
-   &:hover {
-      background: $inactive;
-      color: $stop;
-   }
-
-   @media (max-width: 640px) {
-      width: 36px;
-      height: 36px;
-   }
-}
-
-// Add Track
-.addPanel {
-   margin-top: 12px;
-   position: relative;
-}
-
-.addBtnRow {
-   display: flex;
-   gap: 8px;
-
-   @media (max-width: 640px) {
-      flex-direction: column;
-   }
-}
-
-.addBtn {
-   padding: 10px 20px;
-   border: 1px dashed $border;
-   border-radius: 10px;
-   background: transparent;
-   color: $text-secondary;
-   font-size: 12px;
-   font-weight: 600;
-   letter-spacing: 0.05em;
-   cursor: pointer;
-   transition:
-      border-color 0.15s,
-      color 0.15s,
-      background-color 0.15s;
-   flex: 1;
-
-   &:hover:not(:disabled) {
-      border-color: color.adjust($border, $lightness: -10%);
-      color: $text-primary;
-      background: rgba(0, 0, 0, 0.02);
-   }
-
-   &:disabled {
-      opacity: 0.3;
-      cursor: default;
-   }
-
-   @media (max-width: 640px) {
-      min-height: 44px;
-      width: 100%;
-   }
-}
-
-.addAllBtn {
-   padding: 10px 20px;
-   border: 1px solid rgba($play, 0.3);
-   border-radius: 10px;
-   background: rgba($play, 0.08);
-   color: color.adjust($play, $lightness: -15%);
-   font-size: 12px;
-   font-weight: 600;
-   letter-spacing: 0.05em;
-   cursor: pointer;
-   transition:
-      background-color 0.15s,
-      color 0.15s;
-   white-space: nowrap;
-
-   &:hover:not(:disabled) {
-      background: rgba($play, 0.16);
-   }
-
-   &:disabled {
-      opacity: 0.3;
-      cursor: default;
-   }
-
-   @media (max-width: 640px) {
-      min-height: 44px;
-      width: 100%;
-   }
-}
-
-.addDropdown {
-   position: absolute;
-   top: calc(100% + 4px);
-   left: 0;
-   right: 0;
-   max-height: 240px;
-   overflow-y: auto;
-   background: $surface;
-   border: 1px solid $border;
-   border-radius: 10px;
-   z-index: 10;
-   display: grid;
-   grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-   gap: 2px;
-   padding: 6px;
-   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-
-   @media (max-width: 640px) {
-      grid-template-columns: repeat(2, 1fr);
-   }
-}
-
-.addDropdownItem {
-   display: flex;
-   align-items: center;
-   gap: 6px;
-   padding: 10px 10px;
-   border: none;
-   border-radius: 8px;
-   background: transparent;
-   color: $text-primary;
-   font-size: 12px;
-   cursor: pointer;
-   text-align: left;
-   transition: background-color 0.1s;
-
-   &:hover {
-      background: $inactive;
-   }
-
-   @media (max-width: 640px) {
-      min-height: 44px;
+   @media (hover: hover) {
+      &:hover {
+         background: color-mix(in srgb, var(--m-stop) 20%, transparent);
+         border-color: color-mix(in srgb, var(--m-stop) 70%, transparent);
+      }
    }
 }
 
 // Download button
-.downloadBtn {
-   padding: 8px 16px;
-   border: 1px solid $border;
-   border-radius: 8px;
-   background: $surface;
-   color: $text-secondary;
-   font-size: 12px;
-   font-weight: 600;
-   cursor: pointer;
-   transition:
-      background-color 0.15s,
-      color 0.15s;
-   white-space: nowrap;
 
-   &:hover:not(:disabled) {
-      background: $inactive;
-      color: $text-primary;
-   }
-
-   &:disabled {
-      opacity: 0.4;
-      cursor: default;
-   }
-
-   @media (max-width: 640px) {
-      min-height: 44px;
-   }
-}
-
-// Track Settings Button
-.trackSettingsBtn {
-   width: 20px;
-   height: 20px;
-   padding: 0;
-   border: none;
-   background: transparent;
-   color: $text-muted;
-   font-size: 12px;
-   cursor: pointer;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   transition: color 0.15s;
-   flex-shrink: 0;
-
-   &:hover {
-      color: $text-secondary;
-   }
-
-   @media (max-width: 640px) {
-      width: 18px;
-      height: 18px;
-      font-size: 11px;
-   }
-}
-
-// Modal
-.modalOverlay {
-   position: fixed;
-   inset: 0;
-   background: rgba(0, 0, 0, 0.4);
-   z-index: 999;
-   animation: fadeIn 0.15s ease-out;
-}
-
-.modal {
-   position: fixed;
-   bottom: 0;
-   left: 0;
-   right: 0;
-   max-height: 80vh;
-   background: $surface;
-   border-radius: 16px 16px 0 0;
-   box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.12);
-   z-index: 1000;
-   animation: slideUp 0.3s ease-out;
-   display: flex;
-   flex-direction: column;
-
-   @media (min-width: 641px) {
-      position: absolute;
-      bottom: auto;
-      left: 50%;
-      right: auto;
-      transform: translateX(-50%);
-      top: 50%;
-      translate: 0 -50%;
-      max-height: 80vh;
-      width: 360px;
-      border-radius: 16px;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-   }
-}
-
-@keyframes slideUp {
-   from {
-      transform: translateY(100%);
-   }
-   to {
-      transform: translateY(0);
-   }
-}
-
-@keyframes fadeIn {
-   from {
-      opacity: 0;
-   }
-   to {
-      opacity: 1;
-   }
-}
-
-.modalHeader {
-   display: flex;
-   align-items: center;
-   justify-content: space-between;
-   padding: 16px;
-   border-bottom: 1px solid $border;
-   flex-shrink: 0;
-}
-
-.modalTitle {
-   margin: 0;
-   font-size: 16px;
-   font-weight: 600;
-   color: $text-primary;
-}
-
-.modalClose {
-   width: 32px;
-   height: 32px;
-   border: none;
-   border-radius: 6px;
-   background: $inactive;
-   color: $text-secondary;
-   font-size: 18px;
-   cursor: pointer;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   transition:
-      background-color 0.15s,
-      color 0.15s;
-
-   &:hover {
-      background: color.adjust($inactive, $lightness: -4%);
-      color: $text-primary;
-   }
-}
-
-.modalContent {
-   flex: 1;
-   overflow-y: auto;
-   padding: 16px;
-   display: flex;
-   flex-direction: column;
-   gap: 12px;
-}
-
-.settingGroup {
-   display: flex;
-   flex-direction: column;
-   gap: 8px;
-}
-
-.settingLabel {
-   font-size: 12px;
-   font-weight: 600;
-   color: $text-secondary;
-   text-transform: uppercase;
-   letter-spacing: 0.05em;
-}
-
-.settingBtn {
-   padding: 12px 16px;
-   border: 1px solid $border;
-   border-radius: 8px;
-   background: $surface;
-   color: $text-primary;
-   font-size: 14px;
-   font-weight: 500;
-   cursor: pointer;
-   transition:
-      background-color 0.15s,
-      color 0.15s,
-      border-color 0.15s;
-   text-align: center;
-
-   &:hover {
-      background: $inactive;
-   }
-}
-
-.settingBtnActive {
-   background: rgba($play, 0.12);
-   color: color.adjust($play, $lightness: -15%);
-   border-color: rgba($play, 0.3);
-   font-weight: 600;
-
-   &:hover {
-      background: rgba($play, 0.2);
-   }
-}
-
-.removeBtnStyle {
-   border-color: rgba($stop, 0.3);
-   background: rgba($stop, 0.08);
-   color: color.adjust($stop, $lightness: -10%);
-
-   &:hover {
-      background: rgba($stop, 0.15);
-      color: $stop;
-   }
-}
-
-.volumeValue {
-   font-size: 12px;
-   color: $text-secondary;
-   text-align: center;
-}

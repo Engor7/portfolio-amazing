@@ -1,8 +1,9 @@
 "use client";
 
+import type { CSSProperties } from "react";
 import { memo, useCallback, useMemo } from "react";
-import type { TrackConfig } from "../_lib/types";
 import { getTrackColor } from "../_lib/themes";
+import type { TrackConfig } from "../_lib/types";
 import s from "../music.module.scss";
 import { Cell } from "./Cell";
 import { Slider } from "./Slider";
@@ -15,6 +16,7 @@ interface TrackRowProps {
    onToggleMute: (trackId: string) => void;
    visibleStepCount: number;
    getTrackLevel: (trackId: string) => Float32Array | null;
+   isPlaying: boolean;
 }
 
 export const TrackRow = memo(function TrackRow({
@@ -25,6 +27,7 @@ export const TrackRow = memo(function TrackRow({
    onToggleMute,
    visibleStepCount,
    getTrackLevel,
+   isPlaying,
 }: TrackRowProps) {
    const color = getTrackColor(track.instrumentId);
 
@@ -44,7 +47,7 @@ export const TrackRow = memo(function TrackRow({
    return (
       <div
          className={s.trackRow}
-         style={{ "--track-color": color } as React.CSSProperties}
+         style={{ "--track-color": color } as CSSProperties}
       >
          <div className={s.trackLabel}>
             <Slider
@@ -55,6 +58,7 @@ export const TrackRow = memo(function TrackRow({
                label={track.label}
                color={color}
                getLevel={getLevel}
+               isPlaying={isPlaying}
             />
          </div>
          <div className={s.trackCells}>

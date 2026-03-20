@@ -1,5 +1,6 @@
 "use client";
 
+import type { CSSProperties, PointerEvent } from "react";
 import { memo, useCallback, useEffect, useRef } from "react";
 import s from "../music.module.scss";
 
@@ -12,16 +13,25 @@ interface SliderProps {
    label?: string;
    color?: string;
    getLevel?: () => Float32Array | null;
+   isPlaying?: boolean;
 }
 
 const LevelIndicator = memo(function LevelIndicator({
    getLevel,
+   isPlaying,
 }: {
    getLevel: () => Float32Array | null;
+   isPlaying: boolean;
 }) {
    const ref = useRef<HTMLDivElement>(null);
 
    useEffect(() => {
+      if (!isPlaying) {
+         const el = ref.current;
+         if (el) el.style.width = "0%";
+         return;
+      }
+
       let raf = 0;
       const tick = () => {
          const el = ref.current;
@@ -46,7 +56,7 @@ const LevelIndicator = memo(function LevelIndicator({
 
       raf = requestAnimationFrame(tick);
       return () => cancelAnimationFrame(raf);
-   }, [getLevel]);
+   }, [getLevel, isPlaying]);
 
    return <div ref={ref} className={s.sliderLevel} />;
 });
@@ -60,6 +70,7 @@ export function Slider({
    label,
    color = "#888",
    getLevel,
+   isPlaying = false,
 }: SliderProps) {
    const trackRef = useRef<HTMLDivElement>(null);
    const dragging = useRef(false);
@@ -80,7 +91,7 @@ export function Slider({
    );
 
    const handlePointerDown = useCallback(
-      (e: React.PointerEvent) => {
+      (e: PointerEvent) => {
          e.preventDefault();
          dragging.current = true;
          (e.target as HTMLElement).setPointerCapture(e.pointerId);
@@ -90,7 +101,7 @@ export function Slider({
    );
 
    const handlePointerMove = useCallback(
-      (e: React.PointerEvent) => {
+      (e: PointerEvent) => {
          if (!dragging.current) return;
          e.preventDefault();
          onChange(valueFromPointer(e.clientX));
@@ -108,14 +119,14 @@ export function Slider({
       <div
          ref={trackRef}
          className={s.slider}
-         style={{ "--slider-color": color } as React.CSSProperties}
+         style={{ "--slider-color": color } as CSSProperties}
          onPointerDown={handlePointerDown}
          onPointerMove={handlePointerMove}
          onPointerUp={handlePointerUp}
          onPointerCancel={handlePointerUp}
       >
          <div className={s.sliderFill} style={{ width: `max(${pct}%, 28px)` }}>
-            {getLevel && <LevelIndicator getLevel={getLevel} />}
+            {getLevel && <LevelIndicator getLevel={getLevel} isPlaying={isPlaying} />}
          </div>
          <span className={s.sliderLabel}>
             {label && <span className={s.sliderLabelText}>{label}</span>}

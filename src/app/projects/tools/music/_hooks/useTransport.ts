@@ -95,11 +95,11 @@ export function useTransport(
       setCurrentStep(-1);
    }, []);
 
-   const toggle = useCallback(() => {
+   const toggle = useCallback(async () => {
       if (isPlaying) {
          stop();
       } else {
-         play();
+         await play();
       }
    }, [isPlaying, play, stop]);
 

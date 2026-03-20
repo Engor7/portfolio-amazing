@@ -271,9 +271,7 @@ export function createInstrument(
             "16n",
          );
 
-      default: {
-         const _exhaustive: never = id;
-         throw new Error(`Unknown instrument: ${_exhaustive}`);
-      }
+      default:
+         throw new Error(`Unknown instrument: ${id satisfies never}`);
    }
 }

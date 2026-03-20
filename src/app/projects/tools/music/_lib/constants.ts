@@ -146,6 +146,10 @@ export const INSTRUMENT_CATALOG: InstrumentPreset[] = [
    },
 ];
 
+export const INSTRUMENT_MAP = new Map<InstrumentId, InstrumentPreset>(
+   INSTRUMENT_CATALOG.map((p) => [p.id, p]),
+);
+
 export const DEFAULT_TRACKS: InstrumentId[] = INSTRUMENT_CATALOG.map(
    (p) => p.id,
 );

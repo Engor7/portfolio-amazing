@@ -24,7 +24,6 @@ export default function MusicApp() {
       grid,
       noteGrid,
       velocityGrid,
-      harmonicContext,
       stepCount,
       bpm,
       setBpm,
@@ -190,6 +189,7 @@ export default function MusicApp() {
                onToggleMute={toggleMute}
                visibleStepCount={visibleStepCount}
                getTrackLevel={getTrackLevel}
+               isPlaying={isPlaying}
             />
          </div>
       </div>

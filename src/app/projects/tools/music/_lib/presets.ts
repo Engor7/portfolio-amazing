@@ -1,5 +1,6 @@
-import { INSTRUMENT_CATALOG } from "./constants";
+import { INSTRUMENT_MAP } from "./constants";
 import { generateNoteGrid, generateVelocityGrid } from "./musicTheory";
+import { fitPattern } from "./patterns";
 import type {
    HarmonicContext,
    InstrumentId,
@@ -7,16 +8,6 @@ import type {
    TrackConfig,
    VelocityGrid,
 } from "./types";
-
-// Reuse pattern helpers from patterns.ts
-function fitPattern(pattern: number[], stepCount: number): boolean[] {
-   if (stepCount === 16) return pattern.map(Boolean);
-   const result: boolean[] = [];
-   for (let i = 0; i < stepCount; i++) {
-      result.push(Boolean(pattern[i % 16]));
-   }
-   return result;
-}
 
 export type PresetId = "hiphop" | "techno" | "lofi" | "ambient" | "pop";
 
@@ -223,7 +214,7 @@ export interface PresetResult {
 let presetTrackCounter = 1000;
 
 function makePresetTrack(instrumentId: InstrumentId): TrackConfig {
-   const preset = INSTRUMENT_CATALOG.find((p) => p.id === instrumentId);
+   const preset = INSTRUMENT_MAP.get(instrumentId);
    if (!preset) throw new Error(`Unknown instrument: ${instrumentId}`);
    presetTrackCounter += 1;
 
@@ -254,9 +245,7 @@ export function generatePreset(presetId: PresetId): PresetResult {
 
    const grid: Record<string, boolean[][]> = {};
    for (const track of tracks) {
-      const catalogEntry = INSTRUMENT_CATALOG.find(
-         (p) => p.id === track.instrumentId,
-      );
+      const catalogEntry = INSTRUMENT_MAP.get(track.instrumentId);
       const kind = catalogEntry?.kind ?? "melodic";
       const role = catalogEntry?.role;
 

@@ -33,10 +33,8 @@ export function useAnalyser(isPlaying: boolean) {
       const tick = () => {
          const analyser = analyserRef.current;
          if (analyser) {
-            const values = analyser.getValue();
-            if (values instanceof Float32Array) {
-               setData(new Float32Array(values));
-            }
+            const values = analyser.getValue() as Float32Array;
+            setData(new Float32Array(values));
          }
          rafRef.current = requestAnimationFrame(tick);
       };

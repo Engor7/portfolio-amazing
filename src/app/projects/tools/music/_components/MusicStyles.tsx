@@ -1,7 +1,12 @@
 "use client";
 
 import { useEffect } from "react";
-import { LIGHT_THEME, DARK_THEME, setActiveTheme, type MusicTheme } from "../_lib/themes";
+import {
+   DARK_THEME,
+   LIGHT_THEME,
+   type MusicTheme,
+   setActiveTheme,
+} from "../_lib/themes";
 
 function applyTheme(theme: MusicTheme) {
    const html = document.documentElement;
@@ -63,12 +68,25 @@ export function MusicStyles() {
       return () => {
          mq.removeEventListener("change", apply);
          const varNames = [
-            "--bg", "--fg",
-            "--m-bg", "--m-surface", "--m-border",
-            "--m-text-primary", "--m-text-secondary", "--m-text-muted",
-            "--m-inactive", "--m-play", "--m-play-hover",
-            "--m-stop", "--m-stop-hover", "--m-random", "--m-evolve",
-            "--m-fx-active", "--m-fx-reverb", "--m-fx-delay", "--m-fx-filter",
+            "--bg",
+            "--fg",
+            "--m-bg",
+            "--m-surface",
+            "--m-border",
+            "--m-text-primary",
+            "--m-text-secondary",
+            "--m-text-muted",
+            "--m-inactive",
+            "--m-play",
+            "--m-play-hover",
+            "--m-stop",
+            "--m-stop-hover",
+            "--m-random",
+            "--m-evolve",
+            "--m-fx-active",
+            "--m-fx-reverb",
+            "--m-fx-delay",
+            "--m-fx-filter",
          ];
          for (const v of varNames) html.style.removeProperty(v);
          html.style.backgroundColor = "";
