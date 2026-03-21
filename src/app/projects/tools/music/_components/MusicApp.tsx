@@ -121,19 +121,7 @@ export default function MusicApp() {
    return (
       <div className={s.page}>
          {audioError && (
-            <div
-               style={{
-                  padding: "12px 16px",
-                  backgroundColor: "#fee",
-                  color: "#c33",
-                  fontSize: "14px",
-                  marginBottom: "12px",
-                  borderRadius: "4px",
-                  border: "1px solid #fcc",
-               }}
-            >
-               {audioError}
-            </div>
+            <div className={s.audioError}>{audioError}</div>
          )}
          <div className={s.content}>
             <div className={s.topBar}>

@@ -1,6 +1,10 @@
-import type { Viewport } from "next";
+import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { MusicStyles } from "./_components/MusicStyles";
+
+export const metadata: Metadata = {
+   title: "Music",
+};
 
 export const viewport: Viewport = {
    themeColor: [
