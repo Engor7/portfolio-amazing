@@ -1,5 +1,6 @@
 "use client";
 
+import type { PointerEvent } from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Canvas from "./_components/Canvas";
 import ColorPanel from "./_components/ColorPanel";
@@ -68,7 +69,7 @@ const ArtPage = () => {
    }, []);
 
    const handlePointerDown = useCallback(
-      (e: React.PointerEvent) => {
+      (e: PointerEvent) => {
          if (e.button === 1 || e.metaKey || e.ctrlKey) {
             startPan(e.clientX, e.clientY);
             (e.target as HTMLElement).setPointerCapture(e.pointerId);
@@ -83,7 +84,7 @@ const ArtPage = () => {
    );
 
    const handlePointerMove = useCallback(
-      (e: React.PointerEvent) => {
+      (e: PointerEvent) => {
          if (isPanning.current) {
             updatePan(e.clientX, e.clientY);
             return;

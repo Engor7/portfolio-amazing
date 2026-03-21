@@ -1,5 +1,6 @@
 "use client";
 
+import type { PointerEvent } from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import styles from "../art.module.scss";
 
@@ -51,7 +52,7 @@ const SizeSlider = ({ value, min, max, onChange }: SizeSliderProps) => {
    );
 
    const handlePointerDown = useCallback(
-      (e: React.PointerEvent) => {
+      (e: PointerEvent) => {
          e.preventDefault();
          e.stopPropagation();
          dragging.current = true;
@@ -62,7 +63,7 @@ const SizeSlider = ({ value, min, max, onChange }: SizeSliderProps) => {
    );
 
    const handlePointerMove = useCallback(
-      (e: React.PointerEvent) => {
+      (e: PointerEvent) => {
          if (!dragging.current) return;
          e.preventDefault();
          e.stopPropagation();
@@ -71,7 +72,7 @@ const SizeSlider = ({ value, min, max, onChange }: SizeSliderProps) => {
       [onChange, valueFromPointer],
    );
 
-   const handlePointerUp = useCallback((e: React.PointerEvent) => {
+   const handlePointerUp = useCallback((e: PointerEvent) => {
       if (!dragging.current) return;
       e.stopPropagation();
       dragging.current = false;

@@ -1,6 +1,10 @@
-import type { Viewport } from "next";
+import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Mono } from "next/font/google";
 import type { ReactNode } from "react";
+
+export const metadata: Metadata = {
+   title: "Art",
+};
 
 export const viewport: Viewport = {
    maximumScale: 1,
