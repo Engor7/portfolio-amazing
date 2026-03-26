@@ -1,0 +1,370 @@
+.root {
+   --wp-bg: #fff;
+   --wp-border: #eaeaea;
+   --wp-text: #1a1a1a;
+   --wp-highlight: #0080ff;
+
+   --bg-overlay: #ffffffdb;
+   --bg-cardInner: #111;
+   --text-cardBar: #fff;
+   --text-wordClone: #000;
+
+   --bg-menu: #111;
+   --text-menu: #ffffff;
+
+   box-sizing: border-box;
+}
+
+:global(html[data-theme="dark"]) .root {
+   --wp-bg: #070707;
+   --wp-border: #1c1c1c;
+   --wp-text: #ffffff;
+   --wp-highlight: #3198ff;
+
+   --bg-overlay: #000000cc;
+   --bg-cardInner: #fff;
+   --text-cardBar: #000000;
+   --text-wordClone: #ffffff;
+
+   --bg-menu: #ffffff;
+   --text-menu: #111;
+}
+
+.textWrap {
+   max-width: 300px;
+   padding: 24px;
+   font-size: 14px;
+   line-height: 1.9;
+   color: var(--wp-text);
+   background: var(--wp-bg);
+   border-radius: 36px;
+   border: 2px solid var(--wp-border);
+   animation: textWrapIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.textContent {
+   margin: 0;
+   white-space: pre-wrap;
+}
+
+@keyframes hintIn {
+   0% {
+      opacity: 0;
+      transform: translateY(6px);
+   }
+   100% {
+      opacity: 0.4;
+      transform: translateY(0);
+   }
+}
+
+.hint {
+   margin: 10px 0 0;
+   font-size: 11px;
+   color: var(--wp-text);
+   text-align: center;
+   animation: hintIn 0.5s 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.highlight {
+   color: var(--wp-highlight);
+   font-weight: 600;
+   cursor: pointer;
+}
+
+.spotlightOverlay {
+   position: fixed;
+   inset: 0;
+   backdrop-filter: blur(3px);
+   background: var(--bg-overlay);
+   z-index: 999;
+   transition: opacity 0.3s ease;
+   cursor: pointer;
+}
+
+.wordClone {
+   position: fixed;
+   z-index: 1002;
+   color: var(--text-wordClone);
+   font-weight: 600;
+   pointer-events: none;
+   white-space: nowrap;
+   display: flex;
+   align-items: center;
+   transition:
+      opacity 0.3s ease,
+      transform 0.3s ease;
+   transform: scale(1.3);
+}
+
+@keyframes cardIn {
+   0% {
+      opacity: 0;
+      transform: scale(0.88) translateY(14px);
+   }
+   60% {
+      opacity: 1;
+      transform: scale(1.03) translateY(-3px);
+   }
+   100% {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+   }
+}
+
+@keyframes sheetIn {
+   0% {
+      opacity: 0;
+      transform: translateY(30px) scale(0.95);
+   }
+   60% {
+      opacity: 1;
+      transform: translateY(-4px) scale(1.01);
+   }
+   100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+   }
+}
+
+@keyframes menuR {
+   0% {
+      opacity: 0;
+      transform: translateX(-14px);
+   }
+   60% {
+      opacity: 1;
+      transform: translateX(4px);
+   }
+   100% {
+      opacity: 1;
+      transform: translateX(0);
+   }
+}
+
+@keyframes menuL {
+   0% {
+      opacity: 0;
+      transform: translateX(14px);
+   }
+   60% {
+      opacity: 1;
+      transform: translateX(-4px);
+   }
+   100% {
+      opacity: 1;
+      transform: translateX(0);
+   }
+}
+
+@keyframes menuUp {
+   0% {
+      opacity: 0;
+      transform: translateY(14px);
+   }
+   60% {
+      opacity: 1;
+      transform: translateY(-4px);
+   }
+   100% {
+      opacity: 1;
+      transform: translateY(0);
+   }
+}
+
+@keyframes textWrapIn {
+   0% {
+      opacity: 0;
+      transform: scale(0.92) translateY(10px);
+   }
+   60% {
+      opacity: 1;
+      transform: scale(1.02) translateY(-2px);
+   }
+   100% {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+   }
+}
+
+.cardAnim {
+   animation: cardIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.sheetAnim {
+   animation: sheetIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.menuAnimRight {
+   animation: menuR 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.menuAnimLeft {
+   animation: menuL 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.menuAnimBelow {
+   animation: menuUp 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.cardInner {
+   display: flex;
+   flex-direction: column;
+   gap: 4px;
+   border-radius: 18px;
+   overflow: hidden;
+   background: var(--bg-cardInner);
+   padding: 3px;
+}
+
+.cardImageWrap {
+   position: relative;
+}
+
+.cardImage {
+   width: 100%;
+   height: 210px;
+   background-size: cover;
+   background-position: center center;
+   background-repeat: no-repeat;
+   border-radius: 16px;
+}
+
+.cardBar {
+   display: flex;
+   justify-content: space-between;
+   padding: 12px 3px;
+}
+
+.cardBarText {
+   display: flex;
+   align-items: center;
+   gap: 8px;
+   color: var(--text-cardBar);
+   font-size: 11.5px;
+   overflow: hidden;
+   flex: 1;
+}
+
+.cardBarLabel {
+   overflow: hidden;
+   white-space: nowrap;
+   display: block;
+}
+
+@keyframes marquee {
+   0% {
+      transform: translateX(0);
+   }
+   100% {
+      transform: translateX(-50%);
+   }
+}
+
+.marqueeTrack {
+   display: inline-flex;
+   animation: marquee 12s linear infinite;
+}
+
+.marqueeSegment {
+   flex-shrink: 0;
+   display: inline-flex;
+   align-items: center;
+}
+
+.marqueeSeparator {
+   display: inline-flex;
+   align-items: center;
+   padding: 0 1em;
+}
+
+@keyframes spin {
+   from {
+      transform: rotate(0deg);
+   }
+   to {
+      transform: rotate(360deg);
+   }
+}
+
+.flowerIcon {
+   animation: spin 4s linear infinite;
+}
+
+.closeBtn {
+   position: absolute;
+   top: 8px;
+   right: 8px;
+   background: rgba(0, 0, 0, 0.5);
+   border: none;
+   cursor: pointer;
+   width: 24px;
+   height: 24px;
+   padding: 0;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   transition: all 0.13s;
+   font-size: 13px;
+   color: #fff;
+   opacity: 0.8;
+   border-radius: 50%;
+   z-index: 1;
+   line-height: 1;
+
+   &:hover {
+      transform: rotate(90deg);
+      opacity: 1;
+      background: rgba(0, 0, 0, 0.7);
+   }
+}
+
+.menuItem {
+   display: flex;
+   align-items: center;
+   gap: 8px;
+   padding: 8px 12px;
+   border-radius: 30px;
+   background: var(--bg-menu);
+   color: var(--text-menu);
+   border: none;
+   font-size: 12px;
+   font-weight: 600;
+   cursor: pointer;
+   white-space: nowrap;
+   transition: translate 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+   letter-spacing: 0.3px;
+}
+
+.menuBtn {
+   composes: menuItem;
+
+   &:hover {
+      translate: 8px 0;
+   }
+}
+
+.menuPill {
+   composes: menuItem;
+   border-radius: 20px;
+}
+
+.mobileCard {
+   position: fixed;
+   bottom: 0;
+   left: 0;
+   right: 0;
+   z-index: 1002;
+   padding: 0 14px max(16px, env(safe-area-inset-bottom));
+}
+
+.mobileMenu {
+   position: fixed;
+   left: 0;
+   right: 0;
+   z-index: 1003;
+   padding: 0 14px;
+   display: flex;
+   gap: 8px;
+   flex-wrap: wrap;
+}

@@ -1,0 +1,124 @@
+@keyframes cardAppear {
+   0% {
+      opacity: 0;
+      transform: scale(0.85) translateY(20px);
+   }
+   60% {
+      opacity: 1;
+      transform: scale(1.03) translateY(-3px);
+   }
+   80% {
+      transform: scale(0.98) translateY(1px);
+   }
+   100% {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+   }
+}
+
+.card {
+   --lc-bg: #0e0e0e;
+   --lc-text: #ffffff;
+   --lc-text-secondary: #a0a0a0;
+   --lc-fade-color: #0e0e0e;
+   --lc-border: #ececec;
+
+   width: 200px;
+   height: 200px;
+   border-radius: 36px;
+   background: var(--lc-bg);
+   padding: 24px 22px 0;
+   display: flex;
+   flex-direction: column;
+   cursor: default;
+   overflow: hidden;
+   font-family: var(--font-lora), "Lora", Georgia, serif;
+   border: 3px solid var(--lc-border);
+   animation: cardAppear 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+:global(html[data-theme="dark"]) .card {
+   --lc-bg: #000000;
+   --lc-text: #f0f0f0;
+   --lc-text-secondary: #909090;
+   --lc-fade-color: #000000;
+   --lc-border: #1e1e1e;
+}
+
+.header {
+   flex-shrink: 0;
+   margin-bottom: 16px;
+}
+
+.title {
+   margin: 0;
+   font-size: 22px;
+   font-weight: 500;
+   line-height: 1.2;
+   color: var(--lc-text);
+   letter-spacing: -0.01em;
+}
+
+.artist {
+   display: block;
+   margin-top: 3px;
+   font-size: 13px;
+   font-weight: 400;
+   color: var(--lc-text-secondary);
+   letter-spacing: 0.02em;
+}
+
+.textWrapper {
+   position: relative;
+   flex: 1;
+   min-height: 0;
+   overflow: hidden;
+   opacity: 0.84;
+}
+
+.textScroll {
+   height: 100%;
+   overflow: hidden;
+   -ms-overflow-style: none;
+   scrollbar-width: none;
+
+   &::-webkit-scrollbar {
+      display: none;
+   }
+}
+
+.lyrics {
+   margin: 0;
+   font-size: 18px;
+   font-weight: 400;
+   font-style: italic;
+   line-height: 1.35;
+   color: var(--lc-text);
+   letter-spacing: -0.01em;
+}
+
+.fadeTop {
+   position: absolute;
+   top: 0;
+   left: 0;
+   right: 0;
+   height: 50px;
+   background: linear-gradient(to top, transparent, var(--lc-fade-color));
+   pointer-events: none;
+   opacity: 0;
+   transition: opacity 0.3s ease;
+
+   &.visible {
+      opacity: 1;
+   }
+}
+
+.fadeBottom {
+   position: absolute;
+   bottom: 0;
+   left: 0;
+   right: 0;
+   height: 50px;
+   background: linear-gradient(to bottom, transparent, var(--lc-fade-color));
+   pointer-events: none;
+}

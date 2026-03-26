@@ -1,0 +1,178 @@
+.gallery {
+   --gallery-border: #ececec;
+   --overlay-bg: #ffffff59;
+   --overlay-border: #ffffff8a;
+   --overlay-shadow: rgba(255, 255, 255, 0.65);
+   --overlay-text: #fff;
+   --btn-border: #ffffff47;
+   --btn-bg: #ffffff2e;
+   --btn-stroke: #fff;
+
+   position: relative;
+   width: 216px;
+   height: 216px;
+   border: 3px solid var(--gallery-border);
+   border-radius: 30px;
+   overflow: hidden;
+   isolation: isolate;
+   animation: entrance-block 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.user {
+   display: none;
+   position: relative;
+
+   img {
+      width: 100%;
+   }
+}
+
+.active {
+   display: block;
+
+   img {
+      transform: scale(1.2) rotate(10deg);
+      filter: blur(10px);
+      animation: animate-gallery 0.2s linear forwards;
+   }
+}
+
+@keyframes animate-gallery {
+   0% {
+      transform: scale(1.2) rotate(10deg);
+      filter: blur(10px);
+   }
+   100% {
+      transform: scale(1) rotate(0deg);
+      filter: blur(0);
+   }
+}
+
+.userData {
+   display: flex;
+   position: absolute;
+   align-items: center;
+   justify-content: space-between;
+   bottom: 13px;
+   left: 10px;
+   right: 10px;
+   z-index: 2;
+   color: var(--overlay-text);
+   background: var(--overlay-bg);
+   backdrop-filter: blur(5px);
+   box-shadow: inset 0 0 17px var(--overlay-shadow);
+   padding: 3px;
+   border-radius: 20px;
+   border: 0.5px solid var(--overlay-border);
+   user-select: none;
+   animation: entrance-overlay 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s both;
+
+   span {
+      margin-left: 8px;
+      display: inline-block;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      font-size: 12px;
+   }
+}
+
+.buttons {
+   display: flex;
+   gap: 4px;
+}
+
+.button {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   width: 32px;
+   height: 32px;
+   padding: 0;
+   background: none;
+   border: 1px solid var(--btn-border);
+   background: var(--btn-bg);
+   border-radius: 30px;
+   cursor: pointer;
+   transition: all 0.3s;
+   animation: entrance-btn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+
+   &:first-child {
+      animation-delay: 0.25s;
+   }
+   &:last-child {
+      animation-delay: 0.35s;
+   }
+
+   svg {
+      stroke: var(--btn-stroke);
+      width: 10px;
+   }
+
+   &:hover {
+      transform: scale(1.1);
+   }
+}
+
+@keyframes entrance-block {
+   0% {
+      transform: scale(0.85);
+      opacity: 0;
+   }
+   60% {
+      transform: scale(1.03);
+      opacity: 1;
+   }
+   80% {
+      transform: scale(0.99);
+   }
+   100% {
+      transform: scale(1);
+      opacity: 1;
+   }
+}
+
+@keyframes entrance-overlay {
+   0% {
+      transform: translateY(20px);
+      opacity: 0;
+   }
+   60% {
+      transform: translateY(-3px);
+      opacity: 1;
+   }
+   80% {
+      transform: translateY(1px);
+   }
+   100% {
+      transform: translateY(0);
+      opacity: 1;
+   }
+}
+
+@keyframes entrance-btn {
+   0% {
+      transform: scale(0);
+      opacity: 0;
+   }
+   60% {
+      transform: scale(1.15);
+      opacity: 1;
+   }
+   80% {
+      transform: scale(0.95);
+   }
+   100% {
+      transform: scale(1);
+      opacity: 1;
+   }
+}
+
+:global(html[data-theme="dark"]) .gallery {
+   --gallery-border: #323232;
+   --overlay-bg: #26262659;
+   --overlay-border: #7e7e7e8a;
+   --overlay-shadow: #474747a6;
+   --btn-border: #b5b5b547;
+   --btn-bg: #8a8a8a2e;
+}

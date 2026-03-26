@@ -1,0 +1,217 @@
+@keyframes stockAppear {
+   0% {
+      opacity: 0;
+      transform: scale(0.85) translateY(20px);
+   }
+   60% {
+      opacity: 1;
+      transform: scale(1.03) translateY(-3px);
+   }
+   80% {
+      transform: scale(0.98) translateY(1px);
+   }
+   100% {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+   }
+}
+
+@keyframes rowSlide {
+   0% {
+      opacity: 0;
+      transform: translateY(12px);
+   }
+   70% {
+      transform: translateY(-2px);
+   }
+   100% {
+      opacity: 1;
+      transform: translateY(0);
+   }
+}
+
+.stock {
+   --stock-bg: #090909;
+   --stock-text: #fff;
+   --stock-accent: #1481ff;
+   --stock-border: #3d3d3d;
+   --stock-price-bg: #262626;
+   --stock-price-text: #fff;
+   --stock-border-ui: #ececec;
+
+   display: flex;
+   flex-direction: column;
+   gap: 10px;
+   background: var(--stock-bg);
+   color: var(--stock-text);
+   padding: 15px 15px 0 15px;
+   border-radius: 30px;
+   user-select: none;
+   overflow: hidden;
+   border: 4px solid var(--stock-border-ui);
+   animation: stockAppear 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+:global(html[data-theme="dark"]) .stock {
+   --stock-bg: #fff;
+   --stock-text: #000;
+   --stock-accent: #1481ff;
+   --stock-border: #c8c8c8;
+   --stock-price-bg: #ececec;
+   --stock-price-text: #171717;
+   --stock-border-ui: #323232;
+}
+
+.companies {
+   display: flex;
+   justify-content: space-between;
+   animation: rowSlide 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s both;
+}
+
+.companyName {
+   all: unset;
+   cursor: pointer;
+   padding: 5px 10px;
+   font-size: 14px;
+   border-radius: 20px;
+   color: var(--stock-text);
+   font-family: inherit;
+}
+
+.companyNameActive {
+   background: var(--stock-accent);
+   color: #fff;
+}
+
+.date {
+   display: flex;
+   justify-content: space-between;
+   margin: 0 -15px;
+   padding: 7px 15px;
+   border-top: 1px solid var(--stock-border);
+   border-bottom: 1px solid var(--stock-border);
+   animation: rowSlide 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.25s both;
+}
+
+.dateItem {
+   all: unset;
+   cursor: pointer;
+   padding: 3px 10px;
+   border-radius: 20px;
+   font-size: 12px;
+   color: var(--stock-text);
+   font-family: inherit;
+}
+
+.dateItemActive {
+   background: var(--stock-accent);
+   color: #fff;
+}
+
+.chartWrapper {
+   position: relative;
+   margin-left: -15px;
+   margin-right: -15px;
+   animation: rowSlide 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.35s both;
+}
+
+.price {
+   position: relative;
+   display: flex;
+   width: max-content;
+   gap: 10px;
+   margin-left: 10px;
+   z-index: 3;
+   color: var(--stock-price-text);
+   background: var(--stock-price-bg);
+   padding: 4px 10px;
+   font-size: 11px;
+   border-radius: 10px;
+   margin-bottom: 5px;
+
+   span {
+      display: inline-block;
+   }
+}
+
+.priceUp {
+   color: green;
+}
+
+.priceDown {
+   color: red;
+}
+
+.chart {
+   height: 100px;
+   animation: chartReveal 0.8s ease-out forwards;
+}
+
+@keyframes chartReveal {
+   from {
+      clip-path: inset(0 100% 0 0);
+   }
+   to {
+      clip-path: inset(0 0 0 0);
+   }
+}
+
+.viewPricesWrapper {
+   position: absolute;
+   display: grid;
+   grid-template-columns: repeat(25, 1fr);
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+}
+
+.viewPricesItem {
+   opacity: 0;
+   transition: all 0.2s;
+   cursor: pointer;
+
+   span {
+      display: flex;
+      position: absolute;
+      font-size: 11px;
+      top: 25px;
+      left: 10px;
+      color: var(--stock-price-text);
+      background: var(--stock-price-bg);
+      padding: 3px 8px;
+      border-radius: 20px;
+      white-space: nowrap;
+   }
+
+   &:hover {
+      background: linear-gradient(transparent, #f3aa1c);
+      opacity: 1;
+   }
+}
+
+.error {
+   margin: 0 10px 5px;
+   padding: 4px 10px;
+   font-size: 11px;
+   background: #f5c518;
+   color: #1a1a00;
+   border-radius: 8px;
+   z-index: 3;
+   position: relative;
+}
+
+.loading {
+   position: absolute;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   width: 30px;
+   height: 30px;
+   top: 0;
+   right: 9px;
+   background: #000;
+   border-radius: 5px;
+   z-index: 3;
+   color: #fff;
+}

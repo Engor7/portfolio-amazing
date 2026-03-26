@@ -1,0 +1,88 @@
+.toggle {
+   position: relative;
+   width: 66px;
+   height: 38px;
+   padding: 0;
+   border: none;
+   background: rgba(0, 0, 0, 0.12);
+   border-radius: 99px;
+   cursor: pointer;
+   transition: background 0.3s;
+
+   &.checked {
+      background: rgba(0, 0, 0, 0.8);
+   }
+}
+
+.iconSun,
+.iconMoon {
+   position: absolute;
+   top: 50%;
+   width: 18px;
+   height: 18px;
+   transform: translateY(-50%);
+   z-index: 0;
+   transition: opacity 0.3s;
+}
+
+.iconSun {
+   left: 8px;
+   color: rgba(0, 0, 0, 0.5);
+
+   .checked & {
+      color: #fff;
+   }
+}
+
+.iconMoon {
+   right: 8px;
+   color: rgba(0, 0, 0, 0.5);
+
+   .checked & {
+      color: #fff;
+   }
+}
+
+.knob {
+   position: absolute;
+   top: 4px;
+   left: 4px;
+   width: 30px;
+   height: 30px;
+   background: #fff;
+   border-radius: 50%;
+   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+   z-index: 1;
+
+   .checked & {
+      transform: translateX(28px);
+   }
+}
+
+:global(html[data-theme="dark"]) .toggle {
+   background: rgba(255, 255, 255, 0.18);
+
+   &.checked {
+      background: rgba(255, 255, 255, 0.18);
+   }
+}
+
+:global(html[data-theme="dark"]) .knob {
+   background: #fff;
+}
+
+:global(html[data-theme="dark"]) .iconSun {
+   color: rgba(255, 255, 255, 0.8);
+}
+
+:global(html[data-theme="dark"]) .iconMoon {
+   color: rgba(255, 255, 255, 0.8);
+}
+
+.floating .iconSun {
+   color: #fff;
+}
+
+.floating .iconMoon {
+   color: rgba(255, 255, 255, 0.8);
+}
