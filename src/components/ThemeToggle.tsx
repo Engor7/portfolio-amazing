@@ -11,7 +11,11 @@ export default function ThemeToggle() {
 
    if (!mounted)
       return (
-         <button type="button" className="theme-toggle" aria-label="Toggle theme" />
+         <button
+            type="button"
+            className="theme-toggle"
+            aria-label="Toggle theme"
+         />
       );
 
    return (

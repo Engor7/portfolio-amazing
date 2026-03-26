@@ -16,7 +16,8 @@ html[data-theme="dark"] {
    --accent: #3291ff;
 }
 
-html, body {
+html,
+body {
    background-color: var(--bg);
    color: var(--fg);
 }
