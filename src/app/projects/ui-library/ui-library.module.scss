@@ -1,9 +1,241 @@
-.grid {
-   display: flex;
-   flex-wrap: wrap;
-   gap: 16px;
+.page {
+   min-height: 100svh;
+   overflow: hidden;
 }
 
-.block {
-   border-radius: 12px;
+.toolbar {
+   position: absolute;
+   top: 16px;
+   left: 50%;
+   transform: translateX(-50%);
+   display: flex;
+   align-items: center;
+   gap: 16px;
+   z-index: 100;
+}
+
+.toolbarInner {
+   display: flex;
+   align-items: center;
+   gap: 8px;
+   padding: 6px;
+   border-radius: 99px;
+}
+
+.toolbarFloating {
+   position: fixed;
+   top: auto;
+   bottom: 24px;
+}
+
+.toolbarFloating .toolbarInner {
+   background: rgba(0, 0, 0, 0.75);
+   backdrop-filter: blur(16px);
+   padding: 6px;
+   animation: floatInMenu 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+:global(html[data-theme="dark"]) .toolbarFloating .toolbarInner {
+   background: #26262699;
+}
+
+.toolbarFloating .toggleWrap button {
+   background: rgba(255, 255, 255, 0.12);
+}
+
+.toolbarFloating .toggleWrap button span:last-child {
+   background: #fff;
+}
+
+@keyframes floatInMenu {
+   0% {
+      opacity: 0;
+      transform: translateY(40px) scale(0.9);
+   }
+   60% {
+      opacity: 1;
+      transform: translateY(-4px) scale(1.02);
+   }
+   100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+   }
+}
+
+.toolbarBtn {
+   display: inline-flex;
+   align-items: center;
+   gap: 8px;
+   height: 38px;
+   padding: 0 15px 0 12px;
+   border-radius: 99px;
+   border: none;
+   background: rgba(0, 0, 0, 0.12);
+   color: #000;
+   font-size: 13px;
+   font-weight: 500;
+   letter-spacing: -0.01em;
+   transition: background 0.2s;
+   white-space: nowrap;
+   cursor: pointer;
+
+   svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+   }
+
+   &:hover {
+      background: rgba(0, 0, 0, 0.13);
+   }
+}
+
+:global(html[data-theme="dark"]) .toolbarBtn {
+   background: rgba(255, 255, 255, 0.18);
+   color: rgba(255, 255, 255, 0.9);
+
+   &:hover {
+      background: rgba(255, 255, 255, 0.24);
+   }
+}
+
+.toolbarFloating .toolbarBtn {
+   background: rgba(255, 255, 255, 0.12);
+   color: #fff;
+
+   &:hover {
+      background: rgba(255, 255, 255, 0.2);
+   }
+}
+
+.homeBtn {
+   composes: toolbarBtn;
+   text-decoration: none;
+
+   svg {
+      margin: 0 2px;
+   }
+}
+
+.upBtn {
+   composes: toolbarBtn;
+
+   svg {
+      width: 20px;
+      height: 20px;
+   }
+}
+
+.toggleWrap {
+   display: flex;
+}
+
+.grid {
+   display: grid;
+   grid-template-columns: repeat(3, 1fr);
+   margin-bottom: -1px;
+   margin-right: -1px;
+}
+
+.cell {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding: 56px 24px;
+   border-right: 1px solid rgba(0, 0, 0, 0.1);
+   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+:global(html[data-theme="dark"]) .cell {
+   border-color: rgba(255, 255, 255, 0.18);
+}
+
+.hideOnMobile {
+   composes: cell;
+}
+
+@media (max-width: 1860px) {
+   .grid {
+      grid-template-columns: repeat(2, 1fr);
+   }
+
+   .cell:nth-child(2n) {
+      border-right: none;
+   }
+}
+
+@media (max-width: 1020px) {
+   .grid {
+      grid-template-columns: 1fr;
+   }
+
+   .cell {
+      border-right: none;
+   }
+
+   .cell:last-child {
+      border-bottom: none;
+   }
+
+   .contextMenuCell {
+      order: 999;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
+   }
+}
+
+:global(html[data-theme="dark"]) .contextMenuCell {
+   border-bottom-color: rgba(255, 255, 255, 0.18) !important;
+}
+
+@media (max-width: 768px) {
+   .grid {
+      margin-top: 64px;
+   }
+
+   .cell {
+      padding: 96px 0;
+      max-width: 100vw;
+      overflow: hidden;
+   }
+
+   .hideOnMobile {
+      display: none;
+   }
+
+   .emptyCell {
+      display: none;
+   }
+}
+
+.emptyCell {
+   border-right: 1px solid rgba(0, 0, 0, 0.1);
+   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+:global(html[data-theme="dark"]) .emptyCell {
+   border-color: rgba(255, 255, 255, 0.18);
+}
+
+.footer {
+   text-align: center;
+   padding: 64px 24px 120px;
+   margin: 0;
+   font-size: 14px;
+   line-height: 1.6;
+   color: rgba(0, 0, 0, 0.35);
+   letter-spacing: -0.01em;
+   max-width: 420px;
+   margin-left: auto;
+   margin-right: auto;
+}
+
+:global(html[data-theme="dark"]) .footer {
+   color: rgba(255, 255, 255, 0.3);
+}
+
+@media (max-width: 768px) {
+   .footer {
+      padding: 32px 24px 120px;
+      font-size: 12px;
+   }
 }
