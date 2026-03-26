@@ -12,6 +12,13 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
    devIndicators: false,
+   redirects: async () => [
+      {
+         source: "/projects",
+         destination: "/",
+         permanent: true,
+      },
+   ],
    headers: async () => [
       {
          source: "/(.*)",
