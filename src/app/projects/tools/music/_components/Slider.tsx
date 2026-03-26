@@ -126,7 +126,9 @@ export function Slider({
          onPointerCancel={handlePointerUp}
       >
          <div className={s.sliderFill} style={{ width: `max(${pct}%, 28px)` }}>
-            {getLevel && <LevelIndicator getLevel={getLevel} isPlaying={isPlaying} />}
+            {getLevel && (
+               <LevelIndicator getLevel={getLevel} isPlaying={isPlaying} />
+            )}
          </div>
          <span className={s.sliderLabel}>
             {label && <span className={s.sliderLabelText}>{label}</span>}

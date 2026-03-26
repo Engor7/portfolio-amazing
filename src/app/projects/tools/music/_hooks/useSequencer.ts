@@ -182,7 +182,6 @@ export function useSequencer() {
       setVelocityGrid({});
    }, []);
 
-
    const hasActiveCells = useMemo(
       () =>
          Object.values(grid).some((rows) =>

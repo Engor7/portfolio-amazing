@@ -38,7 +38,11 @@ export function TransportBar({
             onClick={onToggle}
             title={isPlaying ? "Stop playback" : "Start playback"}
          >
-            {isPlaying ? <PauseIcon width={16} height={16} /> : <PlayIcon width={16} height={16} />}
+            {isPlaying ? (
+               <PauseIcon width={16} height={16} />
+            ) : (
+               <PlayIcon width={16} height={16} />
+            )}
          </button>
 
          <div className={s.transportGroup}>

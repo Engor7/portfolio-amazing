@@ -20,7 +20,10 @@ interface VisualizerProps {
 export const Visualizer = memo(function Visualizer({ data }: VisualizerProps) {
    const canvasRef = useRef<HTMLCanvasElement>(null);
    const sizeRef = useRef({ w: 0, h: 0, dpr: 1 });
-   const colorsRef = useRef({ start: DEFAULT_BAR_COLOR_START, end: DEFAULT_BAR_COLOR_END });
+   const colorsRef = useRef({
+      start: DEFAULT_BAR_COLOR_START,
+      end: DEFAULT_BAR_COLOR_END,
+   });
 
    // Handle canvas sizing via ResizeObserver
    useEffect(() => {
@@ -41,8 +44,14 @@ export const Visualizer = memo(function Visualizer({ data }: VisualizerProps) {
       const readColors = () => {
          const cs = getComputedStyle(canvas);
          colorsRef.current = {
-            start: parseRgbVar(cs.getPropertyValue("--m-viz-from"), DEFAULT_BAR_COLOR_START),
-            end: parseRgbVar(cs.getPropertyValue("--m-viz-to"), DEFAULT_BAR_COLOR_END),
+            start: parseRgbVar(
+               cs.getPropertyValue("--m-viz-from"),
+               DEFAULT_BAR_COLOR_START,
+            ),
+            end: parseRgbVar(
+               cs.getPropertyValue("--m-viz-to"),
+               DEFAULT_BAR_COLOR_END,
+            ),
          };
       };
       readColors();
@@ -78,7 +87,10 @@ export const Visualizer = memo(function Visualizer({ data }: VisualizerProps) {
       }
 
       const gap = 2;
-      const barCount = Math.min(data.length, Math.max(1, Math.floor((w + gap) / (4 + gap))));
+      const barCount = Math.min(
+         data.length,
+         Math.max(1, Math.floor((w + gap) / (4 + gap))),
+      );
       const barWidth = Math.max(1, (w - gap * (barCount - 1)) / barCount);
       const radius = Math.min(barWidth / 2, 3);
 

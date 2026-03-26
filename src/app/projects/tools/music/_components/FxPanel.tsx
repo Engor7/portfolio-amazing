@@ -2,10 +2,30 @@
 
 import s from "../music.module.scss";
 
-const FX_LIST: { key: string; label: string; tooltip: string; colorClass: string }[] = [
-   { key: "Hall", label: "Reverb", tooltip: "Hall reverb", colorClass: "fxReverbTag" },
-   { key: "Delay", label: "Echo", tooltip: "Ping-pong delay", colorClass: "fxDelayTag" },
-   { key: "Wobble", label: "Filter", tooltip: "Auto-filter wobble", colorClass: "fxFilterTag" },
+const FX_LIST: {
+   key: string;
+   label: string;
+   tooltip: string;
+   colorClass: string;
+}[] = [
+   {
+      key: "Hall",
+      label: "Reverb",
+      tooltip: "Hall reverb",
+      colorClass: "fxReverbTag",
+   },
+   {
+      key: "Delay",
+      label: "Echo",
+      tooltip: "Ping-pong delay",
+      colorClass: "fxDelayTag",
+   },
+   {
+      key: "Wobble",
+      label: "Filter",
+      tooltip: "Auto-filter wobble",
+      colorClass: "fxFilterTag",
+   },
 ];
 
 interface FxPanelProps {

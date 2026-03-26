@@ -120,9 +120,7 @@ export default function MusicApp() {
 
    return (
       <div className={s.page}>
-         {audioError && (
-            <div className={s.audioError}>{audioError}</div>
-         )}
+         {audioError && <div className={s.audioError}>{audioError}</div>}
          <div className={s.content}>
             <div className={s.topBar}>
                <TransportBar
