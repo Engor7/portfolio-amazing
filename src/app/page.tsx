@@ -19,7 +19,7 @@ const Home = () => {
                <span aria-hidden="true">/</span>
                <Link href="/projects/sites/coin">Coin</Link>
                <span aria-hidden="true">/</span>
-               <Link href="/projects/sites/red-web">Red Web</Link>
+               <Link href="/projects/sites/spotlight">Spotlight</Link>
 
                <span>/</span>
                <span>[</span>

@@ -5,11 +5,11 @@ import { useEffect, useRef } from "react";
 
 // ===================== CONFIGURABLE PARAMETERS =====================
 const PARAMS = {
-   text: "RedWeb",
+   text: "Spotlight",
    fontName: "Verdana",
    fontFamily: "Verdana, sans-serif",
    fontSize: 80,
-   fontSizeMobile: 34,
+   fontSizeMobile: 24,
    isBold: false,
    textBlur: 3,
    color: { r: 1.0, g: 0.0, b: 0.0 },
@@ -24,6 +24,7 @@ const PARAMS = {
    fboScale: 0.5,
    fboScaleMobile: 0.5,
    idleTimeout: 3000,
+   chromaticAberration: 0.14,
 };
 // ===================================================================
 
@@ -169,7 +170,27 @@ const FRAG_OUTPUT = `
    uniform sampler2D u_text_texture;
    uniform float u_invert;
    void main () {
-      vec3 C = clamp(texture2D(u_output_texture, vUv).rgb, 0.0, 1.0);
+      vec2 dir = vUv - vec2(0.5);
+      float dist = length(dir);
+      vec2 off = dir * dist * ${PARAMS.chromaticAberration};
+
+      vec3 raw1 = texture2D(u_output_texture, vUv - off * 1.5).rgb;
+      vec3 raw2 = texture2D(u_output_texture, vUv - off * 0.5).rgb;
+      vec3 raw3 = texture2D(u_output_texture, vUv + off * 0.5).rgb;
+      vec3 raw4 = texture2D(u_output_texture, vUv + off * 1.5).rgb;
+
+      float s1 = max(raw1.r, max(raw1.g, raw1.b));
+      float s2 = max(raw2.r, max(raw2.g, raw2.b));
+      float s3 = max(raw3.r, max(raw3.g, raw3.b));
+      float s4 = max(raw4.r, max(raw4.g, raw4.b));
+
+      vec3 cOrange = vec3(1.0, 0.3, 0.0);
+      vec3 cYellow = vec3(1.0, 0.9, 0.0);
+      vec3 cCyan   = vec3(0.0, 0.85, 1.0);
+      vec3 cBlue   = vec3(0.0, 0.2, 1.0);
+
+      vec3 C = s1 * cOrange + s2 * cYellow + s3 * cCyan + s4 * cBlue;
+      C = clamp(C * 0.4, 0.0, 1.0);
       vec3 result = mix(C, vec3(1.0) - C, u_invert);
       gl_FragColor = vec4(result, 1.);
    }
@@ -631,7 +652,7 @@ function initFluid(
    };
 }
 
-export default function RedWebPage() {
+export default function SpotlightPage() {
    const canvasRef = useRef<HTMLCanvasElement>(null);
    const { resolvedTheme } = useTheme();
    const bgColorRef = useRef(1);
