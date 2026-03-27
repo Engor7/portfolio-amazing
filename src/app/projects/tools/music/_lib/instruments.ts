@@ -121,21 +121,21 @@ export function createInstrument(
       case "lead":
          return wrap(
             new Tone.MonoSynth({
-               oscillator: { type: "sine" },
-               filter: { Q: 1, type: "lowpass", rolloff: -12 },
+               oscillator: { type: "fatsawtooth", count: 3, spread: 15 },
+               filter: { Q: 2, type: "lowpass", rolloff: -24 },
                envelope: {
-                  attack: 0.02,
-                  decay: 0.4,
-                  sustain: 0.3,
-                  release: 0.4,
+                  attack: 0.005,
+                  decay: 0.6,
+                  sustain: 0.05,
+                  release: 0.5,
                },
                filterEnvelope: {
-                  attack: 0.02,
-                  decay: 0.3,
-                  sustain: 0.2,
-                  release: 0.4,
-                  baseFrequency: 600,
-                  octaves: 2.5,
+                  attack: 0.001,
+                  decay: 0.4,
+                  sustain: 0.15,
+                  release: 0.5,
+                  baseFrequency: 300,
+                  octaves: 3,
                },
             }),
             "8n",
@@ -144,12 +144,12 @@ export function createInstrument(
       case "pluck":
          return wrap(
             new Tone.PolySynth(Tone.Synth, {
-               oscillator: { type: "triangle" },
+               oscillator: { type: "fatsquare", count: 3, spread: 20 },
                envelope: {
                   attack: 0.002,
-                  decay: 0.6,
+                  decay: 0.5,
                   sustain: 0,
-                  release: 0.4,
+                  release: 0.3,
                },
             }),
             "8n",
@@ -158,20 +158,21 @@ export function createInstrument(
       case "fm-bell":
          return wrap(
             new Tone.FMSynth({
-               harmonicity: 6,
-               modulationIndex: 1.2,
+               harmonicity: 2,
+               modulationIndex: 0.6,
+               oscillator: { type: "sine" },
                envelope: {
                   attack: 0.001,
-                  decay: 0.8,
+                  decay: 1.0,
                   sustain: 0,
                   release: 0.6,
                },
-               modulation: { type: "sine" },
+               modulation: { type: "triangle" },
                modulationEnvelope: {
-                  attack: 0.002,
-                  decay: 0.3,
+                  attack: 0.001,
+                  decay: 0.5,
                   sustain: 0,
-                  release: 0.3,
+                  release: 0.4,
                },
             }),
             "8n",
@@ -238,12 +239,12 @@ export function createInstrument(
       case "chord-stab":
          return wrap(
             new Tone.PolySynth(Tone.Synth, {
-               oscillator: { type: "triangle" },
+               oscillator: { type: "fatsawtooth", count: 3, spread: 12 },
                envelope: {
-                  attack: 0.03,
-                  decay: 0.3,
-                  sustain: 0.15,
-                  release: 0.3,
+                  attack: 0.003,
+                  decay: 0.8,
+                  sustain: 0.08,
+                  release: 0.6,
                },
             }),
             "8n",
@@ -252,20 +253,21 @@ export function createInstrument(
       case "arp":
          return wrap(
             new Tone.FMSynth({
-               harmonicity: 3,
-               modulationIndex: 1.5,
+               harmonicity: 1,
+               modulationIndex: 0.8,
+               oscillator: { type: "sawtooth" },
                envelope: {
                   attack: 0.001,
-                  decay: 0.25,
+                  decay: 0.2,
                   sustain: 0,
-                  release: 0.25,
+                  release: 0.15,
                },
                modulation: { type: "sine" },
                modulationEnvelope: {
-                  attack: 0.01,
-                  decay: 0.15,
+                  attack: 0.001,
+                  decay: 0.1,
                   sustain: 0,
-                  release: 0.15,
+                  release: 0.1,
                },
             }),
             "16n",
