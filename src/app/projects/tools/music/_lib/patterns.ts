@@ -109,10 +109,7 @@ function humanize(
 // Each uses euclidean() with role-appropriate hit counts,
 // then applies rotation and humanization rules.
 
-type RhythmGenerator = (
-   stepCount: number,
-   energy: number,
-) => boolean[];
+type RhythmGenerator = (stepCount: number, energy: number) => boolean[];
 
 function generateKick(stepCount: number, energy: number): boolean[] {
    // 3-6 hits, always start on beat 1 (no rotation)
@@ -253,7 +250,12 @@ function generateArpRhythm(stepCount: number, energy: number): boolean[] {
    );
    const raw = euclidean(Math.min(hits, base), base);
    const rot = randomInRange(0, 3); // small rotation
-   return humanize(fitPattern(rotate(raw, rot), stepCount), new Set(), 0.08, 0.03);
+   return humanize(
+      fitPattern(rotate(raw, rot), stepCount),
+      new Set(),
+      0.08,
+      0.03,
+   );
 }
 
 function generateChordRhythm(stepCount: number, energy: number): boolean[] {
@@ -280,7 +282,12 @@ function generateBellRhythm(stepCount: number, energy: number): boolean[] {
    const hits = randomInRange(2, Math.round(2 + energy * 2));
    const raw = euclidean(hits, base);
    const rot = randomInRange(0, base - 1);
-   return humanize(fitPattern(rotate(raw, rot), stepCount), new Set(), 0.05, 0.05);
+   return humanize(
+      fitPattern(rotate(raw, rot), stepCount),
+      new Set(),
+      0.05,
+      0.05,
+   );
 }
 
 // ── Instrument → generator mapping ──────────────────────────────────
@@ -368,8 +375,7 @@ function generateArrangement(energy: number): Set<InstrumentId> {
       if (energy < slot.minEnergy) continue;
 
       // Probability increases with energy
-      const scaledProb =
-         slot.probability * (0.5 + 0.5 * energy);
+      const scaledProb = slot.probability * (0.5 + 0.5 * energy);
       if (chance(scaledProb)) {
          active.add(slot.id);
       }
