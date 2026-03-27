@@ -12,6 +12,8 @@ const Home = () => {
                <Link href="/projects/tools/music">Music</Link>
                <span aria-hidden="true">/</span>
                <Link href="/projects/ui-library">Ui</Link>
+               <span aria-hidden="true">/</span>
+               <Link href="/projects/anima-one">Anima One</Link>
                <span>/</span>
                <span>[</span>
                <ThemeToggle />
