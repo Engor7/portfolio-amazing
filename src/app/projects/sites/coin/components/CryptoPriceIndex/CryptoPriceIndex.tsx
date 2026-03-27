@@ -167,18 +167,11 @@ const Sparkline = ({
       height,
    );
    const gradientId = `gradient-${id}`;
-   const glowId = `glow-${id}`;
    const lastPoint = points[points.length - 1];
 
    // Calculate prices for each point based on relative values
    const lastValue = data[data.length - 1];
    const priceMultiplier = currentPrice / lastValue;
-
-   // Find min and max points
-   const minIndex = data.indexOf(Math.min(...data));
-   const maxIndex = data.indexOf(Math.max(...data));
-   const minPoint = points[minIndex];
-   const maxPoint = points[maxIndex];
 
    const gridLines = [0.33, 0.66].map((ratio) => height * ratio);
 
@@ -235,19 +228,10 @@ const Sparkline = ({
          <defs>
             {/* Gradient for area fill */}
             <linearGradient id={gradientId} x1="0%" y1="0%" x2="0%" y2="100%">
-               <stop offset="0%" stopColor={color} stopOpacity="0.5" />
-               <stop offset="40%" stopColor={color} stopOpacity="0.2" />
+               <stop offset="0%" stopColor={color} stopOpacity="0.1" />
+               <stop offset="60%" stopColor={color} stopOpacity="0.03" />
                <stop offset="100%" stopColor={color} stopOpacity="0" />
             </linearGradient>
-
-            {/* Glow filter for line */}
-            <filter id={glowId} x="-50%" y="-50%" width="200%" height="200%">
-               <feGaussianBlur stdDeviation="3" result="blur" />
-               <feMerge>
-                  <feMergeNode in="blur" />
-                  <feMergeNode in="SourceGraphic" />
-               </feMerge>
-            </filter>
          </defs>
 
          {/* Grid lines - extend beyond edges */}
@@ -269,40 +253,16 @@ const Sparkline = ({
             className="crypto-card__area"
          />
 
-         {/* Main line with glow */}
+         {/* Main line */}
          <path
             d={linePath}
             fill="none"
             stroke={color}
-            strokeWidth="1.5"
+            strokeWidth="1"
             strokeLinecap="round"
             strokeLinejoin="round"
-            filter={`url(#${glowId})`}
             className="crypto-card__line"
          />
-
-         {/* Min/Max indicators (only when not hovering) */}
-         {activePoint === null && (
-            <>
-               {/* Max point */}
-               <circle
-                  cx={maxPoint.x}
-                  cy={maxPoint.y}
-                  r="2.5"
-                  fill={color}
-                  className="crypto-card__minmax-dot"
-               />
-               {/* Min point */}
-               <circle
-                  cx={minPoint.x}
-                  cy={minPoint.y}
-                  r="2.5"
-                  fill={color}
-                  opacity="0.5"
-                  className="crypto-card__minmax-dot"
-               />
-            </>
-         )}
 
          {/* Active hover point */}
          {activePoint && (
@@ -341,19 +301,8 @@ const Sparkline = ({
             </g>
          )}
 
-         {/* Pulsing ring at end */}
-         <circle
-            cx={lastPoint.x}
-            cy={lastPoint.y}
-            r="3"
-            fill="none"
-            stroke={color}
-            strokeWidth="1.5"
-            opacity="0.4"
-            className="crypto-card__dot-ring"
-         />
          {/* Solid dot at end */}
-         <circle cx={lastPoint.x} cy={lastPoint.y} r="2" fill={color} />
+         <circle cx={lastPoint.x} cy={lastPoint.y} r="1.5" fill={color} />
       </svg>
    );
 };
