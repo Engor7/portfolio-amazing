@@ -1,0 +1,145 @@
+.footer {
+   position: relative;
+   overflow: hidden;
+   background: #0a0a0a;
+   padding: 80px 20px;
+   margin-top: 80px;
+   border-radius: 16px;
+
+   &__content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+   }
+
+   &__badge {
+      display: inline-block;
+      padding: 8px 16px;
+      background: #fff6d8fa;
+      color: #000000;
+      font-size: 11px;
+      letter-spacing: 2px;
+      margin-bottom: 30px;
+      border-radius: 23px;
+   }
+
+   &__title {
+      font-size: 47px;
+      font-weight: 500;
+      line-height: 1.2;
+      margin-bottom: 20px;
+      letter-spacing: 2px;
+      color: #d4af37;
+   }
+
+   &__thin {
+      font-weight: 300;
+      font-style: italic;
+      font-size: 0.85em;
+      opacity: 0.8;
+      color: #ffedb3;
+   }
+
+   &__description {
+      color: #888888;
+      font-size: 12px;
+      line-height: 1.8;
+      letter-spacing: 1px;
+      margin-bottom: 40px;
+   }
+
+   &__form-wrapper {
+      max-width: 500px;
+      margin: 0 auto;
+   }
+
+   &__form {
+      display: flex;
+      gap: 0;
+      margin-bottom: 15px;
+   }
+
+   &__input {
+      flex: 1;
+      padding: 15px 20px;
+      background: transparent;
+      border: 1px solid #333;
+      color: #ffffff;
+      font-size: 14px;
+      outline: none;
+      border-radius: 12px 0 0 12px;
+
+      &::placeholder {
+         color: #666;
+         letter-spacing: 1px;
+      }
+
+      &:focus {
+         border-color: #d4af37;
+      }
+   }
+
+   &__button {
+      padding: 15px 30px;
+      background: #d4af37;
+      border: none;
+      color: #000000;
+      font-size: 14px;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-radius: 0 12px 12px 0;
+
+      &:hover {
+         background: #c9a432;
+      }
+   }
+
+   &__terms {
+      color: #555;
+      font-size: 10px;
+      letter-spacing: 0.5px;
+      text-align: center;
+      padding-top: 8px;
+
+      a {
+         color: #888;
+         text-decoration: underline;
+
+         &:hover {
+            color: #d4af37;
+         }
+      }
+   }
+
+   &__disclaimer {
+      margin-top: 60px;
+      font-size: 11px;
+      color: #444;
+      text-align: center;
+      letter-spacing: 0.3px;
+   }
+}
+
+@media (max-width: 600px) {
+   .footer {
+      margin-top: 40px;
+
+      &__title {
+         font-size: 24px;
+      }
+
+      &__form {
+         flex-direction: column;
+         gap: 10px;
+      }
+
+      &__input,
+      &__button {
+         width: 100%;
+         border-radius: 12px;
+      }
+   }
+}

@@ -1,0 +1,319 @@
+.crypto-price-index {
+   margin-top: 128px;
+
+   @media screen and (max-width: 1200px) {
+      margin-top: 96px;
+   }
+
+   @media screen and (max-width: 960px) {
+      margin-top: 64px;
+   }
+
+   @media screen and (max-width: 768px) {
+      margin-top: 48px;
+   }
+
+   &__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+
+      @media screen and (max-width: 768px) {
+         margin-bottom: 12px;
+      }
+   }
+
+   &__bracket {
+      font-size: 32px;
+      font-weight: 300;
+      color: #000;
+
+      @media screen and (max-width: 960px) {
+         font-size: 28px;
+      }
+
+      @media screen and (max-width: 640px) {
+         font-size: 24px;
+      }
+   }
+
+   &__title {
+      font-size: 32px;
+      font-weight: 600;
+      text-transform: uppercase;
+      margin: 0;
+      text-align: center;
+
+      em {
+         font-style: italic;
+         font-size: 0.85em;
+         font-weight: 500;
+      }
+
+      @media screen and (max-width: 960px) {
+         font-size: 28px;
+      }
+
+      @media screen and (max-width: 640px) {
+         font-size: 20px;
+      }
+   }
+
+   &__grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 8px;
+
+      @media screen and (max-width: 1200px) {
+         grid-template-columns: repeat(3, 1fr);
+         gap: 12px;
+      }
+
+      @media screen and (max-width: 640px) {
+         grid-template-columns: repeat(2, 1fr);
+         gap: 10px;
+      }
+   }
+}
+
+.crypto-card {
+   background: linear-gradient(145deg, #1e1e1e 0%, #000000 100%);
+   border-radius: 12px;
+   padding: 16px;
+   display: flex;
+   flex-direction: column;
+   gap: 4px;
+   border: 1px solid rgba(255, 255, 255, 0.05);
+   position: relative;
+   overflow: hidden;
+   animation: cardAppear 0.5s ease-out backwards;
+   transition:
+      transform 0.3s ease,
+      border-color 0.3s ease,
+      box-shadow 0.3s ease;
+   cursor: pointer;
+
+   &:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+   }
+
+   @for $i from 1 through 6 {
+      &:nth-child(#{$i}) {
+         animation-delay: #{$i * 0.08}s;
+      }
+   }
+
+   &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(
+         90deg,
+         transparent 0%,
+         rgba(255, 255, 255, 0.1) 50%,
+         transparent 100%
+      );
+   }
+
+   @media screen and (max-width: 640px) {
+      padding: 12px;
+      border-radius: 10px;
+
+      &:hover {
+         transform: none;
+      }
+   }
+
+   &__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+   }
+
+   &__symbol {
+      font-size: 14px;
+      font-weight: 700;
+      color: #ffffff;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+
+      @media screen and (max-width: 640px) {
+         font-size: 12px;
+      }
+   }
+
+   &__change {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.05);
+
+      @media screen and (max-width: 640px) {
+         font-size: 10px;
+         padding: 2px 4px;
+      }
+   }
+
+   &__chart {
+      position: relative;
+      min-height: 85px;
+      margin: 8px -16px 4px -16px;
+
+      @media screen and (max-width: 640px) {
+         margin: 6px -12px 4px -12px;
+         min-height: 60px;
+      }
+
+      @media screen and (max-width: 480px) {
+         margin: 4px -12px 4px -12px;
+         min-height: 55px;
+      }
+   }
+
+   &__sparkline {
+      display: block;
+      width: 100%;
+      height: 85px;
+      cursor: crosshair;
+      overflow: visible;
+
+      @media screen and (max-width: 640px) {
+         height: 60px;
+      }
+
+      @media screen and (max-width: 480px) {
+         height: 55px;
+      }
+   }
+
+   &__line {
+      animation: drawLine 1.5s ease-out forwards;
+      transition: stroke-width 0.2s ease;
+   }
+
+   &__sparkline:hover &__line {
+      stroke-width: 2;
+   }
+
+   &__area {
+      animation: fadeInArea 1s ease-out 0.5s forwards;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+   }
+
+   &__sparkline:hover &__area {
+      opacity: 1.2;
+   }
+
+   &__dot-ring {
+      animation: pulseRing 2s ease-in-out infinite;
+   }
+
+   &__grid-line {
+      stroke: rgba(255, 255, 255, 0.04);
+      stroke-width: 1;
+      stroke-dasharray: 2 4;
+      animation: fadeInGrid 0.8s ease-out forwards;
+      opacity: 0;
+   }
+
+   &__hover-point {
+      pointer-events: none;
+
+      &--active {
+         circle {
+            filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.8));
+         }
+      }
+   }
+
+   &__tooltip {
+      font-size: 10px;
+      font-weight: 600;
+      fill: #ffffff;
+      letter-spacing: 0.3px;
+   }
+
+   &__tooltip-bg {
+      fill: rgba(0, 0, 0, 0.9);
+      rx: 4px;
+   }
+
+   &__vertical-line {
+      stroke: rgba(255, 255, 255, 0.2);
+      stroke-width: 1;
+      stroke-dasharray: 2 2;
+   }
+
+   &__minmax-dot {
+      opacity: 1;
+   }
+
+   &__price {
+      font-size: 18px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: -0.5px;
+
+      @media screen and (max-width: 640px) {
+         font-size: 14px;
+      }
+   }
+}
+
+@keyframes pulseRing {
+   0%,
+   100% {
+      opacity: 0.4;
+   }
+   50% {
+      opacity: 0.8;
+   }
+}
+
+@keyframes fadeInArea {
+   from {
+      opacity: 0;
+   }
+   to {
+      opacity: 1;
+   }
+}
+
+@keyframes drawLine {
+   from {
+      stroke-dasharray: 1000;
+      stroke-dashoffset: 1000;
+   }
+   to {
+      stroke-dasharray: 1000;
+      stroke-dashoffset: 0;
+   }
+}
+
+@keyframes fadeInGrid {
+   from {
+      opacity: 0;
+   }
+   to {
+      opacity: 1;
+   }
+}
+
+@keyframes cardAppear {
+   from {
+      opacity: 0;
+      transform: translateY(12px);
+   }
+   to {
+      opacity: 1;
+      transform: translateY(0);
+   }
+}
