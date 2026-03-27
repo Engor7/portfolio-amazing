@@ -14,10 +14,6 @@ import type {
 
 // ── Helpers ──────────────────────────────────────────────────────────
 
-function pick<T>(arr: T[]): T {
-   return arr[Math.floor(Math.random() * arr.length)];
-}
-
 function randomInRange(min: number, max: number): number {
    return min + Math.floor(Math.random() * (max - min + 1));
 }
