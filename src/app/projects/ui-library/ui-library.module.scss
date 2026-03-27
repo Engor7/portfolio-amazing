@@ -147,7 +147,7 @@
 }
 
 :global(html[data-theme="dark"]) .cell {
-   border-color: rgba(255, 255, 255, 0.18);
+   border-color: rgba(255, 255, 255, 0.08);
 }
 
 .hideOnMobile {
@@ -179,12 +179,13 @@
 
    .contextMenuCell {
       order: 999;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
       border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
    }
 }
 
 :global(html[data-theme="dark"]) .contextMenuCell {
-   border-bottom-color: rgba(255, 255, 255, 0.18) !important;
+   border-color: rgba(255, 255, 255, 0.08) !important;
 }
 
 @media (max-width: 768px) {
@@ -213,20 +214,18 @@
 }
 
 :global(html[data-theme="dark"]) .emptyCell {
-   border-color: rgba(255, 255, 255, 0.18);
+   border-color: rgba(255, 255, 255, 0.08);
 }
 
 .footer {
    text-align: center;
    padding: 64px 24px 120px;
-   margin: 0;
    font-size: 14px;
    line-height: 1.6;
    color: rgba(0, 0, 0, 0.35);
    letter-spacing: -0.01em;
    max-width: 420px;
-   margin-left: auto;
-   margin-right: auto;
+   margin: 0 auto;
 }
 
 :global(html[data-theme="dark"]) .footer {
