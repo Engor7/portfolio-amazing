@@ -1,0 +1,59 @@
+.container {
+   position: relative;
+   display: inline-flex;
+   cursor: pointer;
+   -webkit-tap-highlight-color: transparent;
+   outline: none;
+
+   &:focus-visible {
+      outline: 2px solid rgba(0, 0, 0, 0.4);
+      outline-offset: 3px;
+   }
+
+   &.done {
+      cursor: default;
+   }
+
+   &.block {
+      display: flex;
+   }
+}
+
+:global(html[data-theme="dark"]) .container:focus-visible {
+   outline-color: rgba(255, 255, 255, 0.5);
+}
+
+.content {
+   user-select: auto;
+   pointer-events: auto;
+}
+
+// Idle: faint silhouette so viewer knows something is hidden
+.contentIdle {
+   opacity: 0.08;
+   filter: blur(4px);
+   user-select: none;
+   pointer-events: none;
+}
+
+// Reveal: content fades in from underneath while particles scatter
+.contentReveal {
+   opacity: 1;
+   filter: blur(0px);
+   user-select: none;
+   pointer-events: none;
+   transition:
+      opacity 0.5s ease-out,
+      filter 0.5s ease-out;
+}
+
+// Canvas is larger than container by PAD on every side.
+.canvas {
+   position: absolute;
+   top: -12px;
+   left: -12px;
+   width: calc(100% + 24px);
+   height: calc(100% + 24px);
+   pointer-events: none;
+   display: block;
+}

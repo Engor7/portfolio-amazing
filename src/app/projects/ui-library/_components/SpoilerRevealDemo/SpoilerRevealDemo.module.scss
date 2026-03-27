@@ -1,0 +1,81 @@
+.spoilerDemo {
+   display: flex;
+   flex-direction: column;
+   width: 100%;
+   padding: 24px;
+}
+
+.spoilerContent {
+   display: flex;
+   flex-direction: column;
+   gap: 16px;
+}
+
+.spoilerTextCol {
+   flex: 1;
+   min-width: 0;
+}
+
+.spoilerHeading {
+   font-size: 32px;
+   font-weight: 700;
+   letter-spacing: -0.03em;
+   color: #111;
+   line-height: 1.2;
+   margin: 0 0 12px;
+}
+
+:global(html[data-theme="dark"]) .spoilerHeading {
+   color: #f0f0f0;
+}
+
+.spoilerHeadingInner {
+   font-size: 32px;
+   font-weight: 700;
+   letter-spacing: -0.03em;
+   color: #111;
+   line-height: 1.2;
+}
+
+:global(html[data-theme="dark"]) .spoilerHeadingInner {
+   color: #f0f0f0;
+}
+
+.spoilerParagraph {
+   font-size: 13px;
+   line-height: 1.65;
+   color: #444;
+   margin: 0 0 10px;
+}
+
+:global(html[data-theme="dark"]) .spoilerParagraph {
+   color: #aaa;
+}
+
+.spoilerInline {
+   font-size: 13px;
+   line-height: 1.65;
+   color: #444;
+}
+
+:global(html[data-theme="dark"]) .spoilerInline {
+   color: #aaa;
+}
+
+.spoilerImages {
+   display: flex;
+   gap: 8px;
+   max-width: 280px;
+}
+
+.spoilerImgWrap {
+   flex: 1;
+   min-width: 0;
+}
+
+.spoilerImgInner {
+   width: 100%;
+   height: auto;
+   border-radius: 8px;
+   display: block;
+}
