@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import "./MarketsNews.scss";
 import Image, { type StaticImageData } from "next/image";
 import SectionHeader from "@/app/projects/sites/coin/components/SectionHeader/SectionHeader";
@@ -73,17 +73,6 @@ const MarketsNews = () => {
    const listRef = useRef<HTMLDivElement>(null);
    const cardRefs = useRef<(HTMLElement | null)[]>([]);
 
-   // Auto-scroll to active card on mobile
-   useEffect(() => {
-      const isMobile = window.matchMedia("(max-width: 768px)").matches;
-      if (isMobile && cardRefs.current[activeIndex]) {
-         cardRefs.current[activeIndex]?.scrollIntoView({
-            behavior: "smooth",
-            block: "nearest",
-            inline: "center",
-         });
-      }
-   }, [activeIndex]);
 
    return (
       <div className="markets-news">
