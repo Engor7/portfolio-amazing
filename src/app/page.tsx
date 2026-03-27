@@ -13,7 +13,11 @@ const Home = () => {
                <span aria-hidden="true">/</span>
                <Link href="/projects/ui-library">Ui</Link>
                <span aria-hidden="true">/</span>
-               <Link href="/projects/anima-one">Anima One</Link>
+               <Link href="/projects/sites/anima-one">Anima One</Link>
+               <span aria-hidden="true">/</span>
+               <Link href="/projects/sites/view-scroll">View Scroll</Link>
+               <span aria-hidden="true">/</span>
+               <Link href="/projects/sites/coin">Coin</Link>
                <span>/</span>
                <span>[</span>
                <ThemeToggle />
