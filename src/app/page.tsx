@@ -18,6 +18,9 @@ const Home = () => {
                <Link href="/projects/sites/view-scroll">View Scroll</Link>
                <span aria-hidden="true">/</span>
                <Link href="/projects/sites/coin">Coin</Link>
+               <span aria-hidden="true">/</span>
+               <Link href="/projects/sites/red-web">Red Web</Link>
+
                <span>/</span>
                <span>[</span>
                <ThemeToggle />
