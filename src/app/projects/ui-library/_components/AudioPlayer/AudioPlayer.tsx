@@ -285,152 +285,156 @@ const AudioPlayer = () => {
 
    return (
       <div className={styles.playerWrapper}>
-      <div className={styles.volumeControl}>
-         <div
-            ref={volumeTrackRef}
-            className={styles.volumeTrack}
-            onPointerDown={onVolumePointerDown}
-            onPointerMove={onVolumePointerMove}
-            onPointerUp={onVolumePointerUp}
-            onPointerCancel={onVolumePointerUp}
-            role="slider"
-            tabIndex={0}
-            aria-label="Volume"
-            aria-valuenow={Math.round(volume * 100)}
-            aria-valuemin={0}
-            aria-valuemax={100}
-            aria-orientation="vertical"
-         >
+         <div className={styles.volumeControl}>
             <div
-               className={styles.volumeFill}
-               style={{ height: `max(14px, calc(${volume * 100}% - 4px))` }}
-            />
-      </div>
-      </div>
-      <div className={styles.player}>
-         {/* biome-ignore lint/a11y/useMediaCaption: decorative audio player */}
-         <audio ref={audioRef} preload="metadata" />
-
-         <div className={styles.top}>
-            {/* biome-ignore lint/performance/noImgElement: showcase component */}
-            <img className={styles.cover} src={track.cover} alt={track.title} />
-            <div className={styles.info}>
-               <span className={styles.title}>{track.title}</span>
-               <span className={styles.artist}>{track.artist}</span>
-            </div>
-            <div className={styles.waveform}>
-               {bars.map((h, i) => {
-                  const center = (BAR_COUNT - 1) / 2;
-                  const t = Math.abs(i - center) / center;
-                  return (
-                     <div
-                        // biome-ignore lint/suspicious/noArrayIndexKey: fixed-length bars with no stable id
-                        key={`bar-${i}`}
-                        className={styles.bar}
-                        style={{
-                           height: `${h}%`,
-                           background: `linear-gradient(to bottom, ${track.color}, ${track.colorAlt})`,
-                           filter: `brightness(${1 + (1 - t) * 0.25})`,
-                        }}
-                     />
-                  );
-               })}
-            </div>
-         </div>
-
-         <div className={styles.progressRow}>
-            <span className={styles.time}>{formatTime(currentTime)}</span>
-            <div
-               ref={progressRef}
-               className={styles.progressWrapper}
-               onPointerDown={onPointerDown}
-               onPointerMove={onPointerMove}
-               onPointerUp={onPointerUp}
-               onPointerCancel={onPointerUp}
-               role="progressbar"
-               aria-valuenow={Math.round(currentTime)}
+               ref={volumeTrackRef}
+               className={styles.volumeTrack}
+               onPointerDown={onVolumePointerDown}
+               onPointerMove={onVolumePointerMove}
+               onPointerUp={onVolumePointerUp}
+               onPointerCancel={onVolumePointerUp}
+               role="slider"
+               tabIndex={0}
+               aria-label="Volume"
+               aria-valuenow={Math.round(volume * 100)}
                aria-valuemin={0}
-               aria-valuemax={Math.round(duration)}
+               aria-valuemax={100}
+               aria-orientation="vertical"
             >
                <div
-                  className={styles.progress}
-                  style={{ width: `${progress}%` }}
+                  className={styles.volumeFill}
+                  style={{ height: `max(14px, calc(${volume * 100}% - 4px))` }}
                />
             </div>
-            <span className={styles.time}>
-               {formatTime(duration - currentTime, true)}
-            </span>
          </div>
+         <div className={styles.player}>
+            {/* biome-ignore lint/a11y/useMediaCaption: decorative audio player */}
+            <audio ref={audioRef} preload="metadata" />
 
-         <div className={styles.bottom}>
-            <div className={styles.controls}>
-               <button
-                  type="button"
-                  onClick={prevTrack}
-                  aria-label="Previous track"
-               >
-                  <svg
-                     viewBox="0 0 24 24"
-                     fill="currentColor"
-                     aria-hidden="true"
-                  >
-                     <path d="M2.75 20a1 1 0 1 0 2 0V4a1 1 0 1 0-2 0v16ZM20.75 19.053c0 1.424-1.612 2.252-2.77 1.422L7.51 12.968a1.75 1.75 0 0 1 .075-2.895l10.47-6.716c1.165-.748 2.695.089 2.695 1.473v14.223Z" />
-                  </svg>
-               </button>
-               <button
-                  type="button"
-                  onClick={togglePlay}
-                  className={styles.playBtn}
-                  aria-label={isPlaying ? "Pause" : "Play"}
-               >
-                  <svg
-                     viewBox="6 5 13 14"
-                     fill="currentColor"
-                     stroke="currentColor"
-                     strokeWidth="2"
-                     strokeLinecap="round"
-                     strokeLinejoin="round"
-                     aria-hidden="true"
-                  >
-                     <path d="M13 15L8 18L8 6L13 9L13 9M13 9L18 12L18 12L13 15L13 15">
-                        <animate
-                           ref={toPauseRef}
-                           fill="freeze"
-                           attributeName="d"
-                           dur="0.45s"
-                           begin="indefinite"
-                           keyTimes="0;0.66;1"
-                           values="M13 15L8 18L8 6L13 9L13 9M13 9L18 12L18 12L13 15L13 15;M13 15L8 18L8 6L13 9L13 15M13 9L18 12L18 12L13 15L13 9;M9 18L7 18L7 6L9 6L9 18M15 6L17 6L17 18L15 18L15 6"
+            <div className={styles.top}>
+               {/* biome-ignore lint/performance/noImgElement: showcase component */}
+               <img
+                  className={styles.cover}
+                  src={track.cover}
+                  alt={track.title}
+               />
+               <div className={styles.info}>
+                  <span className={styles.title}>{track.title}</span>
+                  <span className={styles.artist}>{track.artist}</span>
+               </div>
+               <div className={styles.waveform}>
+                  {bars.map((h, i) => {
+                     const center = (BAR_COUNT - 1) / 2;
+                     const t = Math.abs(i - center) / center;
+                     return (
+                        <div
+                           // biome-ignore lint/suspicious/noArrayIndexKey: fixed-length bars with no stable id
+                           key={`bar-${i}`}
+                           className={styles.bar}
+                           style={{
+                              height: `${h}%`,
+                              background: `linear-gradient(to bottom, ${track.color}, ${track.colorAlt})`,
+                              filter: `brightness(${1 + (1 - t) * 0.25})`,
+                           }}
                         />
-                        <animate
-                           ref={toPlayRef}
-                           fill="freeze"
-                           attributeName="d"
-                           dur="0.45s"
-                           begin="indefinite"
-                           keyTimes="0;0.66;1"
-                           values="M9 18L7 18L7 6L9 6L9 18M15 6L17 6L17 18L15 18L15 6;M13 15L8 18L8 6L13 9L13 15M13 9L18 12L18 12L13 15L13 9;M13 15L8 18L8 6L13 9L13 9M13 9L18 12L18 12L13 15L13 15"
-                        />
-                     </path>
-                  </svg>
-               </button>
-               <button
-                  type="button"
-                  onClick={nextTrack}
-                  aria-label="Next track"
+                     );
+                  })}
+               </div>
+            </div>
+
+            <div className={styles.progressRow}>
+               <span className={styles.time}>{formatTime(currentTime)}</span>
+               <div
+                  ref={progressRef}
+                  className={styles.progressWrapper}
+                  onPointerDown={onPointerDown}
+                  onPointerMove={onPointerMove}
+                  onPointerUp={onPointerUp}
+                  onPointerCancel={onPointerUp}
+                  role="progressbar"
+                  aria-valuenow={Math.round(currentTime)}
+                  aria-valuemin={0}
+                  aria-valuemax={Math.round(duration)}
                >
-                  <svg
-                     viewBox="0 0 24 24"
-                     fill="currentColor"
-                     aria-hidden="true"
-                     style={{ transform: "scaleX(-1)" }}
+                  <div
+                     className={styles.progress}
+                     style={{ width: `${progress}%` }}
+                  />
+               </div>
+               <span className={styles.time}>
+                  {formatTime(duration - currentTime, true)}
+               </span>
+            </div>
+
+            <div className={styles.bottom}>
+               <div className={styles.controls}>
+                  <button
+                     type="button"
+                     onClick={prevTrack}
+                     aria-label="Previous track"
                   >
-                     <path d="M2.75 20a1 1 0 1 0 2 0V4a1 1 0 1 0-2 0v16ZM20.75 19.053c0 1.424-1.612 2.252-2.77 1.422L7.51 12.968a1.75 1.75 0 0 1 .075-2.895l10.47-6.716c1.165-.748 2.695.089 2.695 1.473v14.223Z" />
-                  </svg>
-               </button>
+                     <svg
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        aria-hidden="true"
+                     >
+                        <path d="M2.75 20a1 1 0 1 0 2 0V4a1 1 0 1 0-2 0v16ZM20.75 19.053c0 1.424-1.612 2.252-2.77 1.422L7.51 12.968a1.75 1.75 0 0 1 .075-2.895l10.47-6.716c1.165-.748 2.695.089 2.695 1.473v14.223Z" />
+                     </svg>
+                  </button>
+                  <button
+                     type="button"
+                     onClick={togglePlay}
+                     className={styles.playBtn}
+                     aria-label={isPlaying ? "Pause" : "Play"}
+                  >
+                     <svg
+                        viewBox="6 5 13 14"
+                        fill="currentColor"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        aria-hidden="true"
+                     >
+                        <path d="M13 15L8 18L8 6L13 9L13 9M13 9L18 12L18 12L13 15L13 15">
+                           <animate
+                              ref={toPauseRef}
+                              fill="freeze"
+                              attributeName="d"
+                              dur="0.45s"
+                              begin="indefinite"
+                              keyTimes="0;0.66;1"
+                              values="M13 15L8 18L8 6L13 9L13 9M13 9L18 12L18 12L13 15L13 15;M13 15L8 18L8 6L13 9L13 15M13 9L18 12L18 12L13 15L13 9;M9 18L7 18L7 6L9 6L9 18M15 6L17 6L17 18L15 18L15 6"
+                           />
+                           <animate
+                              ref={toPlayRef}
+                              fill="freeze"
+                              attributeName="d"
+                              dur="0.45s"
+                              begin="indefinite"
+                              keyTimes="0;0.66;1"
+                              values="M9 18L7 18L7 6L9 6L9 18M15 6L17 6L17 18L15 18L15 6;M13 15L8 18L8 6L13 9L13 15M13 9L18 12L18 12L13 15L13 9;M13 15L8 18L8 6L13 9L13 9M13 9L18 12L18 12L13 15L13 15"
+                           />
+                        </path>
+                     </svg>
+                  </button>
+                  <button
+                     type="button"
+                     onClick={nextTrack}
+                     aria-label="Next track"
+                  >
+                     <svg
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        aria-hidden="true"
+                        style={{ transform: "scaleX(-1)" }}
+                     >
+                        <path d="M2.75 20a1 1 0 1 0 2 0V4a1 1 0 1 0-2 0v16ZM20.75 19.053c0 1.424-1.612 2.252-2.77 1.422L7.51 12.968a1.75 1.75 0 0 1 .075-2.895l10.47-6.716c1.165-.748 2.695.089 2.695 1.473v14.223Z" />
+                     </svg>
+                  </button>
+               </div>
             </div>
          </div>
-      </div>
       </div>
    );
 };
