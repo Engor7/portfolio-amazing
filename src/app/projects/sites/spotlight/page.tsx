@@ -3,7 +3,7 @@
 import { useTheme } from "next-themes";
 import { useEffect, useRef } from "react";
 import EmojiSlot from "./EmojiSlot";
-import { IconInstagram, IconMail, IconPhone } from "./icons";
+import { IconGallery, IconMail, IconPhone } from "./icons";
 import s from "./page.module.scss";
 import ThemeToggle from "./ThemeToggle";
 
@@ -694,7 +694,7 @@ export default function SpotlightPage() {
                   <span className={s.contactText}>+260 97 123 4567</span>
                </p>
                <p className={s.topLine}>
-                  <IconInstagram className={s.topIcon} />
+                  <IconGallery className={s.topIcon} />
                   <span className={s.contactText}>@spotlight.studio</span>
                </p>
             </div>
