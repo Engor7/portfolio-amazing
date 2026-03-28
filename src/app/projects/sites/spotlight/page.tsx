@@ -2,6 +2,10 @@
 
 import { useTheme } from "next-themes";
 import { useEffect, useRef } from "react";
+import EmojiSlot from "./EmojiSlot";
+import { IconInstagram, IconMail, IconPhone } from "./icons";
+import s from "./page.module.scss";
+import ThemeToggle from "./ThemeToggle";
 
 // ===================== CONFIGURABLE PARAMETERS =====================
 const PARAMS = {
@@ -638,7 +642,7 @@ function initFluid(
    resizeCanvas();
 
    canvasEl.addEventListener("mousemove", onMouseMove);
-   canvasEl.addEventListener("touchmove", onTouchMove);
+   canvasEl.addEventListener("touchmove", onTouchMove, { passive: false });
    window.addEventListener("resize", resizeCanvas);
 
    render();
@@ -656,7 +660,6 @@ export default function SpotlightPage() {
    const canvasRef = useRef<HTMLCanvasElement>(null);
    const { resolvedTheme } = useTheme();
    const bgColorRef = useRef(1);
-
    useEffect(() => {
       bgColorRef.current = resolvedTheme === "dark" ? 0 : 1;
    }, [resolvedTheme]);
@@ -669,15 +672,63 @@ export default function SpotlightPage() {
    }, []);
 
    return (
-      <canvas
-         ref={canvasRef}
-         style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-         }}
-      />
+      <div className={s.page}>
+         <canvas ref={canvasRef} className={s.canvas} />
+
+         <div className={s.topBar}>
+            <div className={s.topBlockWithEmoji}>
+               <EmojiSlot />
+               <div className={s.topBlock}>
+                  <p className={s.topLine}>Marcus Tembo</p>
+                  <p className={s.topLine}>David Mwale</p>
+                  <p className={s.topLine}>Amara Phiri</p>
+               </div>
+            </div>
+            <div className={`${s.topBlock} ${s.topBlockContacts}`}>
+               <p className={s.topLine}>
+                  <IconMail className={s.topIcon} />
+                  <span className={s.contactText}>hello@spotlight.co</span>
+               </p>
+               <p className={s.topLine}>
+                  <IconPhone className={s.topIcon} />
+                  <span className={s.contactText}>+260 97 123 4567</span>
+               </p>
+               <p className={s.topLine}>
+                  <IconInstagram className={s.topIcon} />
+                  <span className={s.contactText}>@spotlight.studio</span>
+               </p>
+            </div>
+            <div className={`${s.topBlock} ${s.topBlockArticles}`}>
+               <p className={s.topLink}>Quiet Revolutions</p>
+               <p className={s.topLink}>Stillness</p>
+               <p className={s.topLink}>What We Leave Behind</p>
+            </div>
+            <div className={s.topBlockMenu}>
+               <p className={s.topLine}>Work</p>
+               <p className={s.topLine}>About</p>
+               <p className={s.topLine}>Journal</p>
+            </div>
+         </div>
+
+         <div className={s.location}>
+            <p className={s.locationHeading}>Lusaka, Zambia</p>
+            <p className={s.locationCoords}>15.3875°S, 28.3228°E</p>
+         </div>
+         <ThemeToggle />
+         <div className={s.message}>
+            <h2 className={s.messageHeading}>Our Manifesto</h2>
+            <p className={s.messageText}>
+               We believe the future is shaped by what we choose to do today.
+               Every note is a reminder that kindness is a choice we can
+               make&nbsp;together.
+            </p>
+            <p className={s.messageTextKo}>
+               우리는 미래가 오늘의 선택으로 만들어진다고 믿습니다. 모든
+               음표는 친절이 함께 할 수 있는 선택임을
+               일깨워&nbsp;줍니다.
+            </p>
+         </div>
+
+      </div>
    );
 }

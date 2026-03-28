@@ -1,0 +1,191 @@
+import type { SVGProps } from "react";
+
+type IconProps = SVGProps<SVGSVGElement>;
+
+export const IconMail = (props: IconProps) => (
+   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
+      <path
+         fill="currentColor"
+         d="M12 22q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12v1.45q0 1.475-1.012 2.513T18.5 17q-.875 0-1.65-.375t-1.3-1.075q-.725.725-1.638 1.088T12 17q-2.075 0-3.537-1.463T7 12t1.463-3.537T12 7t3.538 1.463T17 12v1.45q0 .65.425 1.1T18.5 15t1.075-.45t.425-1.1V12q0-3.35-2.325-5.675T12 4T6.325 6.325T4 12t2.325 5.675T12 20h4q.425 0 .713.288T17 21t-.288.713T16 22zm0-7q1.25 0 2.125-.875T15 12t-.875-2.125T12 9t-2.125.875T9 12t.875 2.125T12 15"
+      />
+   </svg>
+);
+
+export const IconPhone = (props: IconProps) => (
+   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
+      <path
+         fill="currentColor"
+         d="M19.95 21q-3.125 0-6.175-1.362t-5.55-3.863t-3.862-5.55T3 4.05q0-.45.3-.75t.75-.3H8.1q.35 0 .625.238t.325.562l.65 3.5q.05.4-.025.675T9.4 8.45L6.975 10.9q.5.925 1.187 1.787t1.513 1.663q.775.775 1.625 1.438T13.1 17l2.35-2.35q.225-.225.588-.337t.712-.063l3.45.7q.35.1.575.363T21 15.9v4.05q0 .45-.3.75t-.75.3M6.025 9l1.65-1.65L7.25 5H5.025q.125 1.025.35 2.025T6.025 9m8.95 8.95q.975.425 1.988.675T19 18.95v-2.2l-2.35-.475zm0 0"
+      />
+   </svg>
+);
+
+export const IconInstagram = (props: IconProps) => (
+   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
+      <g fill="none">
+         <rect
+            width="17"
+            height="17"
+            x="3.5"
+            y="3.5"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="1.5"
+            rx="5.5"
+         />
+         <circle
+            cx="12"
+            cy="12"
+            r="3.606"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="1.5"
+         />
+         <circle cx="16.894" cy="7.106" r="1.03" fill="currentColor" />
+      </g>
+   </svg>
+);
+
+// Emoji icons for the slot animation
+
+export const EmojiSad = (props: IconProps) => (
+   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14" {...props}>
+      <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
+         <path d="M7 13.5a6.5 6.5 0 1 0 0-13a6.5 6.5 0 0 0 0 13Z" />
+         <path d="M3.7 10.5C4.2 8.7 6.1 7.6 8 8.1c1.1.3 2 1.2 2.4 2.4M4.85 5.45a.25.25 0 0 1 0-.5m0 .5a.25.25 0 0 0 0-.5m4.4.5a.25.25 0 0 1 0-.5m0 .5a.25.25 0 0 0 0-.5" />
+      </g>
+   </svg>
+);
+
+export const EmojiDizzy = (props: IconProps) => (
+   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
+      <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5">
+         <path d="M9.69 17.486c2.487 1.75 5.686 1.739 7.611-.185s1.935-5.124.185-7.611a23.5 23.5 0 0 1-7.796 7.796m-5.105-5.501h4.243l-2.652 2.651M12.01 4.56v4.243l2.651-2.652" />
+         <path d="M17.536 2.216a11.237 11.237 0 0 0-15.32 15.32m5.672 4.934A11.25 11.25 0 0 0 22.47 7.888M19.8 4.383a1.25 1.25 0 1 1 0 2.5a8.3 8.3 0 0 1-2.5-1.25a8.3 8.3 0 0 1 2.5-1.25M4.383 19.8a1.25 1.25 0 1 0 2.5 0a8.3 8.3 0 0 0-1.25-2.5a8.3 8.3 0 0 0-1.25 2.5" />
+      </g>
+   </svg>
+);
+
+export const EmojiSurprised = (props: IconProps) => (
+   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14" {...props}>
+      <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
+         <path d="M7 13.5a6.5 6.5 0 1 0 0-13a6.5 6.5 0 0 0 0 13" />
+         <path d="M8.367 5.69c.157-.255.5-.418.834-.418s.678.163.835.417m-4.403.001c-.157-.255-.5-.418-.834-.418s-.678.163-.835.417m.216 2.945a1.41 1.41 0 1 0 2.819 0a1.41 1.41 0 0 0 2.82 0" />
+      </g>
+   </svg>
+);
+
+export const EmojiBeard = (props: IconProps) => (
+   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14" {...props}>
+      <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
+         <path d="M7 13.5a6.5 6.5 0 1 0 0-13a6.5 6.5 0 0 0 0 13" />
+         <path d="m7.231 7.001l.447.097a.858.858 0 0 1 .36 1.503l-.37.3l.37.3a.858.858 0 0 1-.36 1.504l-.447.097M10.5 4l-2 1.5l2 1M3.5 4l2 1.5l-2 1" />
+      </g>
+   </svg>
+);
+
+export const EmojiAngry = (props: IconProps) => (
+   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14" {...props}>
+      <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
+         <path d="M13.5 7a6.5 6.5 0 1 1-13 0m5-6.326a6.5 6.5 0 0 1 3 0M3.544 3.085c-.992-1.217-2.04-.352-2.053.58c0 1.388 1.66 2.528 2.053 2.528s2.054-1.14 2.054-2.528c-.014-.932-1.062-1.797-2.054-.58m6.911 0c.992-1.217 2.04-.352 2.053.58c0 1.388-1.66 2.528-2.053 2.528s-2.053-1.14-2.053-2.528c.013-.932 1.06-1.797 2.053-.58" />
+         <path d="M3.7 8c.5 1.8 2.5 2.9 4.3 2.4c1.1-.4 2-1.3 2.3-2.4" />
+      </g>
+   </svg>
+);
+
+export const EmojiSmirk = (props: IconProps) => (
+   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14" {...props}>
+      <path
+         fill="currentColor"
+         fillRule="evenodd"
+         d="M1.25 7a5.75 5.75 0 1 1 11.5 0a5.75 5.75 0 0 1-11.5 0M7 0a7 7 0 1 0 0 14A7 7 0 0 0 7 0M3.75 5.25a1 1 0 1 0 2 0a1 1 0 0 0-2 0m5.5-1a1 1 0 1 1 0 2a1 1 0 0 1 0-2m.679 3.516c.41.053.7.429.648.84c-.045.346-.216.666-.395.915a3.43 3.43 0 0 1-1.565 1.198c-.287.107-.64.188-.987.14a.75.75 0 1 1 .204-1.485q.003.002.067-.006q.076-.013.192-.054a1.93 1.93 0 0 0 .87-.666q.071-.102.102-.172c.02-.042.024-.063.024-.063a.75.75 0 0 1 .84-.647"
+         clipRule="evenodd"
+      />
+   </svg>
+);
+
+export const EmojiConfused = (props: IconProps) => (
+   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14" {...props}>
+      <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
+         <path d="M7 13.5a6.5 6.5 0 1 0 0-13a6.5 6.5 0 0 0 0 13" />
+         <path d="M9 10.464a3.5 3.5 0 0 0 1.281-4.78l-6.062 3.5A3.5 3.5 0 0 0 9 10.463m-.902-7.561L7.55 4.95l1.732-1m-6.38 1.952l2.049.549l-1.732 1" />
+      </g>
+   </svg>
+);
+
+export const EmojiHappy = (props: IconProps) => (
+   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14" {...props}>
+      <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
+         <path d="M7 13.5a6.5 6.5 0 1 0 0-13a6.5 6.5 0 0 0 0 13Z" />
+         <path d="M3.7 8c.5 1.8 2.5 2.9 4.3 2.4c1.1-.4 2-1.3 2.3-2.4M4.8 5.45a.25.25 0 0 1 0-.5m0 .5a.25.25 0 0 0 0-.5m4.4.5a.25.25 0 0 1 0-.5m0 .5a.25.25 0 0 0 0-.5" />
+      </g>
+   </svg>
+);
+
+export const EmojiSunglasses = (props: IconProps) => (
+   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14" {...props}>
+      <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
+         <path d="M7.232 10.617c.349.048.88-.157 1.3-.478c.224-.172.425-.383.57-.596" />
+         <path d="M13.366 5.678q.133.642.134 1.322A6.5 6.5 0 1 1 .634 5.678M12.768 4A6.5 6.5 0 0 0 7 .5A6.5 6.5 0 0 0 1.232 4" />
+         <path d="M.5 4.75V4H7v.75a3.25 3.25 0 1 1-6.5 0m6.5 0V4h6.5v.75a3.25 3.25 0 0 1-6.5 0" />
+      </g>
+   </svg>
+);
+
+export const EmojiGrumpy = (props: IconProps) => (
+   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14" {...props}>
+      <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
+         <path d="M7 13.5a6.5 6.5 0 1 0 0-13a6.5 6.5 0 0 0 0 13" />
+         <path d="m10.5 4l-2 1.5l2 1M3.5 4l2 1.5l-2 1m1 3.5S6 7.5 7 7.5S9.5 10 9.5 10" />
+      </g>
+   </svg>
+);
+
+export const EmojiAlien = (props: IconProps) => (
+   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
+      <g fill="none" stroke="currentColor" strokeWidth="1.5">
+         <path strokeLinecap="round" strokeLinejoin="round" d="M17.92 11.7a9.83 9.83 0 0 1 2.33 6.11c0 3.631-3.694 5.379-8.25 5.379s-8.25-1.748-8.25-5.379a9.84 9.84 0 0 1 2.334-6.11" />
+         <path strokeLinecap="round" strokeLinejoin="round" d="M12 18a1.875 1.875 0 1 0 0-3.75A1.875 1.875 0 0 0 12 18" />
+         <path d="M13.875 8.25a.375.375 0 0 1 0-.75m0 .75a.375.375 0 0 0 0-.75m-3.75.75a.375.375 0 1 1 0-.75m0 .75a.375.375 0 0 0 0-.75" />
+         <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 1.609a.857.857 0 0 0-1.394-.67L14.3 2.792A7.3 7.3 0 0 0 12 2.4a7.3 7.3 0 0 0-2.295.394L8.144.939a.858.858 0 0 0-1.394.67c0 7.406-1.5 2.593-1.5 8.082c0 2.842 3.75 3.75 6.75 3.75s6.75-.908 6.75-3.75c0-5.478-1.5-.691-1.5-8.082" />
+         <path strokeLinecap="round" strokeLinejoin="round" d="M5.778 6.62A3.068 3.068 0 0 0 .75 8.941v2.25a4.96 4.96 0 0 0 3.316 4.369M18.2 12.033a4.5 4.5 0 0 1 5.05 4.467v2.191a2.25 2.25 0 0 1-2.25 2.25h-1.989" />
+      </g>
+   </svg>
+);
+
+export const EmojiOwl = (props: IconProps) => (
+   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14" {...props}>
+      <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
+         <path d="M13.5 5.5c0 3.59-2.95 8-6.5 8S.5 9.09.5 5.5S3.41.5 7 .5s6.5 1.41 6.5 5" />
+         <path d="M2.75 4.75a3.12 3.12 0 0 0 .49 2.44a3.12 3.12 0 0 0 2.44.49a3.12 3.12 0 0 0-.49-2.44a3.12 3.12 0 0 0-2.44-.49m8.5 0a3.12 3.12 0 0 1-.49 2.44a3.12 3.12 0 0 1-2.44.49a3.12 3.12 0 0 1 .49-2.44a3.12 3.12 0 0 1 2.44-.49" />
+      </g>
+   </svg>
+);
+
+export const EmojiCat = (props: IconProps) => (
+   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
+      <g fill="none">
+         <path fill="currentColor" d="m19.98 9.063l.75.002v-.002zm-15.96 0h-.75v.002zM19.1 10.66l-.573.485l.084.1l.114.065zm-.272-1.265a.75.75 0 0 0-.888 1.21zM4.02 15h-.75zm2.04-4.395a.75.75 0 1 0-.888-1.21zM12 5.656c-.772 0-1.21.041-1.556.084c-.34.042-.512.072-.838.072v1.5c.44 0 .725-.047 1.02-.083c.29-.036.666-.073 1.374-.073zm0 1.5c.708 0 1.085.037 1.373.073c.296.036.58.083 1.021.083v-1.5c-.326 0-.498-.03-.838-.072A12 12 0 0 0 12 5.656zm2.394.157c.213 0 .412-.061.555-.114c.156-.058.317-.134.472-.214c.305-.157.659-.367.983-.554c.34-.195.66-.373.947-.503c.308-.14.484-.178.554-.178v-1.5c-.408 0-.83.157-1.171.31a13 13 0 0 0-1.078.571c-.354.204-.658.385-.922.52q-.194.1-.306.141c-.087.032-.087.02-.034.02zm3.511-1.563c.345 0 .675.103.907.303c.212.182.418.51.418 1.135h1.5c0-1-.352-1.766-.939-2.272c-.566-.487-1.272-.666-1.886-.666zm1.325 1.438v1.875h1.5V7.188zM9.606 5.813c.053 0 .053.011-.034-.02a3 3 0 0 1-.306-.141c-.264-.136-.568-.317-.922-.52c-.34-.196-.716-.408-1.078-.571c-.34-.154-.763-.311-1.171-.311v1.5c.07 0 .246.039.554.178c.287.13.608.308.947.503c.324.187.678.397.983.554c.155.08.316.156.472.214c.143.053.342.114.555.114zM6.095 4.25c-.614 0-1.32.179-1.886.666c-.587.505-.939 1.272-.939 2.271h1.5c0-.625.206-.952.418-1.134c.232-.2.563-.303.907-.303zM3.27 7.188v1.875h1.5V7.187zM12 20.75c1.431 0 3.54-.285 5.32-1.104c1.784-.82 3.41-2.273 3.41-4.646h-1.5c0 1.533-1.007 2.58-2.536 3.284s-3.412.966-4.694.966zm7.672-10.574a5 5 0 0 0-.844-.78l-.888 1.208q.358.267.587.54zM19.23 9.06c0 .198-.041.61-.138.895c-.055.159-.086.155-.03.11a.42.42 0 0 1 .412-.055l-.749 1.3c.18.104.402.18.65.167c.255-.013.466-.114.626-.242c.287-.23.432-.566.51-.796c.168-.491.218-1.08.22-1.374zM12 19.25c-1.282 0-3.163-.262-4.694-.966C5.776 17.58 4.77 16.533 4.77 15h-1.5c0 2.373 1.626 3.826 3.41 4.646c1.78.82 3.889 1.104 5.32 1.104zM4.77 15c0-.788-.057-1.437.019-2.128c.07-.645.253-1.218.684-1.727l-1.145-.97c-.68.805-.938 1.693-1.03 2.534c-.087.797-.028 1.66-.028 2.291zm.703-3.855a3.4 3.4 0 0 1 .587-.54l-.888-1.21q-.493.364-.844.78zM3.27 9.065c.001.294.051.883.219 1.374c.078.23.223.566.51.796c.16.128.371.229.625.242c.249.012.47-.063.651-.167l-.749-1.3a.42.42 0 0 1 .411.055c.057.045.026.049-.029-.11a3.3 3.3 0 0 1-.138-.895z" />
+         <path stroke="currentColor" strokeWidth="1.5" d="M12.826 16c0 .173-.361.313-.806.313s-.807-.14-.807-.313s.361-.312.807-.312c.445 0 .806.14.806.312Zm2.674-2.406c0 .431-.217.781-.484.781s-.484-.35-.484-.781s.217-.781.484-.781s.484.35.484.78Zm-6 0c0 .431-.217.781-.484.781s-.484-.35-.484-.781s.217-.781.484-.781s.484.35.484.78Z" />
+         <path stroke="currentColor" strokeLinecap="round" strokeWidth="1.5" d="M22 15.469c-.483-.313-2.58-1.094-3.387-1.094m1.774 3.594c-.484-.313-1.613-1.094-2.42-1.094M2 15.469c.484-.313 2.58-1.094 3.387-1.094m-1.774 3.594c.484-.313 1.613-1.094 2.42-1.094" />
+      </g>
+   </svg>
+);
+
+export const EMOJI_ICONS = [
+   EmojiSad,
+   EmojiDizzy,
+   EmojiSurprised,
+   EmojiBeard,
+   EmojiAngry,
+   EmojiSmirk,
+   EmojiConfused,
+   EmojiHappy,
+   EmojiSunglasses,
+   EmojiGrumpy,
+   EmojiAlien,
+   EmojiOwl,
+   EmojiCat,
+];
