@@ -73,7 +73,6 @@ const MarketsNews = () => {
    const listRef = useRef<HTMLDivElement>(null);
    const cardRefs = useRef<(HTMLElement | null)[]>([]);
 
-
    return (
       <div className="markets-news">
          <SectionHeader title="Markets news" showLine={false} />
