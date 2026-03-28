@@ -57,7 +57,6 @@ const SpoilerRevealDemo = () => {
                      height={280}
                      loading="eager"
                      className={styles.spoilerImgInner}
-                     style={{ width: "auto" }}
                   />
                </div>
             </div>

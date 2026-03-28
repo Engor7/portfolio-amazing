@@ -5,6 +5,17 @@
    padding: 24px;
 }
 
+@media (max-width: 1020px) {
+   .spoilerDemo {
+      align-items: center;
+      text-align: center;
+   }
+
+   .spoilerContent {
+      align-items: center;
+   }
+}
+
 .spoilerContent {
    display: flex;
    flex-direction: column;
@@ -66,6 +77,7 @@
    display: flex;
    gap: 8px;
    max-width: 280px;
+   align-items: stretch;
 }
 
 .spoilerImgWrap {
@@ -75,7 +87,8 @@
 
 .spoilerImgInner {
    width: 100%;
-   height: auto;
+   height: 100%;
+   object-fit: cover;
    border-radius: 8px;
    display: block;
 }
