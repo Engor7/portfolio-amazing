@@ -1,47 +1,47 @@
 $cell-gap: 4px;
 
 .page {
-   --m-bg: #f5f0eb;
-   --m-surface: #faf7f4;
-   --m-border: #e0d8d0;
-   --m-text-primary: #3a3530;
-   --m-text-secondary: #9a918a;
-   --m-text-muted: #c4bbb4;
-   --m-inactive: #ece5dd;
-   --m-play: #7ab88c;
-   --m-play-hover: #6aa87c;
-   --m-stop: #d4817a;
-   --m-stop-hover: #c4716a;
-   --m-random: #b8a0d8;
-   --m-evolve: #d4a86c;
-   --m-fx-active: #7ab88c;
-   --m-fx-reverb: #d4817a;
-   --m-fx-delay: #b8a0d8;
-   --m-fx-filter: #d4a86c;
+   --m-bg: #f0ece8;
+   --m-surface: #faf8f6;
+   --m-border: #d6cfc7;
+   --m-text-primary: #1a1816;
+   --m-text-secondary: #6b6560;
+   --m-text-muted: #9c9590;
+   --m-inactive: #e4dfd9;
+   --m-play: #22c55e;
+   --m-play-hover: #16a34a;
+   --m-stop: #ef4444;
+   --m-stop-hover: #dc2626;
+   --m-random: #8b5cf6;
+   --m-evolve: #f59e0b;
+   --m-fx-active: #22c55e;
+   --m-fx-reverb: #6366f1;
+   --m-fx-delay: #8b5cf6;
+   --m-fx-filter: #f59e0b;
 
-   --m-viz-from: 196, 168, 148;
-   --m-viz-to: 220, 196, 180;
+   --m-viz-from: 186, 168, 150;
+   --m-viz-to: 160, 130, 100;
 
    @media (prefers-color-scheme: dark) {
-      --m-bg: #0a0e1a;
-      --m-surface: #121828;
-      --m-border: #1e2a40;
-      --m-text-primary: #e0dcd8;
-      --m-text-secondary: #6878a0;
-      --m-text-muted: #3a4868;
-      --m-inactive: #182038;
-      --m-play: #3a6fa8;
-      --m-play-hover: #4a80b8;
-      --m-stop: #d44040;
-      --m-stop-hover: #c03030;
-      --m-random: #e8c840;
-      --m-evolve: #3a6fa8;
-      --m-fx-active: #3a6fa8;
-      --m-fx-reverb: #d44040;
-      --m-fx-delay: #e8c840;
-      --m-fx-filter: #3a6fa8;
-      --m-viz-from: 70, 120, 180;
-      --m-viz-to: 100, 180, 230;
+      --m-bg: #060a14;
+      --m-surface: #10162a;
+      --m-border: #2e3d58;
+      --m-text-primary: #f5f3f0;
+      --m-text-secondary: #90a0c0;
+      --m-text-muted: #586a88;
+      --m-inactive: #161e34;
+      --m-play: #22c55e;
+      --m-play-hover: #16a34a;
+      --m-stop: #ef4444;
+      --m-stop-hover: #dc2626;
+      --m-random: #f0c830;
+      --m-evolve: #3b82f6;
+      --m-fx-active: #22c55e;
+      --m-fx-reverb: #818cf8;
+      --m-fx-delay: #f0c830;
+      --m-fx-filter: #3b82f6;
+      --m-viz-from: 60, 100, 200;
+      --m-viz-to: 80, 200, 240;
    }
 
    min-height: 100svh;
