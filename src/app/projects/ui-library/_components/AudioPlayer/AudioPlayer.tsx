@@ -77,6 +77,9 @@ const AudioPlayer = () => {
    const [currentTime, setCurrentTime] = useState(0);
    const [duration, setDuration] = useState(0);
    const [bars, setBars] = useState(() => restingBars(0));
+   const [volume, setVolume] = useState(0.7);
+   const volumeTrackRef = useRef<HTMLDivElement>(null);
+   const volumeDraggingRef = useRef(false);
 
    const track = tracks[currentTrack];
 
@@ -244,11 +247,66 @@ const AudioPlayer = () => {
       };
    }, [nextTrack, prevTrack]);
 
+   useEffect(() => {
+      if (audioRef.current) audioRef.current.volume = volume;
+   }, [volume]);
+
+   const getVolumeRatio = useCallback((clientY: number) => {
+      const track = volumeTrackRef.current;
+      if (!track) return 0;
+      const rect = track.getBoundingClientRect();
+      return Math.max(0, Math.min(1, 1 - (clientY - rect.top) / rect.height));
+   }, []);
+
+   const onVolumePointerDown = useCallback(
+      (e: ReactPointerEvent<HTMLDivElement>) => {
+         volumeDraggingRef.current = true;
+         e.currentTarget.setPointerCapture(e.pointerId);
+         setVolume(getVolumeRatio(e.clientY));
+      },
+      [getVolumeRatio],
+   );
+
+   const onVolumePointerMove = useCallback(
+      (e: ReactPointerEvent<HTMLDivElement>) => {
+         if (!volumeDraggingRef.current) return;
+         setVolume(getVolumeRatio(e.clientY));
+      },
+      [getVolumeRatio],
+   );
+
+   const onVolumePointerUp = useCallback(() => {
+      volumeDraggingRef.current = false;
+   }, []);
+
    const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
 
    if (!mounted) return null;
 
    return (
+      <div className={styles.playerWrapper}>
+      <div className={styles.volumeControl}>
+         <div
+            ref={volumeTrackRef}
+            className={styles.volumeTrack}
+            onPointerDown={onVolumePointerDown}
+            onPointerMove={onVolumePointerMove}
+            onPointerUp={onVolumePointerUp}
+            onPointerCancel={onVolumePointerUp}
+            role="slider"
+            tabIndex={0}
+            aria-label="Volume"
+            aria-valuenow={Math.round(volume * 100)}
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-orientation="vertical"
+         >
+            <div
+               className={styles.volumeFill}
+               style={{ height: `max(14px, calc(${volume * 100}% - 4px))` }}
+            />
+      </div>
+      </div>
       <div className={styles.player}>
          {/* biome-ignore lint/a11y/useMediaCaption: decorative audio player */}
          <audio ref={audioRef} preload="metadata" />
@@ -372,6 +430,7 @@ const AudioPlayer = () => {
                </button>
             </div>
          </div>
+      </div>
       </div>
    );
 };
