@@ -3,7 +3,12 @@ import type { SVGProps } from "react";
 type IconProps = SVGProps<SVGSVGElement>;
 
 export const IconMail = (props: IconProps) => (
-   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
+   <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      {...props}
+   >
       <path
          fill="currentColor"
          d="M12 22q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12v1.45q0 1.475-1.012 2.513T18.5 17q-.875 0-1.65-.375t-1.3-1.075q-.725.725-1.638 1.088T12 17q-2.075 0-3.537-1.463T7 12t1.463-3.537T12 7t3.538 1.463T17 12v1.45q0 .65.425 1.1T18.5 15t1.075-.45t.425-1.1V12q0-3.35-2.325-5.675T12 4T6.325 6.325T4 12t2.325 5.675T12 20h4q.425 0 .713.288T17 21t-.288.713T16 22zm0-7q1.25 0 2.125-.875T15 12t-.875-2.125T12 9t-2.125.875T9 12t.875 2.125T12 15"
@@ -12,7 +17,12 @@ export const IconMail = (props: IconProps) => (
 );
 
 export const IconPhone = (props: IconProps) => (
-   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
+   <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      {...props}
+   >
       <path
          fill="currentColor"
          d="M19.95 21q-3.125 0-6.175-1.362t-5.55-3.863t-3.862-5.55T3 4.05q0-.45.3-.75t.75-.3H8.1q.35 0 .625.238t.325.562l.65 3.5q.05.4-.025.675T9.4 8.45L6.975 10.9q.5.925 1.187 1.787t1.513 1.663q.775.775 1.625 1.438T13.1 17l2.35-2.35q.225-.225.588-.337t.712-.063l3.45.7q.35.1.575.363T21 15.9v4.05q0 .45-.3.75t-.75.3M6.025 9l1.65-1.65L7.25 5H5.025q.125 1.025.35 2.025T6.025 9m8.95 8.95q.975.425 1.988.675T19 18.95v-2.2l-2.35-.475zm0 0"
@@ -21,7 +31,12 @@ export const IconPhone = (props: IconProps) => (
 );
 
 export const IconGallery = (props: IconProps) => (
-   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
+   <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      {...props}
+   >
       <path
          fill="currentColor"
          fillRule="evenodd"
@@ -34,7 +49,12 @@ export const IconGallery = (props: IconProps) => (
 // Emoji icons for the slot animation
 
 export const EmojiSad = (props: IconProps) => (
-   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14" {...props}>
+   <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 14 14"
+      aria-hidden="true"
+      {...props}
+   >
       <g
          fill="none"
          stroke="currentColor"
@@ -48,7 +68,12 @@ export const EmojiSad = (props: IconProps) => (
 );
 
 export const EmojiDizzy = (props: IconProps) => (
-   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
+   <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      {...props}
+   >
       <g
          fill="none"
          stroke="currentColor"
@@ -63,7 +88,12 @@ export const EmojiDizzy = (props: IconProps) => (
 );
 
 export const EmojiSurprised = (props: IconProps) => (
-   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14" {...props}>
+   <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 14 14"
+      aria-hidden="true"
+      {...props}
+   >
       <g
          fill="none"
          stroke="currentColor"
@@ -77,7 +107,12 @@ export const EmojiSurprised = (props: IconProps) => (
 );
 
 export const EmojiBeard = (props: IconProps) => (
-   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14" {...props}>
+   <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 14 14"
+      aria-hidden="true"
+      {...props}
+   >
       <g
          fill="none"
          stroke="currentColor"
@@ -91,7 +126,12 @@ export const EmojiBeard = (props: IconProps) => (
 );
 
 export const EmojiAngry = (props: IconProps) => (
-   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14" {...props}>
+   <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 14 14"
+      aria-hidden="true"
+      {...props}
+   >
       <g
          fill="none"
          stroke="currentColor"
@@ -105,7 +145,12 @@ export const EmojiAngry = (props: IconProps) => (
 );
 
 export const EmojiSmirk = (props: IconProps) => (
-   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14" {...props}>
+   <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 14 14"
+      aria-hidden="true"
+      {...props}
+   >
       <path
          fill="currentColor"
          fillRule="evenodd"
@@ -116,7 +161,12 @@ export const EmojiSmirk = (props: IconProps) => (
 );
 
 export const EmojiConfused = (props: IconProps) => (
-   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14" {...props}>
+   <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 14 14"
+      aria-hidden="true"
+      {...props}
+   >
       <g
          fill="none"
          stroke="currentColor"
@@ -130,7 +180,12 @@ export const EmojiConfused = (props: IconProps) => (
 );
 
 export const EmojiHappy = (props: IconProps) => (
-   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14" {...props}>
+   <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 14 14"
+      aria-hidden="true"
+      {...props}
+   >
       <g
          fill="none"
          stroke="currentColor"
@@ -144,7 +199,12 @@ export const EmojiHappy = (props: IconProps) => (
 );
 
 export const EmojiSunglasses = (props: IconProps) => (
-   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14" {...props}>
+   <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 14 14"
+      aria-hidden="true"
+      {...props}
+   >
       <g
          fill="none"
          stroke="currentColor"
@@ -159,7 +219,12 @@ export const EmojiSunglasses = (props: IconProps) => (
 );
 
 export const EmojiGrumpy = (props: IconProps) => (
-   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14" {...props}>
+   <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 14 14"
+      aria-hidden="true"
+      {...props}
+   >
       <g
          fill="none"
          stroke="currentColor"
@@ -173,7 +238,12 @@ export const EmojiGrumpy = (props: IconProps) => (
 );
 
 export const EmojiAlien = (props: IconProps) => (
-   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
+   <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      {...props}
+   >
       <g fill="none" stroke="currentColor" strokeWidth="1.5">
          <path
             strokeLinecap="round"
@@ -201,7 +271,12 @@ export const EmojiAlien = (props: IconProps) => (
 );
 
 export const EmojiOwl = (props: IconProps) => (
-   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14" {...props}>
+   <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 14 14"
+      aria-hidden="true"
+      {...props}
+   >
       <g
          fill="none"
          stroke="currentColor"
@@ -215,7 +290,12 @@ export const EmojiOwl = (props: IconProps) => (
 );
 
 export const EmojiCat = (props: IconProps) => (
-   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
+   <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      {...props}
+   >
       <g fill="none">
          <path
             fill="currentColor"
