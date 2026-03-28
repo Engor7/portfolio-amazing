@@ -49,15 +49,85 @@ const UILibraryPage = () => {
 
    return (
       <div className={styles.page}>
-         <div
-            className={`${styles.toolbar} ${scrolled ? styles.toolbarFloating : ""}`}
-         >
-            <div className={styles.toolbarInner}>
-               <Link href="/" className={styles.homeBtn}>
-                  <HomeIcon />
-                  <span>Go Home</span>
-               </Link>
-               {scrolled && (
+         <div className={styles.gridWrap}>
+            <div className={styles.grid}>
+               <div className={styles.toolbar}>
+                  <div className={styles.toolbarInner}>
+                     <Link href="/" className={styles.homeBtn}>
+                        <HomeIcon />
+                        <span>Go Home</span>
+                     </Link>
+                     <div className={styles.toggleWrap}>
+                        <ToggleSwitch
+                           checked={currentTheme === "dark"}
+                           onChange={(checked) =>
+                              setTheme(checked ? "dark" : "light")
+                           }
+                           floating={false}
+                        />
+                     </div>
+                  </div>
+               </div>
+               <div className={styles.cell}>
+                  <AudioPlayer />
+               </div>
+               <div className={styles.cell}>
+                  <WordPopup />
+               </div>
+               <div className={styles.cell}>
+                  <SpoilerRevealDemo />
+               </div>
+               <div className={styles.cell}>
+                  <CardStack />
+               </div>
+               <div className={styles.hideOnMobile}>
+                  <EyesButton />
+               </div>
+               <div className={styles.cell}>
+                  <TodoList />
+               </div>
+               <div className={styles.cell}>
+                  <StockInfo />
+               </div>
+               <div className={styles.cell}>
+                  <ClockRound />
+               </div>
+               <div className={styles.cell}>
+                  <WeatherForecast />
+               </div>
+               <div className={styles.cell}>
+                  <FitnessTracker />
+               </div>
+               <div className={`${styles.cell} ${styles.contextMenuCell}`}>
+                  <ContextMenu />
+               </div>
+               <div className={styles.cell}>
+                  <DesignerDeck />
+               </div>
+               <div className={styles.cell}>
+                  <GalleryUsers />
+               </div>
+               <div className={styles.cell}>
+                  <Schedule />
+               </div>
+               <div className={styles.cell}>
+                  <LyricCard />
+               </div>
+            </div>
+         </div>
+
+         <p className={styles.footer}>
+            Crafted as a playground for UI ideas — some components built from
+            scratch, others inspired by works of other UI/UX designers.
+         </p>
+
+         {scrolled && (
+            <div className={styles.toolbarFloating}>
+               <div className={styles.toolbarInner}>
+                  <Link href="/" className={styles.homeBtn}>
+                     <HomeIcon />
+                     <span>Go Home</span>
+                  </Link>
                   <button
                      type="button"
                      className={styles.upBtn}
@@ -69,71 +139,18 @@ const UILibraryPage = () => {
                      <ArrowUpIcon />
                      <span>Up</span>
                   </button>
-               )}
-               <div className={styles.toggleWrap}>
-                  <ToggleSwitch
-                     checked={currentTheme === "dark"}
-                     onChange={(checked) =>
-                        setTheme(checked ? "dark" : "light")
-                     }
-                     floating={scrolled}
-                  />
+                  <div className={styles.toggleWrap}>
+                     <ToggleSwitch
+                        checked={currentTheme === "dark"}
+                        onChange={(checked) =>
+                           setTheme(checked ? "dark" : "light")
+                        }
+                        floating={scrolled}
+                     />
+                  </div>
                </div>
             </div>
-         </div>
-
-         <div className={styles.grid}>
-            <div className={styles.cell}>
-               <AudioPlayer />
-            </div>
-            <div className={styles.cell}>
-               <WordPopup />
-            </div>
-            <div className={styles.cell}>
-               <SpoilerRevealDemo />
-            </div>
-            <div className={styles.cell}>
-               <CardStack />
-            </div>
-            <div className={styles.hideOnMobile}>
-               <EyesButton />
-            </div>
-            <div className={styles.cell}>
-               <TodoList />
-            </div>
-            <div className={styles.cell}>
-               <StockInfo />
-            </div>
-            <div className={styles.cell}>
-               <ClockRound />
-            </div>
-            <div className={styles.cell}>
-               <WeatherForecast />
-            </div>
-            <div className={styles.cell}>
-               <FitnessTracker />
-            </div>
-            <div className={`${styles.cell} ${styles.contextMenuCell}`}>
-               <ContextMenu />
-            </div>
-            <div className={styles.cell}>
-               <DesignerDeck />
-            </div>
-            <div className={styles.cell}>
-               <GalleryUsers />
-            </div>
-            <div className={styles.cell}>
-               <Schedule />
-            </div>
-            <div className={styles.cell}>
-               <LyricCard />
-            </div>
-         </div>
-
-         <p className={styles.footer}>
-            Crafted as a playground for UI ideas — some components built from
-            scratch, others inspired by works of other UI/UX designers.
-         </p>
+         )}
       </div>
    );
 };
