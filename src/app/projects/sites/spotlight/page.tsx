@@ -723,12 +723,10 @@ export default function SpotlightPage() {
                make&nbsp;together.
             </p>
             <p className={s.messageTextKo}>
-               우리는 미래가 오늘의 선택으로 만들어진다고 믿습니다. 모든
-               음표는 친절이 함께 할 수 있는 선택임을
-               일깨워&nbsp;줍니다.
+               우리는 미래가 오늘의 선택으로 만들어진다고 믿습니다. 모든 음표는
+               친절이 함께 할 수 있는 선택임을 일깨워&nbsp;줍니다.
             </p>
          </div>
-
       </div>
    );
 }
