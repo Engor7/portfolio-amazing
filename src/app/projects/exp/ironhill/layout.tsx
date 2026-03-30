@@ -6,9 +6,7 @@ export const metadata: Metadata = {
    title: "IronHill",
 };
 
-const LayoutIronhill = ({
-   children,
-}: Readonly<{ children: ReactNode }>) => {
+const LayoutIronhill = ({ children }: Readonly<{ children: ReactNode }>) => {
    return <>{children}</>;
 };
 

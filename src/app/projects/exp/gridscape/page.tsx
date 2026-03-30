@@ -143,7 +143,17 @@ export default function PhantomPage() {
                const srcH = textureSize / scale;
                const sx = (imgW - srcW) / 2;
                const sy = (imgH - srcH) / 2;
-               ctx.drawImage(img, sx, sy, srcW, srcH, x, y, textureSize, textureSize);
+               ctx.drawImage(
+                  img,
+                  sx,
+                  sy,
+                  srcW,
+                  srcH,
+                  x,
+                  y,
+                  textureSize,
+                  textureSize,
+               );
             }
          });
 

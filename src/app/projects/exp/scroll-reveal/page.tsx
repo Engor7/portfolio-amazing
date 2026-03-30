@@ -184,7 +184,9 @@ export default function NavigateTextPage() {
 
       return () => {
          lenis.destroy();
-         ScrollTrigger.getAll().forEach((t) => { t.kill(); });
+         ScrollTrigger.getAll().forEach((t) => {
+            t.kill();
+         });
          gsap.ticker.remove(tickerCallback);
       };
    }, []);

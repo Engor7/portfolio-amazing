@@ -104,10 +104,7 @@ export default function IronhillPage() {
 
       const onResize = () => {
          resize();
-         material.uniforms.uResolution.value.set(
-            h.offsetWidth,
-            h.offsetHeight,
-         );
+         material.uniforms.uResolution.value.set(h.offsetWidth, h.offsetHeight);
       };
       window.addEventListener("resize", onResize);
 
