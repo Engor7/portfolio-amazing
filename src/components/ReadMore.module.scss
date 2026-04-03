@@ -1,0 +1,16 @@
+.btn {
+   display: inline;
+   background: none;
+   border: none;
+   padding: 0;
+   font-size: inherit;
+   font-family: inherit;
+   color: #3b9eff;
+   opacity: 1;
+   cursor: pointer;
+   transition: opacity 0.2s;
+
+   &:hover {
+      opacity: 0.8;
+   }
+}
