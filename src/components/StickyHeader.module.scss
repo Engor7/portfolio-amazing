@@ -1,0 +1,143 @@
+.sticky {
+   position: fixed;
+   bottom: 24px;
+   left: 50%;
+   transform: translateX(-50%);
+   visibility: hidden;
+   pointer-events: none;
+
+   display: flex;
+   align-items: stretch;
+   gap: 8px;
+
+   color: var(--sticky-fg);
+
+   white-space: nowrap;
+   z-index: 100;
+
+   @media (max-width: 1020px) {
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      transform: none;
+      justify-content: space-between;
+      padding: 10px 12px;
+   }
+}
+
+.visible {
+   visibility: visible;
+   pointer-events: auto;
+}
+
+.atTop {
+   bottom: auto;
+   top: 24px;
+
+   @media (max-width: 1020px) {
+      top: 0;
+      bottom: auto;
+   }
+}
+
+/* shared block style */
+.identity,
+.nav,
+.controls,
+.burger {
+   background: var(--sticky-bg);
+   border: 1px solid var(--sticky-border);
+   border-radius: 60px;
+   opacity: 0;
+}
+
+.identity {
+   display: flex;
+   align-items: center;
+   gap: 8px;
+   flex-shrink: 0;
+   padding: 3px 6px 3px 3px;
+}
+
+.avatar {
+   border-radius: 50%;
+   object-fit: cover;
+   flex-shrink: 0;
+}
+
+.info {
+   display: flex;
+   flex-direction: column;
+   gap: 4px;
+}
+
+.name {
+   font-weight: 600;
+   font-size: 13px;
+   line-height: 1;
+}
+
+.role {
+   font-size: 11px !important;
+   width: 110px;
+   overflow: hidden;
+   white-space: nowrap;
+}
+
+/* Nav wrapper */
+.nav {
+   --nav-gap: 0px;
+   --nav-link-size: 0.85rem;
+   --nav-link-padding: 7px 12px;
+   --nav-indicator-bg: currentColor;
+   --nav-active-color: var(--fg);
+   --nav-indicator-inset: 3px;
+   padding: 3px;
+}
+
+.right {
+   display: contents;
+
+   @media (max-width: 1020px) {
+      display: flex;
+      align-items: stretch;
+      gap: 8px;
+   }
+}
+
+.controls {
+   display: flex;
+   align-items: center;
+   gap: 12px;
+   padding: 3px 3px 3px 16px;
+}
+
+.themeToggle {
+   --toggle-size: 38px;
+}
+
+.langToggle {
+   background: none;
+   border: none;
+   padding: 0;
+   cursor: pointer;
+   color: inherit;
+   font-size: 0.85rem;
+   font-family: inherit;
+}
+
+/* burger — hidden on desktop, separate block on mobile */
+.burger {
+   display: none;
+
+   @media (max-width: 1020px) {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 46px;
+      height: 46px;
+      padding: 0;
+      color: var(--sticky-fg);
+   }
+}

@@ -1,0 +1,104 @@
+.header {
+   position: relative;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   padding: 0;
+}
+
+.left {
+   display: flex;
+   align-items: center;
+   gap: 10px;
+}
+
+.avatar {
+   border-radius: 50%;
+   object-fit: cover;
+   flex-shrink: 0;
+
+   @media (max-width: 1020px) {
+      width: 38px !important;
+      height: 38px !important;
+   }
+}
+
+.info {
+   display: flex;
+   flex-direction: column;
+   gap: 8px;
+
+   @media (max-width: 1020px) {
+      gap: 4px;
+   }
+}
+
+.name {
+   font-weight: 600;
+   font-size: 16px;
+   line-height: 1;
+
+   @media (max-width: 1020px) {
+      font-size: 13px;
+   }
+}
+
+.role {
+   display: inline-block;
+   font-size: 13px;
+   opacity: 0.6;
+   line-height: 1;
+   white-space: nowrap;
+
+   @media (max-width: 1020px) {
+      font-size: 11px !important;
+   }
+}
+
+/* centered nav — hidden on mobile */
+.header .navCentered {
+   --nav-gap: 12px;
+   position: absolute;
+   left: 50%;
+   transform: translateX(-50%);
+
+   @media (max-width: 1020px) {
+      display: none;
+   }
+}
+
+.right {
+   display: flex;
+   align-items: center;
+   justify-content: flex-end;
+   gap: 30px;
+
+   @media (max-width: 1020px) {
+      gap: 22px;
+   }
+}
+
+.langToggle {
+   background: none;
+   border: none;
+   padding: 0;
+   cursor: pointer;
+   color: inherit;
+   font-family: inherit;
+   font-weight: 500;
+   font-size: 14px;
+
+   @media (max-width: 1020px) {
+      font-size: 13px;
+   }
+}
+
+/* burger — visible only on mobile */
+.mobileBurger {
+   display: none;
+
+   @media (max-width: 1020px) {
+      display: block;
+      margin-left: 12px;
+   }
+}
