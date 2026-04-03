@@ -4,9 +4,27 @@
    box-sizing: border-box;
 }
 
+:root {
+   --sr-bg: #f5f3ef;
+   --sr-text: #1a1a1a;
+   --sr-border: rgb(200, 195, 185);
+   --sr-keyword-text: #f5f3ef;
+   --sr-keyword-bg: #1a1a1a;
+   --sr-highlight-bg: 220, 215, 205;
+
+   @media (prefers-color-scheme: dark) {
+      --sr-bg: #1a1a1a;
+      --sr-text: #e8e5e0;
+      --sr-border: rgb(60, 58, 55);
+      --sr-keyword-text: #1a1a1a;
+      --sr-keyword-bg: #e8e5e0;
+      --sr-highlight-bg: 50, 48, 44;
+   }
+}
+
 body {
    font-family: var(--font-dm-sans), sans-serif;
-   background-color: #f5f3ef;
+   background-color: var(--sr-bg);
 }
 
 section {
@@ -49,7 +67,7 @@ section {
 
 .about .copy-container,
 .features .copy-container {
-   border: 0.15rem dashed rgb(200, 195, 185);
+   border: 0.15rem dashed var(--sr-border);
 }
 
 .anime-text {
@@ -57,7 +75,7 @@ section {
 }
 
 .anime-text p {
-   color: #1a1a1a;
+   color: var(--sr-text);
    text-align: center;
    margin-bottom: clamp(1.2rem, 2vw, 2rem);
    font-size: clamp(1.1rem, 2.5vw, 2rem);
@@ -89,7 +107,7 @@ section {
    width: 100%;
    height: 100%;
    padding: 0.1rem 0;
-   color: #f5f3ef;
+   color: var(--sr-keyword-text);
 }
 
 .anime-text .word span.keyword::before {
@@ -100,7 +118,7 @@ section {
    transform: translate(-50%, -50%);
    width: calc(100% + 1rem);
    height: calc(100% - 0.1rem);
-   background-color: #1a1a1a;
+   background-color: var(--sr-keyword-bg);
    border-radius: 2rem;
    z-index: -1;
 }

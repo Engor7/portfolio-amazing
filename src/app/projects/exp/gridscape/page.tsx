@@ -5,15 +5,27 @@ import * as THREE from "three";
 import { projects } from "./data";
 import { fragmentShader, vertexShader } from "./shaders";
 
-const config = {
+const baseConfig = {
    cellSize: 0.75,
    zoomLevel: 1.25,
    lerpFactor: 0.075,
+};
+
+const darkColors = {
    borderColor: "rgba(255, 255, 255, 0.15)",
    backgroundColor: "rgba(0, 0, 0, 1)",
    textColor: "rgba(128, 128, 128, 1)",
    hoverColor: "rgba(255, 255, 255, 0)",
 };
+
+const lightColors = {
+   borderColor: "rgba(0, 0, 0, 0.1)",
+   backgroundColor: "rgba(245, 243, 239, 1)",
+   textColor: "rgba(120, 115, 108, 1)",
+   hoverColor: "rgba(0, 0, 0, 0)",
+};
+
+const config = { ...baseConfig, ...darkColors };
 
 const rgbaToArray = (rgba: string): [number, number, number, number] => {
    const match = rgba.match(/rgba?\(([^)]+)\)/);
@@ -300,6 +312,44 @@ export default function PhantomPage() {
          renderer.render(scene, camera);
       };
 
+      const applyTheme = (isDark: boolean) => {
+         const colors = isDark ? darkColors : lightColors;
+         Object.assign(config, colors);
+
+         const bgColor = rgbaToArray(config.backgroundColor);
+         renderer.setClearColor(
+            new THREE.Color(bgColor[0], bgColor[1], bgColor[2]),
+            bgColor[3],
+         );
+
+         if (plane) {
+            const mat = plane.material as THREE.ShaderMaterial;
+            mat.uniforms.uBorderColor.value.set(
+               ...rgbaToArray(config.borderColor),
+            );
+            mat.uniforms.uHoverColor.value.set(
+               ...rgbaToArray(config.hoverColor),
+            );
+            mat.uniforms.uBackgroundColor.value.set(
+               ...rgbaToArray(config.backgroundColor),
+            );
+
+            // Regenerate text textures with new color
+            const newTextTextures = projects.map((p) =>
+               createTextTexture(p.title, p.year),
+            );
+            const newTextAtlas = createTextureAtlas(newTextTextures, true);
+            mat.uniforms.uTextAtlas.value.dispose();
+            mat.uniforms.uTextAtlas.value = newTextAtlas;
+         }
+      };
+
+      const mq = window.matchMedia("(prefers-color-scheme: dark)");
+      applyTheme(mq.matches);
+
+      const onThemeChange = (e: MediaQueryListEvent) => applyTheme(e.matches);
+      mq.addEventListener("change", onThemeChange);
+
       loadTextures().then((imageTextures) => {
          const imageAtlas = createTextureAtlas(imageTextures, false);
          const textAtlas = createTextureAtlas(textTextures, true);
@@ -338,11 +388,15 @@ export default function PhantomPage() {
 
          plane = new THREE.Mesh(geometry, material);
          scene.add(plane);
+
+         // Re-apply in case theme was detected before plane was ready
+         applyTheme(mq.matches);
       });
 
       animate();
 
       return () => {
+         mq.removeEventListener("change", onThemeChange);
          cancelAnimationFrame(animId);
          document.removeEventListener("mousedown", onMouseDown);
          document.removeEventListener("mousemove", onMouseMove);

@@ -10,7 +10,7 @@ import * as THREE from "three";
 import { fragmentShader, vertexShader } from "./shaders";
 
 const CONFIG = {
-   color: "#ebf5df",
+   color: "#e2dff5",
    spread: 0.5,
    speed: 2,
 };

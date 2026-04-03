@@ -4,23 +4,78 @@ $footer-height: 40px;
 $card-gap: 20px;
 $mobile-breakpoint: 960px;
 
-// Colors
-$bg-color: #000000;
-$text-color: #ffffff;
-$text-muted: #888888;
-$accent-color: #ffffff;
-$border-color: #2a2a35;
-$card-bg: #0e0e0e;
-$theme-color: #ef4444;
-
 .view-scroll {
+   // Dark theme (default)
+   --vs-bg: #000000;
+   --vs-text: #ffffff;
+   --vs-text-muted: #888888;
+   --vs-border: #2a2a35;
+   --vs-card-bg: #0e0e0e;
+   --vs-card-surface: #1a1a24;
+   --vs-card-border: rgb(21, 21, 21);
+   --vs-group-bg: #0b0b0b;
+   --vs-group-border: #111111;
+   --vs-input-border: #272727;
+   --vs-hover-bg: #151515;
+   --vs-theme: #ef4444;
+   --vs-icon-color: #ffffff;
+   --vs-btn-bg: #ffffff;
+   --vs-btn-text: #000000;
+   --vs-overlay-light: rgba(255, 255, 255, 0.15);
+   --vs-overlay-subtle: rgba(255, 255, 255, 0.05);
+   --vs-skeleton-shimmer: rgba(255, 255, 255, 0.05);
+   --vs-skeleton-element: rgba(255, 255, 255, 0.1);
+   --vs-group-btn-bg: rgba(255, 255, 255, 0.1);
+   --vs-group-btn-text: #ffffff;
+   --vs-group-btn-hover-bg: #ffffff;
+   --vs-group-btn-hover-text: #000000;
+   --vs-group-btn-join-border: rgba(244, 244, 244, 0.22);
+   --vs-dropdown-hover-bg: rgba(0, 0, 0, 0.03);
+   --vs-dropdown-active-bg: #151515;
+   --vs-dropdown-active-text: #ffffff;
+
+   @media (prefers-color-scheme: light) {
+      --vs-bg: #f5f5f5;
+      --vs-text: #1a1a1a;
+      --vs-text-muted: #171717;
+      --vs-border: #d5d5d5;
+      --vs-card-bg: #e8e8e8;
+      --vs-card-surface: #ffffff;
+      --vs-card-border: rgb(230, 230, 230);
+      --vs-group-bg: #f0f0f0;
+      --vs-group-border: #ffffff;
+      --vs-input-border: #a3a3a3;
+      --vs-hover-bg: #e8e8e8;
+      --vs-icon-color: #1a1a1a;
+      --vs-btn-bg: #1a1a1a;
+      --vs-btn-text: #ffffff;
+      --vs-overlay-light: rgba(0, 0, 0, 0.08);
+      --vs-overlay-subtle: rgba(0, 0, 0, 0.04);
+      --vs-skeleton-shimmer: rgba(0, 0, 0, 0.05);
+      --vs-skeleton-element: rgba(0, 0, 0, 0.08);
+      --vs-group-btn-bg: rgba(0, 0, 0, 0.1);
+      --vs-group-btn-text: #1a1a1a;
+      --vs-group-btn-hover-bg: #1a1a1a;
+      --vs-group-btn-hover-text: #ffffff;
+      --vs-group-btn-join-border: rgba(0, 0, 0, 0.15);
+      --vs-dropdown-hover-bg: rgba(0, 0, 0, 0.04);
+      --vs-dropdown-active-bg: #e8e8e8;
+      --vs-dropdown-active-text: #000000;
+   }
+
+   color-scheme: dark;
+
+   @media (prefers-color-scheme: light) {
+      color-scheme: light;
+   }
+
    width: 100vw;
    height: 100dvh;
    overflow: hidden;
-   color: $text-color;
+   color: var(--vs-text);
    display: flex;
    flex-direction: column;
-   background: $bg-color;
+   background: var(--vs-bg);
 
    position: fixed;
    inset: 0;
@@ -46,7 +101,7 @@ $theme-color: #ef4444;
          font-size: 20px;
          font-weight: 500;
          letter-spacing: -0.5px;
-         color: #fff;
+         color: var(--vs-text);
       }
 
       &-nav {
@@ -64,7 +119,7 @@ $theme-color: #ef4444;
 
             a,
             button {
-               color: $text-muted;
+               color: var(--vs-text-muted);
                text-decoration: none;
                font-size: 14px;
                font-weight: 500;
@@ -81,13 +136,13 @@ $theme-color: #ef4444;
                border-radius: 20px;
 
                &:hover {
-                  color: $text-color;
+                  color: var(--vs-text);
                }
             }
 
             &.view-scroll__header-nav--active a {
-               color: $text-color;
-               background: rgba(255, 255, 255, 0.15);
+               color: var(--vs-text);
+               background: var(--vs-overlay-light);
             }
          }
       }
@@ -142,8 +197,8 @@ $theme-color: #ef4444;
                      background 0.2s;
 
                   &:hover {
-                     color: $text-color;
-                     background: #151515;
+                     color: var(--vs-dropdown-active-text);
+                     background: var(--vs-dropdown-active-bg);
                   }
                }
             }
@@ -157,8 +212,8 @@ $theme-color: #ef4444;
       }
 
       &-btn {
-         background: #ffffff;
-         color: #000000;
+         background: var(--vs-btn-bg);
+         color: var(--vs-btn-text);
          border: none;
          padding: 8px 20px;
          border-radius: 20px;
@@ -183,7 +238,7 @@ $theme-color: #ef4444;
          align-items: center;
          justify-content: center;
          background: transparent;
-         border: 1px solid $border-color;
+         border: 1px solid var(--vs-border);
          border-radius: 50%;
          cursor: pointer;
          transition: opacity 0.2s;
@@ -203,7 +258,7 @@ $theme-color: #ef4444;
          svg {
             width: 22px;
             height: 22px;
-            color: #ffffff;
+            color: var(--vs-icon-color);
          }
       }
 
@@ -241,7 +296,7 @@ $theme-color: #ef4444;
          span {
             width: 22px;
             height: 2px;
-            background: $text-color;
+            background: var(--vs-text);
             border-radius: 1px;
             transition:
                transform 0.3s,
@@ -309,12 +364,12 @@ $theme-color: #ef4444;
             border-radius: 13px;
 
             &:hover {
-               background: rgba(255, 255, 255, 0.05);
+               background: var(--vs-dropdown-hover-bg);
             }
 
             &.active {
-               color: $text-color;
-               background: #151515;
+               color: var(--vs-dropdown-active-text);
+               background: var(--vs-dropdown-active-bg);
             }
          }
       }
@@ -351,13 +406,13 @@ $theme-color: #ef4444;
 
             span {
                font-size: 12px;
-               color: $text-muted;
+               color: var(--vs-text-muted);
                margin-top: 5px;
             }
          }
 
          p {
-            color: $text-muted;
+            color: var(--vs-text-muted);
             font-size: 12px;
             text-transform: uppercase;
             font-weight: 500;
@@ -384,17 +439,17 @@ $theme-color: #ef4444;
 
          input {
             background: transparent;
-            border: 1px solid #272727;
+            border: 1px solid var(--vs-input-border);
             border-radius: 20px;
             padding: 10px 14px 10px 40px;
-            color: $text-color;
+            color: var(--vs-text);
             font-size: 14px;
             width: 220px;
             outline: none;
             transition: opacity 0.2s;
 
             &::placeholder {
-               color: $text-muted;
+               color: var(--vs-text-muted);
             }
 
             &:focus {
@@ -413,7 +468,7 @@ $theme-color: #ef4444;
             transform: translateY(-50%);
             width: 16px;
             height: 16px;
-            color: #ffffff;
+            color: var(--vs-icon-color);
          }
       }
 
@@ -424,7 +479,7 @@ $theme-color: #ef4444;
          align-items: center;
          justify-content: center;
          background: transparent;
-         border: 1px solid #272727;
+         border: 1px solid var(--vs-input-border);
          border-radius: 30px;
          cursor: pointer;
          transition: opacity 0.2s;
@@ -436,7 +491,7 @@ $theme-color: #ef4444;
          svg {
             width: 16px;
             height: 16px;
-            color: #ffffff;
+            color: var(--vs-icon-color);
          }
       }
    }
@@ -444,7 +499,7 @@ $theme-color: #ef4444;
    &__live-dot {
       width: 10px;
       height: 10px;
-      background: #ef4444;
+      background: var(--vs-theme);
       border-radius: 50%;
       position: relative;
       flex-shrink: 0;
@@ -494,21 +549,21 @@ $theme-color: #ef4444;
          display: flex;
          align-items: center;
          gap: 8px;
-         color: $text-muted;
+         color: var(--vs-text-muted);
          font-size: 13px;
 
          &-lang {
             font-weight: 500;
-            color: $text-color;
+            color: var(--vs-text);
          }
 
          &-divider {
-            color: $border-color;
+            color: var(--vs-border);
          }
       }
 
       &-right {
-         color: $text-muted;
+         color: var(--vs-text-muted);
          font-size: 13px;
          display: flex;
          align-items: center;
@@ -548,7 +603,7 @@ $theme-color: #ef4444;
       flex: 1;
       min-width: 280px;
       height: 100%;
-      background: $card-bg;
+      background: var(--vs-card-bg);
       border-radius: 16px;
       position: relative;
       overflow: hidden;
@@ -565,7 +620,7 @@ $theme-color: #ef4444;
          background: linear-gradient(
             90deg,
             transparent 0%,
-            rgba(255, 255, 255, 0.05) 50%,
+            var(--vs-skeleton-shimmer) 50%,
             transparent 100%
          );
          animation: skeleton-shimmer 1.5s ease-in-out infinite;
@@ -599,7 +654,7 @@ $theme-color: #ef4444;
       left: 16px;
       width: 60px;
       height: 24px;
-      background: rgba(255, 255, 255, 0.1);
+      background: var(--vs-skeleton-element);
       border-radius: 4px;
    }
 
@@ -609,7 +664,7 @@ $theme-color: #ef4444;
       right: 16px;
       width: 100px;
       height: 28px;
-      background: rgba(255, 255, 255, 0.1);
+      background: var(--vs-skeleton-element);
       border-radius: 20px;
    }
 
@@ -625,7 +680,7 @@ $theme-color: #ef4444;
 
    &__skeleton-line {
       height: 14px;
-      background: rgba(255, 255, 255, 0.1);
+      background: var(--vs-skeleton-element);
       border-radius: 4px;
 
       &--short {
@@ -687,7 +742,7 @@ $theme-color: #ef4444;
       padding: 24px;
       position: relative;
       overflow: hidden;
-      background-color: #1a1a24;
+      background-color: var(--vs-card-surface);
       transition:
          flex-grow 0.4s ease-out,
          transform 0.4s ease-out;
@@ -695,7 +750,7 @@ $theme-color: #ef4444;
       transform: scale(1) translate3d(0, 0, 0);
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
-      border: 1px solid rgb(21, 21, 21);
+      border: 1px solid var(--vs-card-border);
 
       @media (max-width: $mobile-breakpoint) {
          flex-grow: 1;
@@ -710,12 +765,20 @@ $theme-color: #ef4444;
       }
 
       &--group {
-         background: #0b0b0b;
-         border: 1px solid rgb(21, 21, 21);
+         background: var(--vs-group-bg);
+         border: 1px solid var(--vs-card-border);
 
          .carousel__card-bg,
          .carousel__card-overlay {
             display: none;
+         }
+
+         .carousel__card-icon-badge svg {
+            color: var(--vs-text);
+         }
+
+         .carousel__card-group-tag {
+            color: var(--vs-text);
          }
       }
 
@@ -836,7 +899,7 @@ $theme-color: #ef4444;
          width: 48px;
          height: 48px;
          border-radius: 50%;
-         border: 3px solid #111111;
+         border: 3px solid var(--vs-group-border);
          margin-left: -18px;
          position: relative;
          overflow: hidden;
@@ -852,7 +915,7 @@ $theme-color: #ef4444;
 
       &-group-category {
          font-size: 11px;
-         color: rgba(255, 255, 255, 0.7);
+         color: var(--vs-text-muted);
          margin: 0;
          font-weight: 500;
          opacity: 0.8;
@@ -863,7 +926,7 @@ $theme-color: #ef4444;
          font-weight: 700;
          max-width: 160px;
          text-transform: uppercase;
-         color: #fff;
+         color: var(--vs-text);
          margin: 0;
          line-height: 1.3;
       }
@@ -884,24 +947,24 @@ $theme-color: #ef4444;
          border: none;
 
          &--members {
-            background: #ffffff1a;
-            color: #ffffff;
+            background: var(--vs-group-btn-bg);
+            color: var(--vs-group-btn-text);
 
             &:hover {
                opacity: 0.9;
-               background: #fff;
-               color: #000;
+               background: var(--vs-group-btn-hover-bg);
+               color: var(--vs-group-btn-hover-text);
             }
          }
 
          &--join {
             background: transparent;
-            color: white;
-            border: 1px solid #f4f4f438;
+            color: var(--vs-group-btn-text);
+            border: 1px solid var(--vs-group-btn-join-border);
 
             &:hover {
-               background: white;
-               color: #000;
+               background: var(--vs-group-btn-hover-bg);
+               color: var(--vs-group-btn-hover-text);
             }
          }
       }
@@ -935,7 +998,7 @@ $theme-color: #ef4444;
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 0.6px;
-            color: #fff;
+            color: var(--vs-text);
             margin: 0;
             line-height: 1.3;
          }
@@ -943,13 +1006,13 @@ $theme-color: #ef4444;
          &-author {
             font-size: 18px;
             font-weight: 400;
-            color: #fff;
+            color: var(--vs-text);
             margin: 0;
          }
 
          &-role {
             font-size: 14px;
-            color: #fff;
+            color: var(--vs-text);
             margin-top: 12px;
             opacity: 0.6;
          }
@@ -957,7 +1020,7 @@ $theme-color: #ef4444;
          &-ad-text {
             font-size: 24px;
             font-weight: 700;
-            color: #fff;
+            color: var(--vs-text);
             margin: 0;
             text-align: center;
          }

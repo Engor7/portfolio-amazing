@@ -73,6 +73,7 @@ nav .nav-links {
    display: flex;
    justify-content: space-between;
    align-items: flex-end;
+   z-index: 10;
 }
 
 .hero-content h1 {

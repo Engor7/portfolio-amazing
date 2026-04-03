@@ -7,8 +7,8 @@ import { fragmentShader, vertexShader } from "./shaders";
 const config = {
    lerpFactor: 0.035,
    parallaxStrength: 0.1,
-   distortionMultiplier: 10,
-   glassStrength: 2.0,
+   distortionMultiplier: 5,
+   glassStrength: 1.0,
    glassSmoothness: 0.0001,
    stripesFrequency: 22,
    edgePadding: 0.1,

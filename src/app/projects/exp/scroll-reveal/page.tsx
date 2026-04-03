@@ -23,7 +23,10 @@ export default function NavigateTextPage() {
       if (!container) return;
 
       const animeTextParagraphs = container.querySelectorAll(".anime-text p");
-      const wordHighlightBgColor = "220, 215, 205";
+      const getHighlightColor = () =>
+         getComputedStyle(document.documentElement)
+            .getPropertyValue("--sr-highlight-bg")
+            .trim() || "220, 215, 205";
       const keywords = [
          "fluid",
          "seamless",
@@ -125,7 +128,7 @@ export default function NavigateTextPage() {
                         0,
                         1 - backgroundFadeStart,
                      );
-                     word.style.backgroundColor = `rgba(${wordHighlightBgColor}, ${backgroundOpacity})`;
+                     word.style.backgroundColor = `rgba(${getHighlightColor()}, ${backgroundOpacity})`;
 
                      const textRevealThreshold = 0.9;
                      const textRevealProgress =
@@ -171,10 +174,10 @@ export default function NavigateTextPage() {
                         wordText.style.opacity = String(
                            targetTextOpacity * (1 - reverseWordProgress),
                         );
-                        word.style.backgroundColor = `rgba(${wordHighlightBgColor}, ${reverseWordProgress})`;
+                        word.style.backgroundColor = `rgba(${getHighlightColor()}, ${reverseWordProgress})`;
                      } else {
                         wordText.style.opacity = String(targetTextOpacity);
-                        word.style.backgroundColor = `rgba(${wordHighlightBgColor}, 0)`;
+                        word.style.backgroundColor = `rgba(${getHighlightColor()}, 0)`;
                      }
                   }
                });

@@ -4,12 +4,26 @@
    box-sizing: border-box;
 }
 
+:root {
+   --gs-bg: #000000;
+   --gs-vignette-1: rgba(0, 0, 0, 0.1);
+   --gs-vignette-2: rgba(0, 0, 0, 0.75);
+   --gs-vignette-3: rgba(0, 0, 0, 1);
+
+   @media (prefers-color-scheme: light) {
+      --gs-bg: #f5f3ef;
+      --gs-vignette-1: rgba(245, 243, 239, 0.1);
+      --gs-vignette-2: rgba(245, 243, 239, 0.75);
+      --gs-vignette-3: rgba(245, 243, 239, 1);
+   }
+}
+
 html,
 body {
    width: 100%;
    height: 100%;
    font-family: var(--font-ibm-plex-mono), monospace;
-   background: #000;
+   background: var(--gs-bg);
    cursor: grab;
    user-select: none;
    overflow: hidden;
@@ -35,9 +49,9 @@ body.dragging {
    background: radial-gradient(
       ellipse at center,
       transparent 50%,
-      rgba(0, 0, 0, 0.1) 70%,
-      rgba(0, 0, 0, 0.75) 90%,
-      rgba(0, 0, 0, 1) 100%
+      var(--gs-vignette-1) 70%,
+      var(--gs-vignette-2) 90%,
+      var(--gs-vignette-3) 100%
    );
    z-index: 1;
 }
