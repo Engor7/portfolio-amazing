@@ -1,0 +1,84 @@
+.toggle {
+   --toggle-size: 32px;
+
+   position: relative;
+   width: var(--toggle-size);
+   height: var(--toggle-size);
+   border-radius: 50%;
+   border: none;
+   background: #303030;
+   color: #fff;
+   cursor: pointer;
+   overflow: hidden;
+   padding: 0;
+   flex-shrink: 0;
+
+   &.dark {
+      background: #fff;
+      color: #303030;
+   }
+
+   &.inverted {
+      background: #fff;
+      color: #303030;
+   }
+
+   &.inverted.dark {
+      background: #000;
+      color: #fff;
+   }
+}
+
+.cylinder {
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cell {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   width: var(--toggle-size);
+   height: var(--toggle-size);
+   transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+
+   svg {
+      display: block;
+      width: 18px;
+      height: 18px;
+   }
+}
+
+.showSun {
+   transform: translateY(0);
+
+   .cell:nth-child(1) {
+      transform: rotate(0deg);
+   }
+
+   .cell:nth-child(2) {
+      transform: rotate(90deg);
+   }
+}
+
+.showMoon {
+   transform: translateY(calc(0px - var(--toggle-size)));
+
+   .cell:nth-child(1) {
+      transform: rotate(-90deg);
+   }
+
+   .cell:nth-child(2) {
+      transform: rotate(0deg);
+   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+   .cylinder,
+   .cell {
+      transition: none;
+   }
+}
