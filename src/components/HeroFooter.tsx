@@ -1,6 +1,10 @@
+"use client";
+
+import { useLang } from "@/providers/LangProvider";
 import s from "./HeroFooter.module.scss";
 
 export default function HeroFooter() {
+   const { t } = useLang();
    return (
       <div className={s.footer}>
          <div className={s.contacts}>
@@ -23,7 +27,7 @@ export default function HeroFooter() {
          </div>
 
          <div className={s.copy}>
-            <span>Портфолио</span>
+            <span>{t.heroFooter.portfolio}</span>
             <span className={s.line} />
             <span>© 2026</span>
          </div>

@@ -1,8 +1,9 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { NAV_LINKS } from "@/lib/nav-links";
+import { getNavLinks } from "@/lib/nav-links";
 import { useActiveSection } from "@/lib/use-active-section";
+import { useLang } from "@/providers/LangProvider";
 import s from "./Nav.module.scss";
 
 interface NavProps {
@@ -18,6 +19,8 @@ function scrollTo(href: string) {
 
 export default function Nav({ className, linkClassName }: NavProps) {
    const active = useActiveSection();
+   const { t } = useLang();
+   const navLinks = getNavLinks(t.nav);
    const navRef = useRef<HTMLElement>(null);
    const linksRef = useRef<Map<string, HTMLAnchorElement>>(new Map());
    const [pill, setPill] = useState<{ left: number; width: number } | null>(
@@ -57,7 +60,7 @@ export default function Nav({ className, linkClassName }: NavProps) {
                style={{ left: pill.left, width: pill.width }}
             />
          )}
-         {NAV_LINKS.map(({ href, label }) => (
+         {navLinks.map(({ href, label }) => (
             <a
                key={href}
                href={href}

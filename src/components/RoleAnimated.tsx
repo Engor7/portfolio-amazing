@@ -3,16 +3,21 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
+import { useLang } from "@/providers/LangProvider";
 import s from "./Header.module.scss";
 
 gsap.registerPlugin(useGSAP, SplitText);
 
-const ROLES = ["Frontend developer", "UX/UI designer", "Small details matter"];
-
 export default function RoleAnimated({ className }: { className?: string }) {
    const textRef = useRef<HTMLSpanElement>(null);
    const indexRef = useRef(0);
+   const { t } = useLang();
+   const rolesRef = useRef(t.roles);
+
+   useEffect(() => {
+      rolesRef.current = t.roles;
+   }, [t.roles]);
 
    useGSAP(
       () => {
@@ -39,8 +44,10 @@ export default function RoleAnimated({ className }: { className?: string }) {
                   onComplete() {
                      if (!textRef.current) return;
                      split.revert();
-                     indexRef.current = (indexRef.current + 1) % ROLES.length;
-                     textRef.current.textContent = ROLES[indexRef.current];
+                     indexRef.current =
+                        (indexRef.current + 1) % rolesRef.current.length;
+                     textRef.current.textContent =
+                        rolesRef.current[indexRef.current];
                      split = SplitText.create(textRef.current, {
                         type: "chars",
                      });
@@ -74,7 +81,7 @@ export default function RoleAnimated({ className }: { className?: string }) {
          className={`${s.role}${className ? ` ${className}` : ""}`}
          ref={textRef}
       >
-         {ROLES[0]}
+         {t.roles[0]}
       </span>
    );
 }

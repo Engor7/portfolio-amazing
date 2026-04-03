@@ -1,4 +1,5 @@
 import Image from "next/image";
+import LangToggle from "@/components/LangToggle";
 import Nav from "@/components/Nav";
 import NavBurger from "@/components/NavBurger";
 import RoleAnimated from "@/components/RoleAnimated";
@@ -25,9 +26,7 @@ export default function Header() {
          <Nav className={s.navCentered} />
 
          <div className={s.right}>
-            <button type="button" className={s.langToggle}>
-               RU ENG
-            </button>
+            <LangToggle className={s.langToggle} />
             <ThemeToggle />
             <NavBurger dropdownDir="down" className={s.mobileBurger} />
          </div>

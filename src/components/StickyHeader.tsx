@@ -4,6 +4,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import LangToggle from "@/components/LangToggle";
 import Nav from "@/components/Nav";
 import NavBurger from "@/components/NavBurger";
 import RoleAnimated from "@/components/RoleAnimated";
@@ -152,9 +153,7 @@ export default function StickyHeader() {
 
          <div className={s.right}>
             <div className={s.controls}>
-               <button type="button" className={s.langToggle}>
-                  RU ENG
-               </button>
+               <LangToggle className={s.langToggle} />
                <ThemeToggle inverted className={s.themeToggle} />
             </div>
 

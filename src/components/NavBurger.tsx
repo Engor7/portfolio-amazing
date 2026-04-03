@@ -2,8 +2,9 @@
 
 import gsap from "gsap";
 import { useEffect, useRef, useState } from "react";
-import { NAV_LINKS } from "@/lib/nav-links";
+import { getNavLinks } from "@/lib/nav-links";
 import { useActiveSection } from "@/lib/use-active-section";
+import { useLang } from "@/providers/LangProvider";
 import s from "./NavBurger.module.scss";
 
 interface NavBurgerProps {
@@ -26,6 +27,8 @@ export default function NavBurger({
    const btnRef = useRef<HTMLButtonElement>(null);
    const dropdownRef = useRef<HTMLDivElement>(null);
    const active = useActiveSection();
+   const { t } = useLang();
+   const navLinks = getNavLinks(t.nav);
 
    useEffect(() => {
       if (!open) return;
@@ -90,7 +93,7 @@ export default function NavBurger({
                ref={dropdownRef}
                className={`${s.dropdown} ${dropdownDir === "up" ? s.up : s.down}`}
             >
-               {NAV_LINKS.map(({ href, label }) => (
+               {navLinks.map(({ href, label }) => (
                   <a
                      key={href}
                      href={href}

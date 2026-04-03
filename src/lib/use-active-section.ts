@@ -1,12 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { NAV_LINKS } from "@/lib/nav-links";
+import { NAV_HREFS } from "@/lib/nav-links";
 
-const IDS = NAV_LINKS.map((l) => l.href.slice(1));
+const IDS = NAV_HREFS.map((h) => h.slice(1));
 
 export function useActiveSection() {
-   const [active, setActive] = useState<string>(NAV_LINKS[0].href);
+   const [active, setActive] = useState<string>(NAV_HREFS[0]);
 
    useEffect(() => {
       function update() {
