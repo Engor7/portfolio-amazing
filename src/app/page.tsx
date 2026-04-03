@@ -1,8 +1,11 @@
 import Carousel from "@/components/Carousel";
+import Experience from "@/components/Experience";
+import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import HeroContent from "@/components/HeroContent";
 import HeroFooter from "@/components/HeroFooter";
 import LayoutHome from "@/components/LayoutHome";
+import Skills from "@/components/Skills";
 import StickyHeader from "@/components/StickyHeader";
 import s from "./page.module.scss";
 
@@ -18,17 +21,10 @@ const Home = () => {
                   <Carousel />
                </div>
             </section>
-            <section className={s.section} id="skills">
-               <h2 className={s.sectionTitle}>Навыки</h2>
-            </section>
-            <section className={s.section} id="experience">
-               <h2 className={s.sectionTitle}>Опыт</h2>
-            </section>
+            <Skills />
+            <Experience />
          </main>
-         <footer id="main-footer" className={s.footer}>
-            <span className={s.footerDomain}>egorjs.ru</span>
-            <span className={s.footerCopy}>&copy; 2026</span>
-         </footer>
+         <Footer />
          <StickyHeader />
       </LayoutHome>
    );

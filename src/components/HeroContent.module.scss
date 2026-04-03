@@ -1,17 +1,17 @@
 .content {
    span {
       font-weight: 500;
-      background: #eaf1ff;
-      color: #085aff;
-      padding: 6px 8px;
+      background: #dee9ff;
+      color: #3276ff;
+      padding: 6px 12px;
       border-radius: 20px;
       font-size: 12px;
       letter-spacing: 0.03em;
       position: relative;
 
       :global(html[data-theme="dark"]) & {
-         background: #0d1b3a;
-         color: #5b9aff;
+         background: #102552;
+         color: #6fa4f8;
       }
 
       &::before,
@@ -25,11 +25,11 @@
       &::before {
          left: -4px;
          width: 10px;
-         background-color: #eaf1ff;
+         background-color: #dee9ff;
          border-bottom-right-radius: 8px 7px;
 
          :global(html[data-theme="dark"]) & {
-            background-color: #0d1b3a;
+            background-color: #102552;
          }
       }
 
@@ -56,8 +56,7 @@
       max-width: 580px;
       font-size: 16px;
       line-height: 1.6;
-      font-weight: 500;
-      letter-spacing: 0.016em;
+      font-weight: 400;
       opacity: 0.7;
 
       @media (max-width: 720px) {

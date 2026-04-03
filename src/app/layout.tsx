@@ -1,17 +1,13 @@
 import type { Metadata, Viewport } from "next";
-import { Open_Sans, Raleway } from "next/font/google";
+import { Open_Sans } from "next/font/google";
 import type { ReactNode } from "react";
+import LangProvider from "@/providers/LangProvider";
 import AppThemeProvider from "@/providers/ThemeProvider";
 import "@/style/global.scss";
 
-const raleway = Raleway({
-   subsets: ["latin", "cyrillic"],
-   display: "swap",
-   variable: "--font-raleway",
-});
-
 const openSans = Open_Sans({
    subsets: ["latin", "cyrillic"],
+   weight: ["300", "400", "500", "600", "700"],
    display: "swap",
    variable: "--font-open-sans",
 });
@@ -34,11 +30,13 @@ export default function RootLayout({
    return (
       <html
          lang="ru"
-         className={`${raleway.variable} ${openSans.variable}`}
+         className={openSans.variable}
          suppressHydrationWarning
       >
          <body>
-            <AppThemeProvider>{children}</AppThemeProvider>
+            <AppThemeProvider>
+               <LangProvider>{children}</LangProvider>
+            </AppThemeProvider>
          </body>
       </html>
    );
