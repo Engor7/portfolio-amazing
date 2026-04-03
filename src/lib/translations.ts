@@ -31,11 +31,7 @@ export const translations = {
          skills: "Skills",
          experience: "Experience",
       },
-      roles: [
-         "Frontend developer",
-         "UX/UI designer",
-         "Small details matter",
-      ],
+      roles: ["Frontend developer", "UX/UI designer", "Small details matter"],
       hero: {
          greeting: "Hi, I'm Egor",
          title: "I'm a Frontend Developer",
