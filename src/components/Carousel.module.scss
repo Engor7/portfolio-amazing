@@ -1,0 +1,101 @@
+.wrapper {
+   overflow: hidden;
+   height: 180px;
+
+   @media (max-width: 1020px) {
+      height: 140px;
+   }
+   margin-left: -30px;
+   margin-right: -30px;
+
+   @media (max-width: 1020px) {
+      margin-left: -16px;
+      margin-right: -16px;
+   }
+   cursor: grab;
+   user-select: none;
+   touch-action: pan-y;
+
+   &:active {
+      cursor: grabbing;
+   }
+}
+
+.track {
+   display: flex;
+   gap: 16px;
+   will-change: transform;
+   width: max-content;
+
+   @media (max-width: 1020px) {
+      gap: 8px;
+   }
+}
+
+.card {
+   flex-shrink: 0;
+   outline: none;
+   position: relative;
+}
+
+.skeleton .videoWrap::before {
+   content: "";
+   position: absolute;
+   inset: 0;
+   border-radius: 4px;
+   background: linear-gradient(
+      90deg,
+      transparent 25%,
+      rgba(128, 128, 128, 0.08) 50%,
+      transparent 75%
+   );
+   background-size: 200% 100%;
+   animation: shimmer 1.5s infinite;
+}
+
+.skeleton video {
+   opacity: 0;
+}
+
+@keyframes shimmer {
+   0% {
+      background-position: 200% 0;
+   }
+   100% {
+      background-position: -200% 0;
+   }
+}
+
+.link {
+   display: block;
+   text-decoration: none;
+   color: inherit;
+   outline: none;
+}
+
+.videoWrap {
+   position: relative;
+   height: 160px;
+   min-width: 200px;
+
+   @media (max-width: 1020px) {
+      height: 120px;
+      min-width: 150px;
+   }
+
+   video {
+      height: 100%;
+      width: auto;
+      display: block;
+      pointer-events: none;
+      border-radius: 4px;
+   }
+}
+
+.name {
+   display: block;
+   font-size: 11px;
+   margin-top: 6px;
+   opacity: 0.5;
+   white-space: nowrap;
+}
