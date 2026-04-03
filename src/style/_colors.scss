@@ -1,0 +1,29 @@
+:root {
+   --bg: #fff;
+   --fg: #000;
+   --sticky-fg: #fff;
+   --sticky-bg: rgb(18, 18, 18);
+   --sticky-border: rgba(255, 255, 255, 0.1);
+   --sticky-divider: rgba(255, 255, 255, 0.12);
+   --dropdown-bg: rgb(18, 18, 18);
+   --dropdown-fg: #fff;
+   --dropdown-border: rgba(255, 255, 255, 0.1);
+   --card-bg: #f7f7f7;
+   --border-subtle: rgba(0, 0, 0, 0.15);
+   --border-divider: rgba(0, 0, 0, 0.1);
+}
+
+html[data-theme="dark"] {
+   --bg: #000;
+   --fg: #fff;
+   --sticky-fg: #000;
+   --sticky-bg: rgb(255, 255, 255);
+   --sticky-border: rgba(0, 0, 0, 0.1);
+   --sticky-divider: rgba(0, 0, 0, 0.12);
+   --dropdown-bg: rgb(255, 255, 255);
+   --dropdown-fg: #000;
+   --dropdown-border: rgba(0, 0, 0, 0.1);
+   --card-bg: #0b0b0b;
+   --border-subtle: rgba(255, 255, 255, 0.15);
+   --border-divider: rgba(255, 255, 255, 0.1);
+}

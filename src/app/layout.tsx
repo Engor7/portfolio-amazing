@@ -1,19 +1,19 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Lora } from "next/font/google";
+import { Open_Sans, Raleway } from "next/font/google";
 import type { ReactNode } from "react";
 import AppThemeProvider from "@/providers/ThemeProvider";
 import "@/style/global.scss";
 
-const inter = Inter({
+const raleway = Raleway({
    subsets: ["latin", "cyrillic"],
    display: "swap",
-   variable: "--font-inter",
+   variable: "--font-raleway",
 });
 
-const lora = Lora({
+const openSans = Open_Sans({
    subsets: ["latin", "cyrillic"],
    display: "swap",
-   variable: "--font-lora",
+   variable: "--font-open-sans",
 });
 
 export const metadata: Metadata = {
@@ -34,7 +34,7 @@ export default function RootLayout({
    return (
       <html
          lang="ru"
-         className={`${inter.variable} ${lora.variable}`}
+         className={`${raleway.variable} ${openSans.variable}`}
          suppressHydrationWarning
       >
          <body>
