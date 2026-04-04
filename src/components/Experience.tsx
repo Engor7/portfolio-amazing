@@ -1,141 +1,76 @@
+"use client";
+
 import ReadMore from "@/components/ReadMore";
+import { useLang } from "@/providers/LangProvider";
 import s from "../app/page.module.scss";
 
 export default function Experience() {
+   const { t } = useLang();
+
    return (
       <section className={`${s.section} ${s.experience}`} id="experience">
          <div>
-            <h2 className={s.sectionTitle}>Опыт</h2>
-            <p>
-               Мой общий опыт веб-разработки свыше 8 лет. Интерес к
-               программированию, и к вебу в частности, возник еще в школьные
-               годы.
-            </p>
+            <h2 className={s.sectionTitle}>{t.experience.title}</h2>
+            <p>{t.experience.paragraph}</p>
          </div>
          <div>
             <h3>ECOS Bitcoin Mining Ecosystem</h3>
             <ol>
-               <li>Frontend-разработчик</li>
-               <li>Июнь 2024 — сейчас (1 год и 6 месяцев)</li>
+               <li>{t.experience.ecos.role}</li>
+               <li>{t.experience.ecos.period}</li>
             </ol>
-            <p>
-               Отвечал за разработку Telegram Mini App — построение архитектуры
-               приложения, создание дизайн-системы и интерфейсов.
-            </p>
-            <p>
-               Приложение предназначено для покупки и аренды ASIC-майнеров, с
-               возможностью пополнения средств различными способами: через банк,
-               переводами в TON и Bitcoin. Реализовал оплату в TON и через
-               Telegram Start App.
-            </p>
-            <p className={s.mb4}>Функциональность включала:</p>
+            <p>{t.experience.ecos.p1}</p>
+            <p>{t.experience.ecos.p2}</p>
+            <p className={s.mb4}>{t.experience.ecos.functionality}</p>
             <ul className={s.listLs}>
-               <li>Дашборд и мониторинг активов, статистику доходов;</li>
-               <li>
-                  Реферальную программу и личный кабинет с настройкой профиля;
-               </li>
+               <li>{t.experience.ecos.li1}</li>
+               <li>{t.experience.ecos.li2}</li>
             </ul>
             <ReadMore>
                <ul className={s.listLs}>
-                  <li>Калькуляторы доходности и маркетплейс оборудования;</li>
-                  <li>
-                     Авторизацию, регистрацию, восстановление пароля и
-                     2FA-аутентификацию;
-                  </li>
-                  <li>Мультиязычность, поддержку светлой и тёмной темы.</li>
+                  <li>{t.experience.ecos.li3}</li>
+                  <li>{t.experience.ecos.li4}</li>
+                  <li>{t.experience.ecos.li5}</li>
                </ul>
-               <p className={s.mb4}>
-                  Также разрабатывал Backoffice — админ-панель для управления
-                  инфраструктурой всех проектов компании:
-               </p>
+               <p className={s.mb4}>{t.experience.ecos.backoffice}</p>
                <ul className={s.listLs}>
-                  <li>
-                     Настройка баннеров на сайте и в приложении, управление
-                     сторис и товарами (в том числе продажей ASIC-ов);
-                  </li>
-                  <li>
-                     Редактор расчётных параметров калькулятора доходности;
-                  </li>
-                  <li>
-                     Собственный UI Kit и библиотека компонентов, выдержанные в
-                     общей стилистике компании;
-                  </li>
-                  <li>
-                     Мультиязычность, светлая/тёмная тема, авторизация и
-                     разграничение прав доступа администраторов.
-                  </li>
+                  <li>{t.experience.ecos.bo1}</li>
+                  <li>{t.experience.ecos.bo2}</li>
+                  <li>{t.experience.ecos.bo3}</li>
+                  <li>{t.experience.ecos.bo4}</li>
                </ul>
-               <p>
-                  Также создавал новые страницы и поддерживал текущий функционал
-                  на WordPress. Иногда занимался поддержкой на бэкенде (Node.js,
-                  Nest.js, PHP).
-               </p>
+               <p>{t.experience.ecos.wordpress}</p>
             </ReadMore>
          </div>
          <div>
             <h3>CityAds Media</h3>
             <ol>
-               <li>Frontend-разработчик</li>
-               <li>Март 2024 — Сентябрь 2024 (7 месяцев)</li>
+               <li>{t.experience.cityads.role}</li>
+               <li>{t.experience.cityads.period}</li>
             </ol>
-            <p>
-               Занимался разработкой и поддержкой сайтов на Nuxt 3. Один из
-               ключевых - страница с промокодами для Т-банка. Участвовал в
-               создании систем промокодов для клиентов по всему миру.
-            </p>
-            <p>
-               Кроме того, разрабатывал браузерные расширения для Chrome и
-               Firefox, создавал сайт с отзывами и работал над проектом формата
-               маркетплейса. Основные задачи включали разработку
-               пользовательских интерфейсов, интеграцию с API и оптимизацию
-               производительности фронтенда.
-            </p>
+            <p>{t.experience.cityads.p1}</p>
+            <p>{t.experience.cityads.p2}</p>
          </div>
          <div>
-            <h3>Образовательная онлайн-платформа «Открытая школа»</h3>
+            <h3>{t.experience.openSchool.name}</h3>
             <ol>
-               <li>Frontend-разработчик, Дизайнер</li>
-               <li>Февраль 2023 — Январь 2024 (1 год)</li>
+               <li>{t.experience.openSchool.role}</li>
+               <li>{t.experience.openSchool.period}</li>
             </ol>
-            <p>
-               Занимался поддержкой существующей версии платформы и разработкой
-               новой, включая полный редизайн интерфейса. Работал над адаптивной
-               вёрсткой сложных Vue-компонентов, интеграцией с API и обработкой
-               данных.
-            </p>
-            <p>
-               Участвовал в прототипировании новых страниц и создании дизайна в
-               рамках новой дизайн-системы платформы. Среди наиболее интересных
-               задач - разработка видео и аудиоплеера, текстового редактора, а
-               также календарей и интерактивных таблиц для работы с данными.
-            </p>
+            <p>{t.experience.openSchool.p1}</p>
+            <p>{t.experience.openSchool.p2}</p>
          </div>
          <div>
-            <h3>Частная практика</h3>
+            <h3>{t.experience.freelance.name}</h3>
             <ol>
-               <li>Frontend-разработчик, Fullstack</li>
-               <li>Март 2017 — Декабрь 2022 (5 лет и 10 месяцев)</li>
+               <li>{t.experience.freelance.role}</li>
+               <li>{t.experience.freelance.period}</li>
             </ol>
-            <p>
-               Занимался вёрсткой адаптивных сайтов различной сложности и
-               разработкой проектов под CMS WordPress и Bitrix. В общей
-               сложности создал более 60 сайтов за чуть более чем 5 лет работы.
-            </p>
-            <p>
-               Помимо CMS-решений, разрабатывал собственный движок на PHP, а
-               также работал с Node.js - создавал серверную логику. Сотрудничал
-               преимущественно с частными клиентами, а также с веб-студиями и
-               компаниями.
-            </p>
+            <p>{t.experience.freelance.p1}</p>
+            <p>{t.experience.freelance.p2}</p>
          </div>
          <div>
-            <p>
-               Часть моего опыта была получена в процессе разработки
-               веб-приложений, движимой не коммерческими интересами, а
-               любопытством. Особое удовлетворение для меня — осознание, что мне
-               удалось создать программное решение, которое ранее казалось
-               сложным.
-            </p>
+            <p>{t.experience.closing}</p>
          </div>
       </section>
    );

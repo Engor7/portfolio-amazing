@@ -1,21 +1,19 @@
+"use client";
+
+import { useLang } from "@/providers/LangProvider";
 import s from "../app/page.module.scss";
 
 export default function Skills() {
+   const { t } = useLang();
+
    return (
       <section className={`${s.section} ${s.skills}`} id="skills">
          <div>
-            <h2 className={s.sectionTitle}>Навыки</h2>
-            <p>
-               Знать все на свете невозможно, однако современный
-               Frontend-разработчик должен оставаться гибким, способным
-               усваивать новые технологии. Сегодня, когда веб разработка
-               стремится к универсальности во всем, быстрое погружение и
-               применение мощных инструментов становится не самой сложной
-               задачей.
-            </p>
+            <h2 className={s.sectionTitle}>{t.skills.title}</h2>
+            <p>{t.skills.paragraph}</p>
          </div>
          <div>
-            <h3>Frontend</h3>
+            <h3>{t.skills.frontend}</h3>
             <ul>
                <li>HTML</li>
                <li>CSS</li>
@@ -33,11 +31,11 @@ export default function Skills() {
                <li>WebPack</li>
                <li>Vite</li>
                <li>Gulp</li>
-               <li>Кроссбраузерная и адаптивная верстка</li>
+               <li>{t.skills.crossBrowser}</li>
             </ul>
          </div>
          <div>
-            <h3>Web development</h3>
+            <h3>{t.skills.webDev}</h3>
             <ul>
                <li>Node.js</li>
                <li>Express.js</li>
@@ -48,35 +46,35 @@ export default function Skills() {
                <li>Docker</li>
                <li>PHP</li>
                <li>WordPress</li>
-               <li>ООП</li>
+               <li>{t.skills.oop}</li>
             </ul>
          </div>
          <div>
-            <h3>Дизайн и UI/UX</h3>
+            <h3>{t.skills.design}</h3>
             <ul>
                <li>Photoshop</li>
                <li>Figma</li>
                <li>Illustrator</li>
-               <li>Прототипирование</li>
+               <li>{t.skills.prototyping}</li>
                <li>Wireframing</li>
                <li>User Research</li>
-               <li>Принципы UX\UI</li>
-               <li>Эргономика адаптивного веб интерфейса</li>
+               <li>{t.skills.uxPrinciples}</li>
+               <li>{t.skills.adaptiveErgonomics}</li>
             </ul>
          </div>
          <div>
-            <h3>Другие навыки</h3>
+            <h3>{t.skills.other}</h3>
             <ul>
-               <li>БЭМ</li>
-               <li>Основы SEO</li>
-               <li>Теория дизайна</li>
-               <li>История искусств</li>
-               <li>Айдентика</li>
-               <li>Теория цвета</li>
-               <li>Фотография</li>
-               <li>Цветокоррекция</li>
-               <li>Ретушь</li>
-               <li>Слепой метод печати</li>
+               <li>{t.skills.bem}</li>
+               <li>{t.skills.seoBasics}</li>
+               <li>{t.skills.designTheory}</li>
+               <li>{t.skills.artHistory}</li>
+               <li>{t.skills.identity}</li>
+               <li>{t.skills.colorTheory}</li>
+               <li>{t.skills.photography}</li>
+               <li>{t.skills.colorCorrection}</li>
+               <li>{t.skills.retouching}</li>
+               <li>{t.skills.touchTyping}</li>
                <li>IntelliJ IDEA</li>
                <li>Vim</li>
             </ul>
