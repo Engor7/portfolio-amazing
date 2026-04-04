@@ -15,6 +15,11 @@ const openSans = Open_Sans({
 export const metadata: Metadata = {
    title: "Portfolio",
    description: "Portfolio site by Egor",
+   icons: {
+      icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
+      apple: "/apple-touch-icon.png",
+   },
+   manifest: "/site.webmanifest",
 };
 
 export const viewport: Viewport = {

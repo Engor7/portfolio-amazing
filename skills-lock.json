@@ -26,6 +26,11 @@
          "sourceType": "github",
          "computedHash": "2f709d1a2c7564f8ce6a9bb707e7f5451117ba80f8e8e2302662c29bc61246a6"
       },
+      "favicon-gen": {
+         "source": "jezweb/claude-skills",
+         "sourceType": "github",
+         "computedHash": "4e3d5464503a1cdccb188ccd0d4b894cd2bb70b4a47bf68e8d67589813241d9c"
+      },
       "file-organization": {
          "source": "supercent-io/skills-template",
          "sourceType": "github",
