@@ -11,6 +11,7 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+   output: "standalone",
    devIndicators: false,
    redirects: async () => [
       {

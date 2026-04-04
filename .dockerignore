@@ -1,0 +1,17 @@
+node_modules
+.next
+.git
+.gitignore
+.env*
+CLAUDE.md
+.DS_Store
+.idea
+.vscode
+.vercel
+.agents
+*.log
+*.tsbuildinfo
+next-env.d.ts
+out
+build
+dist
