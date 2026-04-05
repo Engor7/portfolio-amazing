@@ -15,22 +15,26 @@ export default function Skills() {
          <div>
             <h3>{t.skills.frontend}</h3>
             <ul>
-               <li>HTML</li>
-               <li>CSS</li>
-               <li>SASS</li>
-               <li>JavaScript (ES5, ES6)</li>
                <li>TypeScript</li>
+               <li>JavaScript (ES5, ES6)</li>
+               <li>React.js</li>
+               <li>Next.js</li>
+               <li>Redux / Redux Toolkit</li>
+               <li>React Query</li>
+               <li>Zustand</li>
                <li>Vue.js (2, 3)</li>
                <li>Nuxt.js</li>
                <li>Vuex / Pinia</li>
                <li>Vue Router</li>
+               <li>HTML</li>
+               <li>CSS</li>
+               <li>Tailwind CSS</li>
                <li>SASS</li>
-               <li>Pug</li>
-               <li>React.js</li>
-               <li>jQuery</li>
-               <li>WebPack</li>
                <li>Vite</li>
+               <li>WebPack</li>
                <li>Gulp</li>
+               <li>Pug</li>
+               <li>jQuery</li>
                <li>{t.skills.crossBrowser}</li>
             </ul>
          </div>
@@ -40,8 +44,11 @@ export default function Skills() {
                <li>Node.js</li>
                <li>Express.js</li>
                <li>REST API</li>
-               <li>SQL</li>
-               <li>GitHub</li>
+               <li>GraphQL</li>
+               <li>PostgreSQL</li>
+               <li>MongoDB</li>
+               <li>Nginx</li>
+               <li>Git</li>
                <li>CI/CD</li>
                <li>Docker</li>
                <li>PHP</li>
@@ -65,6 +72,7 @@ export default function Skills() {
          <div>
             <h3>{t.skills.other}</h3>
             <ul>
+               <li>Agile / Scrum</li>
                <li>{t.skills.bem}</li>
                <li>{t.skills.seoBasics}</li>
                <li>{t.skills.designTheory}</li>
