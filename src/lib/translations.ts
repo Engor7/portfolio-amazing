@@ -48,7 +48,7 @@ export const translations = {
             "Мой общий опыт веб-разработки свыше 8 лет. Интерес к программированию, и к вебу в частности, возник еще в школьные годы.",
          ecos: {
             role: "Frontend-разработчик",
-            period: "Июнь 2024 — сейчас (1 год и 6 месяцев)",
+            period: "Июнь 2024 — Декабрь 2025 (1 год и 7 месяцев)",
             p1: "Отвечал за разработку Telegram Mini App — построение архитектуры приложения, создание дизайн-системы и интерфейсов.",
             p2: "Приложение предназначено для покупки и аренды ASIC-майнеров, с возможностью пополнения средств различными способами: через банк, переводами в TON и Bitcoin. Реализовал оплату в TON и через Telegram Start App.",
             functionality: "Функциональность включала:",
@@ -151,7 +151,7 @@ export const translations = {
             "My overall web development experience spans over 8 years. My interest in programming, and web development in particular, started back in my school years.",
          ecos: {
             role: "Frontend Developer",
-            period: "June 2024 — Present (1 year and 6 months)",
+            period: "June 2024 — December 2025 (1 year and 7 months)",
             p1: "Responsible for developing a Telegram Mini App — building the application architecture, creating a design system and interfaces.",
             p2: "The app is designed for purchasing and renting ASIC miners, with the ability to top up funds in various ways: via bank transfer, TON and Bitcoin. Implemented TON payments and Telegram Start App integration.",
             functionality: "Functionality included:",
